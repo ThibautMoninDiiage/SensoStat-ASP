@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using SensoStatWeb.Business.Interfaces;
 
 namespace SensoStatWeb.Business
 {
-    public class HttpService
+    public class HttpService : IHttpService
     {
         public async Task<T> SendHttpRequest<T>(string url, HttpMethod httpMethod, string? bearer = null)
         {
