@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
@@ -42,5 +44,3 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
     }
 }
-}
-

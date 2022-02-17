@@ -1,0 +1,50 @@
+﻿section.surveyCreationDetailParent {
+    width:60%;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+
+div.titleSurvey h2 {
+    text-align:center;
+}
+
+div.titleSurvey i {
+    color:gray;
+}
+
+.spacedButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.bigInput {
+    padding: 10px;
+    width:auto !important;
+    margin:10px 0 0 0 !important;
+}
+
+.surveyButtons {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.surveyButtons button {
+    margin: 5px;
+}
+
+@media screen and (max-width: 800px) {
+    section .surveyCreationDetailParent {
+        width: 100% !important;
+    }
+
+    .spacedButtons {
+        flex-direction:column;
+    }
+
+    .doubleButton {
+        margin-top:10px;
+    }
+}
