@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoStatWeb.WebApplication
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoStatWeb.Business", "SensoStatWeb.Business\SensoStatWeb.Business.csproj", "{BA0152E0-A05E-4485-A41C-97724329BA95}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackOffice", "BackOffice", "{525423DF-6551-4D76-B59C-D1B0284F48C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{EE82DDFA-4A2E-4F6B-83BF-CEF3035E8A91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A3C4059C-1AE5-4809-A923-7D2BC03EDCF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,5 +45,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {812E8BF4-26A2-4071-A256-9CC4C2D2D29A}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3F1FBB03-8B77-4048-BB51-113FDBA0478F} = {525423DF-6551-4D76-B59C-D1B0284F48C4}
+		{615219F9-39B0-4EF0-AE42-9988FF2FE342} = {EE82DDFA-4A2E-4F6B-83BF-CEF3035E8A91}
+		{BA0152E0-A05E-4485-A41C-97724329BA95} = {A3C4059C-1AE5-4809-A923-7D2BC03EDCF4}
+		{E27C11E6-2E4D-43B0-9BA7-D700B6E458C4} = {A3C4059C-1AE5-4809-A923-7D2BC03EDCF4}
 	EndGlobalSection
 EndGlobal
