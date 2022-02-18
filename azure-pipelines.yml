@@ -20,19 +20,6 @@ variables:
 
 steps:
 - task: DotNetCoreInstaller@0
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: $(webApp)
-  displayName: 'Restore Nuget Packages'
- 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: $(webApi)
-    arguments: '--no-restore'
-  displayName: 'Build projects'
-
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
