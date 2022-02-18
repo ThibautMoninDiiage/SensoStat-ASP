@@ -9,7 +9,7 @@
     <div class="surveys">
         <div class="oneSurvey">
             <div><i class="fas fa-circle greyCircle"></i> Séance 1 - Chips</div>
-            <div><i class="fas fa-edit"></i> <i class="fas fa-trash-alt"></i></div>
+            <div><i class="fas fa-edit"></i> <a onclick="showPopup()"><i class="fas fa-trash-alt"></i></a></div>
         </div>
         <div class="oneSurvey">
             <div><i class="fas fa-circle greenCircle"></i> Séance 1 - Chips</div>
@@ -29,5 +29,21 @@
         </div>
     </div>
 
+    <script>
+        function showPopup() {
+            const deleteButton = new Button("Supprimer", "red", deleteSurvey);
+            const cancelButton = new Button("Annuler", "blue", enableWindow);
+
+
+            var text = "Êtes vous certains de vouloir supprimer la séance.";
+            const alerte = new Alert("Confirmation suppression", text, "white", [deleteButton, cancelButton]);
+
+            new window.alert(alerte);
+        }
+
+        function deleteSurvey() {
+            enableWindow();
+        }
+    </script>
 
 </section>
