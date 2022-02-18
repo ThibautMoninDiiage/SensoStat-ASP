@@ -37,22 +37,6 @@ namespace SensoStatWeb.Models.Seeder
                 {
                     context.Users.AddRange(CreateFactories.CreateUser());
                 }
-                if (context.Products.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.Products.AddRange(CreateFactories.CreateProducts());
-                }
-                if (context.UserProducts.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.UserProducts.AddRange(CreateFactories.LinkUserProducts());
-                }
                 if (context.Questions.Any())
                 {
                     return;
@@ -84,6 +68,22 @@ namespace SensoStatWeb.Models.Seeder
                 else
                 {
                     context.SurveyInstructions.AddRange(CreateFactories.CreateSurveyInstruction());
+                }
+                if (context.Products.Any())
+                {
+                    return;
+                }
+                else
+                {
+                    context.Products.AddRange(CreateFactories.CreateProducts());
+                }
+                if (context.UserProducts.Any())
+                {
+                    return;
+                }
+                else
+                {
+                    context.UserProducts.AddRange(CreateFactories.LinkUserProducts());
                 }
 
                 context.SaveChanges();
