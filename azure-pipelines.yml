@@ -19,6 +19,12 @@ variables:
   webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
 
 steps:
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build web project'
+  inputs:
+    command: 'build'
+    projects: $(solution)
 - task: DotNetCoreInstaller@0
 - task: NuGetCommand@2
   inputs:
