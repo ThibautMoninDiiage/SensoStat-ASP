@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.Entities;
+using SensoStatWeb.WebApplication.Commons;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
@@ -15,13 +16,13 @@ namespace SensoStatWeb.WebApplication.Controllers
             _httpService = httpService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var survey = new Survey();
+            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}/Survey", HttpMethod.Get) ;
 
             var model = new SurveysViewModel
             {
-                Surveys = new List<Survey> { survey, survey}
+                Surveys = surveys
             };
 
             return this.View(model);
