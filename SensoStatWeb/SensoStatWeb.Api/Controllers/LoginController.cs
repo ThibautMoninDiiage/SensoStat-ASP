@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SensoStatApi.Models;
+using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
@@ -7,11 +8,11 @@ namespace SensoStatWeb.Api.Controllers;
 
 public class LoginController : Controller
 {
-    private SensoStatDbContext? _context;
+    public IAdministratorRepository _administrationRepository;
 
-    public LoginController(SensoStatDbContext? context)
+    public LoginController(IAdministratorRepository administratorRepository)
     {
-        this._context = context;
+        _administrationRepository = administratorRepository;
     }
 
     // GET: LoginController
@@ -19,7 +20,7 @@ public class LoginController : Controller
     public IActionResult Get([FromQuery] string login, [FromQuery] string password)
     {
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password)) return BadRequest();
-        var admin = _context.Administrators.FirstOrDefault(a => a.UserName == login && a.Password == password);
+        var admin = _administrationRepository.Login(login,password);
         if (admin == null) return NotFound();
 
         return Ok(new

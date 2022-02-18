@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SensoStatApi.Models;
 using SensoStatApi.Seeder;
+using SensoStatWeb.Business;
+using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.Repository;
+using SensoStatWeb.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IAdministratorRepository,DbAdministratorRepository>();
+builder.Services.AddScoped<ISurveyRepository,DbSurveyRepository>();
 
 builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
 
