@@ -19,6 +19,10 @@ variables:
   webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
 
 steps:
+- task : UseDotNet@2
+  inputs:
+    version: '6.0'
+
 - task : DotNetCoreCLI@2
   inputs :
     command : 'restore'
