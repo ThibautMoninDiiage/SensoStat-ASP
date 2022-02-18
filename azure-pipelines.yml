@@ -13,8 +13,11 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  webApp: 'SensoStatWeb.WebApplication\SensoStatWeb.WebApplication.csproj'
+  webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
 
 steps:
+- task: DotNetCoreInstaller@0
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -28,7 +31,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
+- task: AzureAppServiceSettings@1
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    azureSubscription: 'Azure for Students (6980d120-624b-4044-930a-1ef38961c769)'
+    appName: 'AppSensoStatWeb'
+    resourceGroupName: 'SensoStatCICD'
