@@ -22,9 +22,6 @@ public class LoginController : Controller
         var admin = _administrationRepository.Login(login,password);
         if (admin == null) return NotFound();
 
-        return Ok(new
-        {
-            Status = "200"
-        });
+        return Ok();
     }
 }
