@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SensoStatApi.Factories;
-using SensoStatApi.Models;
+using SensoStatWeb.Models.Factories;
+using SensoStatWeb.Models.Entities;
 
-namespace SensoStatApi.Seeder
+namespace SensoStatWeb.Models.Seeder
 {
     public static class SeedData
     {

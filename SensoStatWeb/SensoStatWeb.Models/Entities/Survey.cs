@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SensoStatApi.Models
+namespace SensoStatWeb.Models.Entities
 {
     [Table("Survey")]
     public class Survey
@@ -9,6 +9,7 @@ namespace SensoStatApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+        public string? Name { get; set; }
         public int CreatorId { get; set; }
         [ForeignKey("CreatorId")]
         public Administrator? Administrator { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SensoStatApi.Models
+namespace SensoStatWeb.Models.Entities
 {
     [Table("Question")]
     public class Question
