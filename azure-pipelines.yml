@@ -20,8 +20,6 @@ variables:
 
 steps:
 - task : DotNetCoreInstaller@0
-  inputs:
-    version: '6.x'
 
 - task : DotNetCoreCLI@2
   inputs :
