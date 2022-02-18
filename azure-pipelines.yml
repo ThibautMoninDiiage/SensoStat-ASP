@@ -15,9 +15,13 @@ variables:
   buildConfiguration: 'Release'
   webApp: 'SensoStatWeb.WebApplication\SensoStatWeb.WebApplication.csproj'
   webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
+  buildConfiguration: 'Release'
 
 steps:
+-script: dotnet build --configuration $(buildConfiguration)
+
 - task: DotNetCoreInstaller@0
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
