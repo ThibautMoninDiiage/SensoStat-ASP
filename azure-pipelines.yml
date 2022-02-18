@@ -19,9 +19,9 @@ variables:
   webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
 
 steps:
-- task : UseDotNet@2
+- task : DotNetCoreInstaller@0
   inputs:
-    version: '6.0'
+    version: '6.x'
 
 - task : DotNetCoreCLI@2
   inputs :
