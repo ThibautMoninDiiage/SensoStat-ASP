@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
@@ -15,7 +14,7 @@ public class SurveyController : Controller
 
     [HttpGet]
     // GET: SurveyController
-    public IActionResult GetAllSurveys()
+    public IActionResult Survey()
     {
         var result = _surveyRepository.GetAllSurveys();
         if(result == null)

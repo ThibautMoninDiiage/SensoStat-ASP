@@ -1,9 +1,15 @@
-﻿using SensoStatApi.Models;
+﻿using SensoStatWeb.Models.Entities;
 
-namespace SensoStatApi.Factories
+namespace SensoStatWeb.Models.Factories
 {
     public class CreateFactories
     {
+
+        public static List<Question>? Questions { get; set; }
+        public static List<Product>? Products { get; set; }
+
+        public static List<Survey>? Surveys { get; set;}
+
         public static List<Administrator> CreateAdmin()
         {
             var administrators = new List<Administrator>()
@@ -40,18 +46,6 @@ namespace SensoStatApi.Factories
             return surveyStates;
         }
 
-        public static List<Product> CreateProducts()
-        {
-            var products = new List<Product>()
-            {
-                new Product{Id = 1,Code = 019},
-                new Product{Id = 2,Code = 150},
-                new Product{Id = 3,Code = 300},
-            };
-
-            return products;
-        }
-
         public static List<Question> CreateQuestion()
         {
             var questions = new List<Question>()
@@ -62,6 +56,7 @@ namespace SensoStatApi.Factories
                 new Question{Id = 4,Libelle = "Avez vous des remarques à faire ?", Position = 5},
             };
 
+            Questions = questions;
 
             return questions;
         }
@@ -79,6 +74,7 @@ namespace SensoStatApi.Factories
 
         public static Survey CreateSurvey()
         {
+            Surveys = new List<Survey>();
             var admin = CreateAdmin().FirstOrDefault();
             var user = CreateUser().Find(u => u.Id == 6);
             var survey = new Survey()
@@ -88,7 +84,10 @@ namespace SensoStatApi.Factories
                 CreationDate = DateTime.Now,
                 StateId = CreateSurveyStates().FirstOrDefault().Id,
                 UserId = user.Id,
+                Questions = Questions, 
             };
+
+            Surveys.Add(survey);
 
             return survey;
         }
@@ -102,6 +101,20 @@ namespace SensoStatApi.Factories
             };
 
             return surveyInstructions;
+        }
+
+        public static List<Product> CreateProducts()
+        {
+            var products = new List<Product>()
+            {
+                new Product{Id = 1,Code = 019,Surveys = Surveys},
+                new Product{Id = 2,Code = 150,Surveys = Surveys},
+                new Product{Id = 3,Code = 300,Surveys = Surveys},
+            };
+
+            Products = products;
+
+            return products;
         }
 
         public static List<UserProduct> LinkUserProducts()

@@ -1,4 +1,4 @@
-﻿using SensoStatApi.Models;
+﻿using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Repository
