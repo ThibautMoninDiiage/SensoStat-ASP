@@ -14,7 +14,7 @@
     <span class="errorText" asp-validation-for="Password"></span>
     <div class="roundedOrangeInput">
         <i class="fa-solid fa-lock"></i>
-        <input asp-for="@Model.Password" placeholder="Mot de passe" />
+        <input type="password" asp-for="@Model.Password" placeholder="Mot de passe" />
     </div>
 
     <input type="submit" class="orangeRoundedButton" value="Se connecter" />

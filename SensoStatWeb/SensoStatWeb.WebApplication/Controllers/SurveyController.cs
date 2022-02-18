@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
-    public class CreateSurveyController : Controller
+    public class SurveyController : Controller
     {
         public IActionResult Index()
         {
