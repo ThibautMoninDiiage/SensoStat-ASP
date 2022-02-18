@@ -19,15 +19,23 @@ variables:
   webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
 
 steps:
-- task : DotNetCoreInstaller@0
+- task: DotNetCoreInstaller@0
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: build
+    projects: $(webApp)
+  displayName: 'Build App'
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: publish
+    publishWebProjects: false
+    projects: $(webApp)
+    arguments: '--configuration $(buildConfiguration --no-restore'
+    modifyOutputPath: false
+  displayName: 'Publish App'
