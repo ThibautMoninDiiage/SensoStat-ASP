@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SensoStatWeb.Business\SensoStatWeb.Business.csproj" />
     <ProjectReference Include="..\SensoStatWeb.Models\SensoStatWeb.Models.csproj" />
+    <ProjectReference Include="..\SensoStatWeb.Repository\SensoStatWeb.Repository.csproj" />
   </ItemGroup>
 
 </Project>
