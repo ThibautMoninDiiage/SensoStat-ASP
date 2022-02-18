@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.WebApplication.Commons;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
@@ -20,16 +21,13 @@ namespace SensoStatWeb.WebApplication.Controllers
             return this.View();
         }
 
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Authenticate(LoginViewModel loginViewModel)
         {
-            return this.View("../Surveys/Index", loginViewModel); // redirect to Index page
-
-
             // If the model state are not valid
             if (!ModelState.IsValid)
                 return this.View("Index", loginViewModel); // redirect to Index page
 
-            var url = $"https://localhost:7270/login?login={loginViewModel.Username}&mdp={loginViewModel.Password}";
+            var url = $"{Constants.BaseUrlApi}login?login={loginViewModel.Username}&password={loginViewModel.Password}";
             var resultLogin = await _httpService.SendHttpRequest<HttpResultDTODown>(url, HttpMethod.Get);
 
             // If the password or the username are false
@@ -40,7 +38,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             }
 
             // When the password is correct
-            return this.View("Index");
+            return RedirectToAction("Index", "surveys");
         }
     }
 }

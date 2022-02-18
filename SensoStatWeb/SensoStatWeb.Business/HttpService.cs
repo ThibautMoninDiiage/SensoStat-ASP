@@ -9,19 +9,25 @@ namespace SensoStatWeb.Business
     {
         public async Task<T> SendHttpRequest<T>(string url, HttpMethod httpMethod, string? bearer = null)
         {
-            var httpClient = new HttpClient();
+            try
+            {
+                var httpClient = new HttpClient();
 
-            // For OAuth2.0
-            if (!string.IsNullOrEmpty(bearer))
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearer);
+                // For OAuth2.0
+                if (!string.IsNullOrEmpty(bearer))
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearer);
 
-            var httpRequestMessage = new HttpRequestMessage() { Method = httpMethod, RequestUri = new Uri(url) };
+                var httpRequestMessage = new HttpRequestMessage() { Method = httpMethod, RequestUri = new Uri(url) };
 
-            var response = httpClient.SendAsync(httpRequestMessage);
+                var response = httpClient.SendAsync(httpRequestMessage);
 
-            if (response.Result.IsSuccessStatusCode)
-                return JsonConvert.DeserializeObject<T>(await response.Result.Content.ReadAsStringAsync());
-
+                if (response.Result.IsSuccessStatusCode)
+                    return JsonConvert.DeserializeObject<T>(await response.Result.Content.ReadAsStringAsync());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             return default(T);
         }

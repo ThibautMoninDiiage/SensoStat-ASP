@@ -33,6 +33,10 @@
     }
 }
 
+.sectionSurveys {
+    height:100%;
+}
+
 .surveys {
     display: flex;
     flex-direction: column;

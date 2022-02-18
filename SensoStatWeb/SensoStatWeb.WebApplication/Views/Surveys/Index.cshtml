@@ -1,30 +1,27 @@
-﻿<section class="sectionSurveys">
+﻿@model SensoStatWeb.WebApplication.ViewModels.SurveysViewModel
+
+<section class="sectionSurveys">
     <div class="btnNewSurvey">
-        <a asp-controller="CreateSurvey" asp-action="" class="orangeRoundedButton">Nouvelle Séance</a>
+        <a asp-controller="survey" asp-action="" class="orangeRoundedButton">Nouvelle Séance</a>
     </div>
 
     <h3 class="surveyTitle">Mes séances</h3>
 
     <div class="surveys">
-        <div class="oneSurvey">
-            <div><i class="fas fa-circle greyCircle"></i> Séance 1 - Chips</div>
-            <div><a asp-controller="createSurvey" asp-action="detail"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey()"><i class="fas fa-trash-alt"></i></a></div>
-        </div>
-        <div class="oneSurvey">
-            <div><i class="fas fa-circle greenCircle"></i> Séance 1 - Chips</div>
-            <div><i class="fas fa-edit"></i> <i class="fas fa-trash-alt"></i></div>
-        </div>
-        <div class="oneSurvey">
-            <div><i class="fas fa-circle blueCircle"></i> Séance 1 - Chips</div>
-            <div><i class="fas fa-edit"></i> <i class="fas fa-trash-alt"></i></div>
-        </div>
-        <div class="oneSurvey">
-            <div><i class="fas fa-circle greenCircle"></i> Séance 1 - Chips</div>
-            <div><i class="fas fa-edit"></i> <i class="fas fa-trash-alt"></i></div>
-        </div>
-        <div class="oneSurvey">
-            <div><i class="fas fa-circle greyCircle"></i> Séance 1 - Chips</div>
-            <div><i class="fas fa-edit"></i> <i class="fas fa-trash-alt"></i></div>
-        </div>
+
+        @if (Model?.Surveys != null || Model?.Surveys?.Count() < 1)
+        {
+            foreach (var survey in Model.Surveys)
+            {
+                <div class="oneSurvey">
+                    <div><i class="fas fa-circle greyCircle"></i> Séance 1 - Chips</div>
+                    <div><a asp-controller="survey" asp-action="detail"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey()"><i class="fas fa-trash-alt"></i></a></div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Aucune séance à afficher</p>
+        }
     </div>
 </section>
