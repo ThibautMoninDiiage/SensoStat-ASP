@@ -104,11 +104,6 @@ function enableWindow() {
     fond.style.display = "none"; // On affiche notre div
 }
 
-function functionTest() {
-    console.log('vous avez cliqué sur le bouton annuler');
-}
-
-
 class Alert {
     constructor(title, text, backgroundColor, buttons) {
         this.title = title;
