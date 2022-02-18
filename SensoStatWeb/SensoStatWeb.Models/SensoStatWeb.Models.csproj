@@ -14,8 +14,13 @@
   <ItemGroup>
     <Folder Include="DTOs\" />
     <Folder Include="DTOs\Down\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Seeder\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 </Project>
