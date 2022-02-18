@@ -3,6 +3,8 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
+name : 'SensoStatWeb-CI'
+
 trigger:
 - master
 
@@ -17,11 +19,11 @@ variables:
   webApi: 'SensoStatWeb.Api\SensoStatWeb.Api.csproj'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-
-- task: DotNetCoreInstaller@0
-
-- task: NuGetToolInstaller@1
+- task : DotNetCoreCLI@2
+  inputs :
+    command : 'restore'
+    projects: $(webApp)
+  displayName: 'Restore Nugget packages'
 
 - task: NuGetCommand@2
   inputs:
@@ -33,9 +35,3 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: AzureAppServiceSettings@1
-  inputs:
-    azureSubscription: 'SensoStatServiceConnection'
-    appName: 'AppSensoStatWeb'
-    resourceGroupName: 'SensoStatCICD'
