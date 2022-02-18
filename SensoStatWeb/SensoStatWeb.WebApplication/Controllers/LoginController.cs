@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.WebApplication.Commons;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
@@ -26,7 +27,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             if (!ModelState.IsValid)
                 return this.View("Index", loginViewModel); // redirect to Index page
 
-            var url = $"https://localhost:7270/login?login={loginViewModel.Username}&mdp={loginViewModel.Password}";
+            var url = $"{Constants.BaseUrlApi}login?login={loginViewModel.Username}&password={loginViewModel.Password}";
             var resultLogin = await _httpService.SendHttpRequest<HttpResultDTODown>(url, HttpMethod.Get);
 
             // If the password or the username are false
