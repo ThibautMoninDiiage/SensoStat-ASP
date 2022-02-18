@@ -33,6 +33,6 @@ steps:
 
 - task: AzureAppServiceSettings@1
   inputs:
-    azureSubscription: 'Azure for Students (6980d120-624b-4044-930a-1ef38961c769)'
+    azureSubscription: 'SensoStatServiceConnection'
     appName: 'AppSensoStatWeb'
     resourceGroupName: 'SensoStatCICD'
