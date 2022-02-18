@@ -122,7 +122,7 @@ namespace SensoStatWeb.Models.Factories
             var users = CreateUser();
             var products = CreateProducts();
             int index = 0;
-            int[] position = new int[] {0,1,2,3};
+            int[] position = new int[] {0,1,2};
             Random rnd = new Random();
             List<UserProduct> userProducts = new List<UserProduct>();
             foreach (var user in users)
