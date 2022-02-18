@@ -11,14 +11,17 @@
 
         @if (Model?.Surveys != null || Model?.Surveys?.Count() < 1)
         {
-            <div class="oneSurvey">
-                <div><i class="fas fa-circle greyCircle"></i> Séance 1 - Chips</div>
-                <div><a asp-controller="createSurvey" asp-action="detail"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey()"><i class="fas fa-trash-alt"></i></a></div>
-            </div>
+            foreach (var survey in Model.Surveys)
+            {
+                <div class="oneSurvey">
+                    <div><i class="fas fa-circle greyCircle"></i> Séance 1 - Chips</div>
+                    <div><a asp-controller="createSurvey" asp-action="detail"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey()"><i class="fas fa-trash-alt"></i></a></div>
+                </div>
+            }
         }
         else
         {
-           <p>Aucune séance à afficher</p>
+            <p>Aucune séance à afficher</p>
         }
     </div>
 </section>
