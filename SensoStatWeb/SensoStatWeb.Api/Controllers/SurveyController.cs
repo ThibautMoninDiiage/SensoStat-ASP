@@ -25,7 +25,6 @@ public class SurveyController : Controller
         {
             return Ok(new
             {
-                Status = "200",
                 Surveys = result
             });
         }
