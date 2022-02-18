@@ -23,12 +23,3 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: $(webApp)
-    arguments: '--configuration $(buildConfiguration --no-restore'
-    modifyOutputPath: false
-  displayName: 'Publish App'
