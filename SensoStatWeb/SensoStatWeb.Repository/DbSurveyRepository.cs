@@ -18,12 +18,14 @@ namespace SensoStatWeb.Repository
 
         public void CreateSurvey(Survey survey)
         {
-            throw new NotImplementedException();
+            _context.Surveys.Add(survey);
+            _context.SaveChanges();
         }
 
         public void DeleteSurvey(Survey survey)
         {
-            throw new NotImplementedException();
+            _context.Surveys.Add(survey);
+            _context.SaveChanges();
         }
 
         public List<Survey> GetAllSurveys()
