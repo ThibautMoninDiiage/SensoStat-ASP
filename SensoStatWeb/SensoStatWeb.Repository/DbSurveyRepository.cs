@@ -24,7 +24,7 @@ namespace SensoStatWeb.Repository
 
         public void DeleteSurvey(Survey survey)
         {
-            _context.Surveys.Add(survey);
+            _context.Surveys.Remove(survey);
             _context.SaveChanges();
         }
 
