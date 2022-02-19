@@ -35,7 +35,8 @@ namespace SensoStatWeb.Repository
 
         public void UpdateSurvey(Survey survey)
         {
-            throw new NotImplementedException();
+            _context.Surveys.Update(survey);
+            _context.SaveChanges();
         }
     }
 }
