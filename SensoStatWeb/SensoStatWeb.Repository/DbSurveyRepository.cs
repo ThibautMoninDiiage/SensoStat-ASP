@@ -15,9 +15,25 @@ namespace SensoStatWeb.Repository
         {
             _context = context;
         }
+
+        public void CreateSurvey(Survey survey)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteSurvey(Survey survey)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Survey> GetAllSurveys()
         {
             return _context.Surveys.ToList();
+        }
+
+        public void UpdateSurvey(Survey survey)
+        {
+            throw new NotImplementedException();
         }
     }
 }
