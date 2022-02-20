@@ -15,9 +15,28 @@ namespace SensoStatWeb.Repository
         {
             _context = context;
         }
+
+        public void CreateSurvey(Survey survey)
+        {
+            _context.Surveys.Add(survey);
+            _context.SaveChanges();
+        }
+
+        public void DeleteSurvey(Survey survey)
+        {
+            _context.Surveys.Remove(survey);
+            _context.SaveChanges();
+        }
+
         public List<Survey> GetAllSurveys()
         {
             return _context.Surveys.ToList();
+        }
+
+        public void UpdateSurvey(Survey survey)
+        {
+            _context.Surveys.Update(survey);
+            _context.SaveChanges();
         }
     }
 }

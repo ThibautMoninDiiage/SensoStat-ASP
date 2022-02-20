@@ -27,6 +27,11 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             return this.View(model);
         }
+
+        public IActionResult CreateSurvey()
+        {
+            return View("Index");
+        }
     }
 }
 
