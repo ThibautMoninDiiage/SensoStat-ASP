@@ -11,15 +11,19 @@
     }
 
     <div style="width:100%" class="spacedButtons">
-        <button class="orangeRoundedButton doubleButton">Nouvelle instruction</button>
-        <button class="orangeRoundedButton doubleButton">Nouvelle question</button>
+        <button onclick="addInput('instruction')" class="orangeRoundedButton doubleButton">Nouvelle instruction</button>
+        <button onclick="addInput('question')" class="orangeRoundedButton doubleButton">Nouvelle question</button>
     </div>
 
-    <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
-    <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
-    <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
-    <input placeholder="Ajouter une question" class="roundedOrangeInput bigInput" />
-    <input placeholder="Ajouter une question" class="roundedOrangeInput bigInput" />
+    <section class="list" id="list">
+        <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
+        <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
+        <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
+        <input placeholder="Ajouter une question" class="roundedOrangeInput bigInput" />
+        <input placeholder="Ajouter une question" class="roundedOrangeInput bigInput" />
+    </section>
+
+
 
     @if (true)
     {
@@ -36,5 +40,22 @@
     <input type="submit" style="margin-top:auto" class="orangeRoundedButton" value="Confirmer" />
 </form>
 
+
+<script>
+    function addInput(name) {
+        event.preventDefault();
+        var section = document.getElementById('list');
+
+        var input = document.createElement('input');
+
+        input.placeholder = "Ajouter une " + name;
+
+        input.classList.add("roundedOrangeInput");
+        input.classList.add("bigInput");
+
+
+        section.appendChild(input);
+    }
+</script>
 
 
