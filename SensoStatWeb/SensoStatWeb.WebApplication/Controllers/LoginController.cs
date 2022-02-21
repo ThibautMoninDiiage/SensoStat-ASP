@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.WebApplication.Commons;
+using SensoStatWeb.WebApplication.Services.Interfaces;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IHttpService _httpService;
+        private readonly IAdministratorService _administratorService;
 
-        public LoginController(IHttpService httpService)
+        public LoginController(IAdministratorService administratorService)
         {
-            this._httpService = httpService;
+            _administratorService = administratorService;
         }
 
         public IActionResult Index()
@@ -27,9 +28,8 @@ namespace SensoStatWeb.WebApplication.Controllers
             if (!ModelState.IsValid)
                 return this.View("Index", loginViewModel); // redirect to Index page
 
-            var url = $"{Constants.BaseUrlApi}login?login={loginViewModel.Username}&password={loginViewModel.Password}";
-            var resultLogin = await _httpService.SendHttpRequest<HttpResultDTODown>(url, HttpMethod.Get);
-
+            var resultLogin = await _administratorService.Login(loginViewModel.Username, loginViewModel.Password);
+            
             // If the password or the username are false
             if (resultLogin == null)
             {
