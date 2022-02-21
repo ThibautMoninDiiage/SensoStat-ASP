@@ -16,16 +16,27 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public void CreateSurvey(Survey survey)
+        public async Task<Survey>? CreateSurvey(Survey survey)
         {
             _context.Surveys.Add(survey);
-            _context.SaveChanges();
+            var result = _context.Surveys.Where(s => s.Equals(survey));
+            if(result == null)
+            {
+                return null;
+            }
+            else
+            {
+                _context.SaveChanges();
+                return result.FirstOrDefault();
+            }
         }
 
-        public void DeleteSurvey(Survey survey)
+        public async Task<bool>? DeleteSurvey(int id)
         {
-            _context.Surveys.Remove(survey);
+            var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
+            _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
+            return true;
         }
 
         public List<Survey> GetAllSurveys()
@@ -33,10 +44,19 @@ namespace SensoStatWeb.Repository
             return _context.Surveys.ToList();
         }
 
-        public void UpdateSurvey(Survey survey)
+        public async Task<Survey> UpdateSurvey(Survey survey)
         {
             _context.Surveys.Update(survey);
-            _context.SaveChanges();
+            var result = _context.Surveys.Where(s => s.Equals(survey));
+            if (result == null)
+            {
+                return null;
+            }
+            else
+            {
+                _context.SaveChanges();
+                return result.FirstOrDefault();
+            }
         }
     }
 }

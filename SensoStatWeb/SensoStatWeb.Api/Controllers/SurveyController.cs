@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
@@ -28,5 +29,19 @@ public class SurveyController : Controller
                 Surveys = result
             });
         }
+    }
+
+    [HttpPost]
+    public IActionResult Create([FromBody]Survey survey)
+    {
+        _surveyRepository.CreateSurvey(survey);
+        return Ok();
+    }
+
+    [HttpPut]
+    public IActionResult Update([FromBody]Survey survey)
+    {
+        _surveyRepository.UpdateSurvey(survey);
+        return Ok();
     }
 }

@@ -80,6 +80,7 @@ namespace SensoStatWeb.Models.Factories
             var survey = new Survey()
             {
                 Id = 1,
+                Name = "Les chips",
                 CreatorId = admin.Id,
                 CreationDate = DateTime.Now,
                 StateId = CreateSurveyStates().FirstOrDefault().Id,

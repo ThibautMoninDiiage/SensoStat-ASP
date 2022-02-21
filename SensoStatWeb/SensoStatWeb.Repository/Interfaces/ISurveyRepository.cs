@@ -4,12 +4,12 @@ namespace SensoStatWeb.Repository.Interfaces
 {
     public interface ISurveyRepository
     {
-        public List<Survey> GetAllSurveys();
+        List<Survey> GetAllSurveys();
 
-        void CreateSurvey(Survey survey);
+        Task<Survey> CreateSurvey(Survey survey);
 
-        void UpdateSurvey(Survey survey);
+        Task<Survey> UpdateSurvey(Survey survey);
 
-        void DeleteSurvey(Survey survey);
+        Task<bool> DeleteSurvey(int id);
     }
 }

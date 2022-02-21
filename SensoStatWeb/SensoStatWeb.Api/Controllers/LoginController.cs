@@ -22,6 +22,9 @@ public class LoginController : Controller
         var admin = _administrationRepository.Login(login,password);
         if (admin == null) return NotFound();
 
-        return Ok();
+        return Ok(new
+        {
+            Admin = admin
+        });
     }
 }

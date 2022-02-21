@@ -16,7 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAdministratorRepository,DbAdministratorRepository>();
 builder.Services.AddScoped<ISurveyRepository,DbSurveyRepository>();
 
-builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
+builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=10.4.0.21;Initial Catalog=SensoStat;User Id=SA;Password=Deviceqrtmtbtdbr1."));
+//builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
 context.Database.EnsureDeleted();
