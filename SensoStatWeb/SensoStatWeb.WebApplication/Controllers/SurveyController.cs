@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
@@ -11,9 +12,14 @@ namespace SensoStatWeb.WebApplication.Controllers
             return this.View();
         }
 
-        public IActionResult Detail()
+        public IActionResult Detail(string surveyName)
         {
-            return this.View("Detail");
+            var model = new SurveyViewModel
+            {
+                Survey = new Survey { Name = surveyName}
+            };
+
+            return this.View("Detail", model);
         }
 
         [HttpPost]
