@@ -24,10 +24,7 @@ public class SurveyController : Controller
         }
         else
         {
-            return Ok(new
-            {
-                Surveys = result
-            });
+            return Ok(result);
         }
     }
 
