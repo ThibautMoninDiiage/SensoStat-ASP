@@ -10,7 +10,7 @@ namespace SensoStatWeb.Repository
 {
     public class DbSurveyRepository : ISurveyRepository
     {
-        private readonly SensoStatDbContext _context;
+        private SensoStatDbContext _context;
         public DbSurveyRepository(SensoStatDbContext context)
         {
             _context = context;
@@ -19,6 +19,7 @@ namespace SensoStatWeb.Repository
         public async Task<Survey>? CreateSurvey(Survey survey)
         {
             _context.Surveys.Add(survey);
+            _context.SaveChanges();
             var result = _context.Surveys.Where(s => s.Equals(survey));
             if(result == null)
             {
@@ -26,7 +27,6 @@ namespace SensoStatWeb.Repository
             }
             else
             {
-                _context.SaveChanges();
                 return result.FirstOrDefault();
             }
         }
@@ -36,7 +36,15 @@ namespace SensoStatWeb.Repository
             var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
             _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
-            return true;
+            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
+            if (result == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public List<Survey> GetAllSurveys()

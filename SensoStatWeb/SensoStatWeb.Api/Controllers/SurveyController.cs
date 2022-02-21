@@ -24,24 +24,51 @@ public class SurveyController : Controller
         }
         else
         {
-            return Ok(new
-            {
-                Surveys = result
-            });
+            return Ok(result);
         }
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody]Survey survey)
+    public IActionResult Survey([FromBody]Survey survey)
     {
-        _surveyRepository.CreateSurvey(survey);
-        return Ok();
+        var result = _surveyRepository.CreateSurvey(survey);
+        if(result == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(result);
+        }
     }
 
     [HttpPut]
     public IActionResult Update([FromBody]Survey survey)
     {
-        _surveyRepository.UpdateSurvey(survey);
-        return Ok();
+        var result = _surveyRepository.UpdateSurvey(survey);
+        if (result == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(result);
+        }
     }
+
+    [HttpDelete]
+    public IActionResult Survey(int id)
+    {
+        var result = _surveyRepository.DeleteSurvey(id);
+        if(result.Result != true)
+        {
+            return Ok(result.Result);
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+
 }
