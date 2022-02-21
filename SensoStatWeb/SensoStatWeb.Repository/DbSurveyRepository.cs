@@ -10,7 +10,7 @@ namespace SensoStatWeb.Repository
 {
     public class DbSurveyRepository : ISurveyRepository
     {
-        private SensoStatDbContext _context;
+        private readonly SensoStatDbContext _context;
         public DbSurveyRepository(SensoStatDbContext context)
         {
             _context = context;
