@@ -3,22 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.Commons;
+using SensoStatWeb.WebApplication.Services.Interfaces;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
     public class SurveysController : Controller
     {
-        private readonly IHttpService _httpService;
+        private readonly ISurveyService _surveyService;
 
-        public SurveysController(IHttpService httpService)
+        public SurveysController(ISurveyService surveyService)
         {
-            _httpService = httpService;
+            _surveyService = surveyService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}/Survey", HttpMethod.Get) ;
+            var surveys = await _surveyService.GetSurveys();
 
             var model = new SurveysViewModel
             {

@@ -15,11 +15,11 @@ namespace SensoStatWeb.WebApplication.Services
             _httpService = httpService;
         }
 
-        public Task<List<Survey>> GetSurveys()
+        public async Task<List<Survey>> GetSurveys()
         {
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}/Survey", HttpMethod.Get);
+            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get);
 
-            throw new NotImplementedException();
+            return surveys;
         }
 
         public Task<bool> DeleteSurvey()
