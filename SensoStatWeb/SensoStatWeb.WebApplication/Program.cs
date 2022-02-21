@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); // Add 
 
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IAdministratorService, AdministratorService>();
+builder.Services.AddScoped<ISurveyService, SurveyService>();
 
 
 var app = builder.Build();
