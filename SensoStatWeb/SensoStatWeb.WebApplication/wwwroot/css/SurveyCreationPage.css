@@ -13,21 +13,23 @@ div.titleSurvey i {
     color:gray;
 }
 
-section.list {
+ul {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     height: 300px;
     max-width: 100%;
+    list-style-type: none;
 }
 
-section.list div{
+ul li{
     width: auto !important;
     margin-top: 10px;
     display: flex;
+    cursor: move;
 }
 
-section.list div i{
+ul li i{
     margin: auto 20px auto auto;
     cursor: pointer;
 }
