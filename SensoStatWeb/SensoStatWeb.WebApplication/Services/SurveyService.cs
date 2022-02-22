@@ -22,6 +22,18 @@ namespace SensoStatWeb.WebApplication.Services
             return surveys;
         }
 
+        public async Task<Survey> CreateSurvey(Survey survey)
+        {
+            try
+            {
+                return await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, survey);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
         public Task<bool> DeleteSurvey()
         {
             throw new NotImplementedException();

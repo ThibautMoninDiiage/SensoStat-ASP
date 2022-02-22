@@ -9,6 +9,8 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
 
         Task<Survey> GetSurvey();
 
+        Task<Survey> CreateSurvey(Survey survey);
+
         Task<bool> DeleteSurvey();
 
         Task<Survey> UpdateSurvey();
