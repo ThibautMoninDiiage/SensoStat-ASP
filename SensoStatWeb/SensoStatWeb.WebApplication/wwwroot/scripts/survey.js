@@ -5,17 +5,16 @@ function slist () {
     target.classList.add("slist");
     let items = target.getElementsByTagName("li"), current = null;
   
+    var index = 0;
     // (B) MAKE ITEMS DRAGGABLE + SORTABLE
     for (let i of items) {
       // (B1) ATTACH DRAGGABLE
+      index++;
       i.draggable = true;
       
       // (B2) DRAG START - YELLOW HIGHLIGHT DROPZONES
       i.ondragstart = (ev) => {
         current = i;
-        for (let it of items) {
-          if (it != current) { it.classList.add("hint"); }
-        }
       };
       
       // (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
@@ -30,7 +29,6 @@ function slist () {
   
       // (B5) DRAG END - REMOVE ALL HIGHLIGHTS
       i.ondragend = () => { for (let it of items) {
-          it.classList.remove("hint");
           it.classList.remove("active");
       }};
    
@@ -53,8 +51,24 @@ function slist () {
           }
         }
       };
+
+      i.setAttribute("position", index);
     }
+    orderInputs();
+
   }
+
+function orderInputs(){
+
+    var orderInput = document.getElementById("orderInputs");
+
+    var list = document.getElementById("sortlist");
+    orderInput.value = "";
+
+    list.querySelectorAll('input').forEach(currentInput => {
+        orderInput.value += currentInput.placeholder.replace("Ajouter une", "");
+    });
+}
   
       function addInput(name) {
           event.preventDefault();
@@ -71,6 +85,7 @@ function slist () {
           li.setAttribute("draggable", "true");
   
           input.placeholder = "Ajouter une " + name; // Add placeholder in input
+          input.name = "inputQuestionInstruction";
   
           i.onclick = deleteInput; // When click on i call deleteInput
           i.classList.add("fas"); // Add trash style to i

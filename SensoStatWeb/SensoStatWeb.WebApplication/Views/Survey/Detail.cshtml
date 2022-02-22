@@ -1,11 +1,11 @@
 ﻿@model SensoStatWeb.WebApplication.ViewModels.SurveyViewModel
 
-<form class="surveyCreationDetailParent" asp-action="" asp-controller="surveys">
+<form class="surveyCreationDetailParent" asp-action="createSurvey" asp-controller="survey">
 
     @if (true)
     {
         <div class="titleSurvey">
-            <h1 class="Title">Nom séance : @Model.Survey.Name</h1>
+            <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
             <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
         </div>
     }
@@ -14,6 +14,8 @@
         <button onclick="addInput('instruction')" class="orangeRoundedButton doubleButton">Nouvelle instruction</button>
         <button onclick="addInput('question')" class="orangeRoundedButton doubleButton">Nouvelle question</button>
     </div>
+
+    <input value="" type="hidden" name="orderInputs" id="orderInputs"/>
 
     <ul id="sortlist">
 

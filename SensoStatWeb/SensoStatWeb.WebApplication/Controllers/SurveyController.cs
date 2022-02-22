@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.ViewModels;
+using System.Linq;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
@@ -23,14 +24,17 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateSurveyPost(CreateSurveyViewModel surveyViewModel)
+        public IActionResult CreateSurvey(List<string> inputQuestionInstruction, string orderInputs)
         {
-            if (this.ModelState.IsValid)
+            orderInputs = orderInputs.Substring(1);
+            var listPosition = orderInputs.Split(" ").ToList();
+
+            for (int i = 0; i < listPosition.Count(); i++)
             {
-                return this.View("Detail");
+                  
             }
 
-            return this.View("Index");
+            return RedirectToAction("index", "surveys");
         }
     }
 }
