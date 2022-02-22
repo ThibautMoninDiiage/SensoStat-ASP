@@ -16,11 +16,7 @@
     </div>
 
     <section class="list" id="list">
-        <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
-        <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
-        <input placeholder="Ajouter une instruction" class="roundedOrangeInput bigInput" />
-        <input placeholder="Ajouter une question" class="roundedOrangeInput bigInput" />
-        <input placeholder="Ajouter une question" class="roundedOrangeInput bigInput" />
+
     </section>
 
 
@@ -42,19 +38,37 @@
 
 
 <script>
+
+
+
     function addInput(name) {
         event.preventDefault();
-        var section = document.getElementById('list');
 
+        var list = document.getElementById('list');
+
+        var div = document.createElement('div');
         var input = document.createElement('input');
+        var i = document.createElement('i');
 
         input.placeholder = "Ajouter une " + name;
 
-        input.classList.add("roundedOrangeInput");
-        input.classList.add("bigInput");
+        div.classList.add("roundedOrangeInput");
+        div.classList.add("bigInput");
+
+        i.onclick = deleteInput;
+        i.classList.add("fas");
+        i.classList.add("fa-trash-alt");
+
+        div.appendChild(input);
+        div.appendChild(i);
 
 
-        section.appendChild(input);
+        list.appendChild(div);
+    }
+
+    function deleteInput(){
+        
+        
     }
 </script>
 

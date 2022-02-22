@@ -18,6 +18,18 @@ section.list {
     flex-direction: column;
     overflow-y: auto;
     height: 300px;
+    max-width: 100%;
+}
+
+section.list div{
+    width: auto !important;
+    margin-top: 10px;
+    display: flex;
+}
+
+section.list div i{
+    margin: auto 20px auto auto;
+    cursor: pointer;
 }
 
 .spacedButtons {
@@ -27,8 +39,6 @@ section.list {
 }
 
 .bigInput {
-    padding: 10px;
-    width:auto !important;
     margin:10px 0 0 0 !important;
 }
 
