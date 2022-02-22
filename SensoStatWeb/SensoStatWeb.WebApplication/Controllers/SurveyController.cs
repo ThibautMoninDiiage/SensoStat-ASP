@@ -3,11 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.ViewModels;
 using System.Linq;
+using SensoStatWeb.WebApplication.Services.Interfaces;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
     public class SurveyController : Controller
     {
+        private readonly ISurveyService _surveyService;
+
+        public SurveyController(ISurveyService surveyService)
+        {
+            _surveyService = surveyService;
+        }
+
         public IActionResult Index()
         {
             return this.View();
@@ -24,7 +32,7 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateSurvey(List<string>? inputQuestionInstruction, string? orderInputs)
+        public IActionResult CreateSurvey(List<string>? inputQuestionInstruction, string? orderInputs, string surveyName)
         {
             var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
 
@@ -53,6 +61,17 @@ namespace SensoStatWeb.WebApplication.Controllers
                     instructions.Add(instruction);
                 }
             }
+            var survey = new Survey
+            {
+                Name = surveyName,
+                Questions = questions,
+                CreationDate = DateTime.Now,
+            };
+
+            var resultCreation = _surveyService.CreateSurvey(survey);
+
+            if (resultCreation == null)
+                return this.View("Detail");
 
             return RedirectToAction("index", "surveys");
         }

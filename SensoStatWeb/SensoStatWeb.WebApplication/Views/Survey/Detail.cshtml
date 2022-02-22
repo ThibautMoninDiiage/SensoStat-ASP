@@ -2,6 +2,8 @@
 
 <form class="surveyCreationDetailParent" asp-action="createSurvey" asp-controller="survey">
 
+    <input name="surveyName" type="hidden" value="@Model.Survey.Name" />
+
 
     <div class="titleSurvey">
         <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
