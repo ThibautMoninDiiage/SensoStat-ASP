@@ -1,5 +1,7 @@
-function slist (target) {
+function slist () {
     // (A) SET CSS + GET ALL LIST ITEMS
+
+    var target = document.getElementById("sortlist");
     target.classList.add("slist");
     let items = target.getElementsByTagName("li"), current = null;
   
@@ -80,7 +82,7 @@ function slist (target) {
   
           ul.appendChild(li); // Add div and child to list
 
-          slist(document.getElementById("sortlist"));
+          slist();
       }
   
       function deleteInput(caller){
