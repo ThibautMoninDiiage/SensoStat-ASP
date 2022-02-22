@@ -44,31 +44,30 @@
     function addInput(name) {
         event.preventDefault();
 
-        var list = document.getElementById('list');
+        var list = document.getElementById('list'); // get the list
 
-        var div = document.createElement('div');
-        var input = document.createElement('input');
-        var i = document.createElement('i');
+        var div = document.createElement('div'); // Create parent div
+        var input = document.createElement('input'); // Create input
+        var i = document.createElement('i'); // create i 
 
-        input.placeholder = "Ajouter une " + name;
+        input.placeholder = "Ajouter une " + name; // Add placeholder in input
 
-        div.classList.add("roundedOrangeInput");
-        div.classList.add("bigInput");
+        div.classList.add("roundedOrangeInput"); // Add class to parent div
+        div.classList.add("bigInput"); // Add class to parent div
 
-        i.onclick = deleteInput;
-        i.classList.add("fas");
-        i.classList.add("fa-trash-alt");
+        i.onclick = deleteInput; // When click on i call deleteInput
+        i.classList.add("fas"); // Add trash style to i
+        i.classList.add("fa-trash-alt"); // Add trash style to i
 
-        div.appendChild(input);
-        div.appendChild(i);
+        div.appendChild(input); // Add input to div
+        div.appendChild(i);  // Add i to div
 
 
-        list.appendChild(div);
+        list.appendChild(div); // Add div and child to list
     }
 
-    function deleteInput(){
-        
-        
+    function deleteInput(caller){
+        caller.srcElement.parentNode.remove(); // find the parent div and remove it
     }
 </script>
 
