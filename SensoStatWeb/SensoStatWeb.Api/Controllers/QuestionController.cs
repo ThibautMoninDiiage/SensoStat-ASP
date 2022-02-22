@@ -20,7 +20,7 @@ public class QuestionController : Controller
     }
 
     [HttpGet]
-    public IActionResult Question()
+    public IActionResult Questions()
     {
         var result = _questionRepository.GetAllQuestions();
 

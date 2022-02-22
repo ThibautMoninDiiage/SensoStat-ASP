@@ -20,7 +20,7 @@ public class InstructionController : Controller
     }
 
     [HttpGet]
-    public IActionResult Instruction()
+    public IActionResult Instructions()
     {
         var result = _instructionRepository.GetAllInstructions();
 
