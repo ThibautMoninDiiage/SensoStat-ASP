@@ -13,6 +13,12 @@ div.titleSurvey i {
     color:gray;
 }
 
+.active {
+    background-color: #F5F5F5;
+    transform: scale(1, 1.3);
+    opacity: 0.4;
+}
+
 ul {
     display: flex;
     flex-direction: column;

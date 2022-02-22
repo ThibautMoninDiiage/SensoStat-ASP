@@ -16,6 +16,22 @@ function slist (target) {
         }
       };
       
+      // (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
+      i.ondragenter = (ev) => {
+        if (i != current) { i.classList.add("active"); }
+      };
+  
+      // (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
+      i.ondragleave = () => {
+        i.classList.remove("active");
+      };
+  
+      // (B5) DRAG END - REMOVE ALL HIGHLIGHTS
+      i.ondragend = () => { for (let it of items) {
+          it.classList.remove("hint");
+          it.classList.remove("active");
+      }};
+   
       // (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
       i.ondragover = (evt) => { evt.preventDefault(); };
    
@@ -47,12 +63,10 @@ function slist (target) {
           var input = document.createElement('input'); // Create input
           var i = document.createElement('i'); // create i ``
   
-          li.setAttribute("draggable", "true");
-
           li.classList.add("roundedOrangeInput"); // Add class to parent div
           li.classList.add("bigInput"); // Add class to parent div
-
   
+          li.setAttribute("draggable", "true");
   
           input.placeholder = "Ajouter une " + name; // Add placeholder in input
   
