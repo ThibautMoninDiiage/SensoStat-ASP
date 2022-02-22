@@ -24,14 +24,34 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateSurvey(List<string> inputQuestionInstruction, string orderInputs)
+        public IActionResult CreateSurvey(List<string>? inputQuestionInstruction, string? orderInputs)
         {
-            orderInputs = orderInputs.Substring(1);
-            var listPosition = orderInputs.Split(" ").ToList();
+            var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
 
-            for (int i = 0; i < listPosition.Count(); i++)
+            var questions = new List<Question>();
+            var instructions = new List<Instruction>();
+
+            for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
-                  
+                if (listPosition?[i - 1] == "question")
+                {
+                    var question = new Question()
+                    {
+                        Libelle = inputQuestionInstruction[i - 1],
+                        Position = i
+                    };
+
+                    questions.Add(question);
+                }
+                else
+                {
+                    var instruction = new Instruction()
+                    {
+                        Libelle = inputQuestionInstruction[i - 1],
+                        Position = i
+                    };
+                    instructions.Add(instruction);
+                }
             }
 
             return RedirectToAction("index", "surveys");
