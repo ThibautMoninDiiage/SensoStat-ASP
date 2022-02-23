@@ -10,6 +10,12 @@ namespace SensoStatWeb.Repository
         {
             _context = context;
         }
+
+        public Administrator GetAdministrator(int id)
+        {
+            return _context.Administrators.FirstOrDefault(a => a.Id == id);
+        }
+
         public Administrator Login(string username, string password)
         {
             return _context.Administrators.FirstOrDefault(a => a.UserName == username && a.Password == password);
