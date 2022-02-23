@@ -52,6 +52,11 @@ namespace SensoStatWeb.Repository
             return _context.Surveys.ToList();
         }
 
+        public Survey GetSurvey(int id)
+        {
+            return _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
+        }
+
         public async Task<Survey> UpdateSurvey(Survey survey)
         {
             _context.Surveys.Update(survey);
