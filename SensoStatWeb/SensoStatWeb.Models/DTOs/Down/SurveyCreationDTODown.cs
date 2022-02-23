@@ -6,6 +6,9 @@ namespace SensoStatWeb.Models.DTOs.Down
 {
 	public class SurveyCreationDTODown
 	{
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
         [JsonProperty("name")]
         public string? Name { get; set; }
 
