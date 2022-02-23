@@ -6,6 +6,8 @@ namespace SensoStatWeb.Repository.Interfaces
     {
         List<Survey> GetAllSurveys();
 
+        public Survey GetSurvey(int id);
+
         Task<Survey> CreateSurvey(Survey survey);
 
         Task<Survey> UpdateSurvey(Survey survey);
