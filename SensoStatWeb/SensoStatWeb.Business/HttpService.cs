@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Newtonsoft.Json;
 using SensoStatWeb.Business.Interfaces;
 
@@ -7,7 +8,7 @@ namespace SensoStatWeb.Business
 {
     public class HttpService : IHttpService
     {
-        public async Task<T> SendHttpRequest<T>(string url, HttpMethod httpMethod, string? bearer = null)
+        public async Task<T> SendHttpRequest<T>(string url, HttpMethod httpMethod, object? body = null, string? bearer = null)
         {
             try
             {
@@ -18,6 +19,9 @@ namespace SensoStatWeb.Business
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearer);
 
                 var httpRequestMessage = new HttpRequestMessage() { Method = httpMethod, RequestUri = new Uri(url) };
+
+                if(body != null)
+                    httpRequestMessage.Content = JsonContent.Create(body);
 
                 var response = httpClient.SendAsync(httpRequestMessage);
 

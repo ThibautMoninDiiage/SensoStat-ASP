@@ -1,30 +1,79 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.ViewModels;
+using System.Linq;
+using SensoStatWeb.WebApplication.Services.Interfaces;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
     public class SurveyController : Controller
     {
+        private readonly ISurveyService _surveyService;
+
+        public SurveyController(ISurveyService surveyService)
+        {
+            _surveyService = surveyService;
+        }
+
         public IActionResult Index()
         {
             return this.View();
         }
 
-        public IActionResult Detail()
+        public IActionResult Detail(string surveyName)
         {
-            return this.View("Detail");
+            var model = new SurveyViewModel
+            {
+                Survey = new Survey { Name = surveyName}
+            };
+
+            return this.View("Detail", model);
         }
 
         [HttpPost]
-        public IActionResult CreateSurveyPost(CreateSurveyViewModel surveyViewModel)
+        public IActionResult CreateSurvey(List<string>? inputQuestionInstruction, string? orderInputs, string surveyName)
         {
-            if (this.ModelState.IsValid)
-            {
-                return this.View("Detail");
-            }
+            var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
 
-            return this.View("Index");
+            var questions = new List<Question>();
+            var instructions = new List<Instruction>();
+
+            for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
+            {
+                if (listPosition?[i - 1] == "question")
+                {
+                    var question = new Question()
+                    {
+                        Libelle = inputQuestionInstruction[i - 1],
+                        Position = i
+                    };
+
+                    questions.Add(question);
+                }
+                else
+                {
+                    var instruction = new Instruction()
+                    {
+                        Libelle = inputQuestionInstruction[i - 1],
+                        Position = i
+                    };
+                    instructions.Add(instruction);
+                }
+            }
+            var survey = new Survey
+            {
+                Name = surveyName,
+                Questions = questions,
+                CreationDate = DateTime.Now,
+            };
+
+            var resultCreation = _surveyService.CreateSurvey(survey);
+
+            if (resultCreation == null)
+                return this.View("Detail");
+
+            return RedirectToAction("index", "surveys");
         }
     }
 }

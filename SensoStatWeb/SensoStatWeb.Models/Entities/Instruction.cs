@@ -10,5 +10,6 @@ namespace SensoStatWeb.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string? Libelle { get; set; }
+        public int? Position { get; set; }
     }
 }

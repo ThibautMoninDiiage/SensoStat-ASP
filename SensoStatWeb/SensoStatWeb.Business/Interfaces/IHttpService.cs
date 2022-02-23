@@ -11,7 +11,7 @@ namespace SensoStatWeb.Business.Interfaces
         /// <param name="httpMethod">The Http verb (HttpMethod.Get or HttpMethod.Post)</param>
         /// <param name="bearer">The bearer token for OAuth2.0</param>
         /// <returns>The deserialized result</returns>
-        Task<T> SendHttpRequest<T>(string url, HttpMethod httpMethod, string? bearer = null);
+        Task<T> SendHttpRequest<T>(string url, HttpMethod httpMethod, object? body = null, string? bearer = null);
     }
 }
 
