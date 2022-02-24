@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
+using System.Linq;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
@@ -8,9 +10,12 @@ namespace SensoStatWeb.Api.Controllers;
 public class SurveyController : Controller
 {
     private readonly ISurveyRepository _surveyRepository;
-    public SurveyController(ISurveyRepository surveyRepository)
+    private readonly IAdministratorRepository _administratorRepository;
+
+    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository)
     {
         _surveyRepository = surveyRepository;
+        _administratorRepository = administratorRepository;
     }
 
     [HttpGet]
@@ -29,9 +34,26 @@ public class SurveyController : Controller
     }
 
     [HttpPost]
-    public IActionResult Survey([FromBody]Survey survey)
+    public IActionResult Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
+        Survey survey = new Survey()
+        {
+            Name = surveyCreationDTODown.Name,
+            Instructions = surveyCreationDTODown.Instructions,
+            Questions = surveyCreationDTODown.Questions,
+            Products = surveyCreationDTODown.Products,
+            Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
+            CreationDate = DateTime.Now,
+            CreatorId = surveyCreationDTODown.AdminId,
+            Id = surveyCreationDTODown.Id,
+            StateId = 1,
+            SurveyState = _surveyRepository.GetSurvey(surveyCreationDTODown.Id).SurveyState,
+            User = surveyCreationDTODown.Users.FirstOrDefault(),
+            UserId = 1
+        };
+
         var result = _surveyRepository.CreateSurvey(survey);
+
         if(result == null)
         {
             return NotFound();

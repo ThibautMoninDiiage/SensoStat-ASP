@@ -10,5 +10,7 @@ namespace SensoStatWeb.Repository.Interfaces
     public interface IAdministratorRepository
     {
         public Administrator Login(string username, string password);
+
+        public Administrator GetAdministrator(int id);
     }
 }
