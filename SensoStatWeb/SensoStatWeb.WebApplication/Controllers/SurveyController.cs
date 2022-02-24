@@ -4,16 +4,20 @@ using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.ViewModels;
 using System.Linq;
 using SensoStatWeb.WebApplication.Services.Interfaces;
+using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.Models.DTOs.Down;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
     public class SurveyController : Controller
     {
         private readonly ISurveyService _surveyService;
+        private readonly IFileService _fileService;
 
-        public SurveyController(ISurveyService surveyService)
+        public SurveyController(ISurveyService surveyService, IFileService fileService)
         {
             _surveyService = surveyService;
+            _fileService = fileService;
         }
 
         public IActionResult Index()
@@ -21,11 +25,16 @@ namespace SensoStatWeb.WebApplication.Controllers
             return this.View();
         }
 
-        public IActionResult Detail(string surveyName)
+        [HttpPost]
+        public async Task<IActionResult> Detail(string surveyName, IFormFile file)
         {
+            var content = await _fileService.ReadCsvFile(file.OpenReadStream());
+            var finalResult = content.Split("\r\n").Select(l => l.Split(";"));
+            
             var model = new SurveyViewModel
             {
-                Survey = new Survey { Name = surveyName}
+                Survey = new Survey { Name = surveyName},
+                PresentationPlan = finalResult
             };
 
             return this.View("Detail", model);
