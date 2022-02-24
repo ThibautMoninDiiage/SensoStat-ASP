@@ -18,11 +18,11 @@ builder.Services.AddScoped<ISurveyRepository,DbSurveyRepository>();
 builder.Services.AddScoped<IInstructionRepository,DbInstructionRepository>();
 builder.Services.AddScoped<IQuestionRepository,DbQuestionRepository>();
 
-builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=10.4.0.21;Initial Catalog=SensoStat;User Id=SA;Password=Deviceqrtmtbtdbr1."));
+builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Server = tcp:sensostatg1.database.windows.net, 1433; Initial Catalog = Sensostat; Persist Security Info=False; User ID = senso; Password = Deviceqrtmtbtdbr1.; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;"));
 //builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
-context.Database.EnsureDeleted();
+//context.Database.EnsureDeleted();
 context.Database.EnsureCreated();
 
 var app = builder.Build();
@@ -30,7 +30,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    SeedData.Initialize(services);
+    // SeedData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.
