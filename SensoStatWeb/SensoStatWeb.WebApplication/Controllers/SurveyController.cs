@@ -30,7 +30,7 @@ namespace SensoStatWeb.WebApplication.Controllers
         {
             var content = await _fileService.ReadCsvFile(file.OpenReadStream());
             var finalResult = content.Split("\r\n").Select(l => l.Split(";"));
-            
+
             var model = new SurveyViewModel
             {
                 Survey = new Survey { Name = surveyName},
