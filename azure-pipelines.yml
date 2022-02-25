@@ -6,7 +6,7 @@
 name : 'SensoStatWeb-CI'
 
 trigger:
-- master
+- patate
 
 pool:
   vmImage: 'windows-latest'
