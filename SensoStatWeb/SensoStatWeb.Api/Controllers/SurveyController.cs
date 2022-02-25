@@ -11,11 +11,15 @@ public class SurveyController : Controller
 {
     private readonly ISurveyRepository _surveyRepository;
     private readonly IAdministratorRepository _administratorRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly ISurveyStateRepository _surveyStateRepository;
 
-    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository)
+    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository,IUserRepository userRepository,ISurveyStateRepository surveyStateRepository)
     {
         _surveyRepository = surveyRepository;
         _administratorRepository = administratorRepository;
+        _userRepository = userRepository;
+        _surveyStateRepository = surveyStateRepository;
     }
 
     [HttpGet]
@@ -39,17 +43,17 @@ public class SurveyController : Controller
         Survey survey = new Survey()
         {
             Name = surveyCreationDTODown.Name,
-            Instructions = surveyCreationDTODown.Instructions,
-            Questions = surveyCreationDTODown.Questions,
-            Products = surveyCreationDTODown.Products,
+            Instructions = new List<Instruction>(),
+            Questions = new List<Question>(),
+            UserProducts = new List<UserProduct>(),
             Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
-            CreationDate = DateTime.Now,
+            CreationDate = surveyCreationDTODown.CreationDate,
             CreatorId = surveyCreationDTODown.AdminId,
-            Id = surveyCreationDTODown.Id,
+            Id = _surveyRepository.GetAllSurveys().Count + 1,
             StateId = 1,
-            SurveyState = _surveyRepository.GetSurvey(surveyCreationDTODown.Id).SurveyState,
-            User = surveyCreationDTODown.Users.FirstOrDefault(),
-            UserId = 1
+            SurveyState = _surveyStateRepository.GetSurveyState(1),
+            User = _userRepository.GetUser(1),
+            UserId = 1,
         };
 
         var result = _surveyRepository.CreateSurvey(survey);

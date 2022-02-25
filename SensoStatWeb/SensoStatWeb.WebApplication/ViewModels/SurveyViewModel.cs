@@ -1,11 +1,12 @@
 ﻿using System;
+using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 
 namespace SensoStatWeb.WebApplication.ViewModels
 {
     public class SurveyViewModel
     {
-        public Survey Survey { get; set; }
+        public SurveyCreationDTODown SurveyCreationDTODown { get; set; }
 
         public IEnumerable<string[]> PresentationPlan { get; set; }
     }

@@ -2,13 +2,13 @@
 
 <form class="surveyCreationDetailParent" asp-action="createSurvey" asp-controller="survey">
 
-    <input name="surveyName" type="hidden" value="@Model.Survey.Name" />
+    <input name="surveyName" type="hidden" value="@Model.SurveyCreationDTODown.Name" />
 
 
     <div class="titleSurvey">
-        <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
+        <h1 class="Title">Nom séance : <span>@Model.SurveyCreationDTODown.Name</span></h1>
 
-        @if (Model?.Survey.Id != 0)
+        @if (Model?.SurveyCreationDTODown.Id != 0)
         {
             <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
 
@@ -27,7 +27,7 @@
     </ul>
 </ul>
 
-    @if (Model?.Survey.Id != 0)
+    @if (Model?.SurveyCreationDTODown.Id != 0)
     {
         <section class="surveyButtons">
             <button class="orangeRoundedButton">Déployer séance</button>

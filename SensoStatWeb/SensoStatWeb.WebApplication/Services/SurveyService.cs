@@ -1,5 +1,6 @@
 ﻿using System;
 using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.WebApplication.Commons;
 using SensoStatWeb.WebApplication.Services.Interfaces;
@@ -22,17 +23,7 @@ namespace SensoStatWeb.WebApplication.Services
             return surveys;
         }
 
-        public async Task<Survey> CreateSurvey(Survey survey)
-        {
-            try
-            {
-                return await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, survey);
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
-        }
+
 
         public Task<bool> DeleteSurvey()
         {
@@ -47,6 +38,12 @@ namespace SensoStatWeb.WebApplication.Services
         public Task<Survey> UpdateSurvey()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
+        {
+            var result = await _httpService.SendHttpRequest<SurveyCreationDTODown>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, surveyCreationDTODown);
+            return result;
         }
     }
 }
