@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SensoStatApi.Factories;
-using SensoStatApi.Models;
+using SensoStatWeb.Models.Factories;
+using SensoStatWeb.Models.Entities;
 
-namespace SensoStatApi.Seeder
+namespace SensoStatWeb.Models.Seeder
 {
     public static class SeedData
     {
@@ -37,22 +37,6 @@ namespace SensoStatApi.Seeder
                 {
                     context.Users.AddRange(CreateFactories.CreateUser());
                 }
-                if (context.Products.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.Products.AddRange(CreateFactories.CreateProducts());
-                }
-                if (context.UserProducts.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.UserProducts.AddRange(CreateFactories.LinkUserProducts());
-                }
                 if (context.Questions.Any())
                 {
                     return;
@@ -84,6 +68,22 @@ namespace SensoStatApi.Seeder
                 else
                 {
                     context.SurveyInstructions.AddRange(CreateFactories.CreateSurveyInstruction());
+                }
+                if (context.Products.Any())
+                {
+                    return;
+                }
+                else
+                {
+                    context.Products.AddRange(CreateFactories.CreateProducts());
+                }
+                if (context.UserProducts.Any())
+                {
+                    return;
+                }
+                else
+                {
+                    context.UserProducts.AddRange(CreateFactories.LinkUserProducts());
                 }
 
                 context.SaveChanges();

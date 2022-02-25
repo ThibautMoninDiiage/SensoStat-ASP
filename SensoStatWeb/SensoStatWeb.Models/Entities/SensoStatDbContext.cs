@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SensoStatApi.Models
+namespace SensoStatWeb.Models.Entities
 {
     public class SensoStatDbContext: DbContext
     {

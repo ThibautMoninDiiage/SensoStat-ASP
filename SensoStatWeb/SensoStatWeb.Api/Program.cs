@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SensoStatApi.Models;
-using SensoStatApi.Seeder;
-using SensoStatWeb.Business;
-using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.Models.Entities;
+using SensoStatWeb.Models.Seeder;
 using SensoStatWeb.Repository;
 using SensoStatWeb.Repository.Interfaces;
 
@@ -17,19 +15,22 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAdministratorRepository,DbAdministratorRepository>();
 builder.Services.AddScoped<ISurveyRepository,DbSurveyRepository>();
+builder.Services.AddScoped<IInstructionRepository,DbInstructionRepository>();
+builder.Services.AddScoped<IQuestionRepository,DbQuestionRepository>();
 
-builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
+builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Server = tcp:sensostatg1.database.windows.net, 1433; Initial Catalog = Sensostat; Persist Security Info=False; User ID = senso; Password = Deviceqrtmtbtdbr1.; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;"));
+//builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
-context.Database.EnsureDeleted();
-context.Database.EnsureCreated();
+//context.Database.EnsureDeleted();
+//context.Database.EnsureCreated();
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    SeedData.Initialize(services);
+    // SeedData.Initialize(services);
 }
 
 // Configure the HTTP request pipeline.

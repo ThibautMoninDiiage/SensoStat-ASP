@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
@@ -25,7 +24,7 @@ public class LoginController : Controller
 
         return Ok(new
         {
-            Status = "200"
+            Admin = admin
         });
     }
 }

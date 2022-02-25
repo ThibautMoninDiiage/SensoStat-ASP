@@ -13,6 +13,33 @@ div.titleSurvey i {
     color:gray;
 }
 
+.active {
+    background-color: #F5F5F5;
+    transform: scale(1, 1.3);
+    opacity: 0.4;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 300px;
+    max-width: 100%;
+    list-style-type: none;
+}
+
+ul li{
+    width: auto !important;
+    margin-top: 10px;
+    display: flex;
+    cursor: move;
+}
+
+ul li i{
+    margin: auto 20px auto auto;
+    cursor: pointer;
+}
+
 .spacedButtons {
     display: flex;
     justify-content: space-between;
@@ -20,8 +47,6 @@ div.titleSurvey i {
 }
 
 .bigInput {
-    padding: 10px;
-    width:auto !important;
     margin:10px 0 0 0 !important;
 }
 

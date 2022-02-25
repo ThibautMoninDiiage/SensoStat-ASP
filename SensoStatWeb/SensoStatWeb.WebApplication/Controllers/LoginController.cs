@@ -2,17 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.WebApplication.Commons;
+using SensoStatWeb.WebApplication.Services.Interfaces;
 using SensoStatWeb.WebApplication.ViewModels;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IHttpService _httpService;
+        private readonly IAdministratorService _administratorService;
 
-        public LoginController(IHttpService httpService)
+        public LoginController(IAdministratorService administratorService)
         {
-            this._httpService = httpService;
+            _administratorService = administratorService;
         }
 
         public IActionResult Index()
@@ -20,18 +22,14 @@ namespace SensoStatWeb.WebApplication.Controllers
             return this.View();
         }
 
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Authenticate(LoginViewModel loginViewModel)
         {
-            return this.View("../Surveys/Index", loginViewModel); // redirect to Index page
-
-
             // If the model state are not valid
             if (!ModelState.IsValid)
                 return this.View("Index", loginViewModel); // redirect to Index page
 
-            var url = $"https://localhost:7270/login?login={loginViewModel.Username}&mdp={loginViewModel.Password}";
-            var resultLogin = await _httpService.SendHttpRequest<HttpResultDTODown>(url, HttpMethod.Get);
-
+            var resultLogin = await _administratorService.Login(loginViewModel.Username, loginViewModel.Password);
+            
             // If the password or the username are false
             if (resultLogin == null)
             {
@@ -40,7 +38,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             }
 
             // When the password is correct
-            return this.View("Index");
+            return RedirectToAction("Index", "surveys");
         }
     }
 }
