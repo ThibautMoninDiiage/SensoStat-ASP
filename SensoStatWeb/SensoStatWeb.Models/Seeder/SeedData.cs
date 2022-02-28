@@ -29,14 +29,6 @@ namespace SensoStatWeb.Models.Seeder
                 {
                     context.SurveyStates.AddRange(CreateFactories.CreateSurveyStates());
                 }
-                if (context.Users.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.Users.AddRange(CreateFactories.CreateUser());
-                }
                 if (context.Questions.Any())
                 {
                     return;
