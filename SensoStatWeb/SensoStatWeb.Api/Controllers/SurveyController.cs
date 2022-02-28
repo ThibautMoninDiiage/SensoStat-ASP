@@ -96,5 +96,20 @@ public class SurveyController : Controller
         }
     }
 
+    [HttpGet]
+    [ActionName("Survey")]
+    public IActionResult GetSurveyByUserId([FromQuery] int userId)
+    {
+        var result = _surveyRepository.GetSurvey(userId);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(result);
+        }
+    }
 
 }
