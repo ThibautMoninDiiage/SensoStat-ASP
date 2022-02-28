@@ -45,7 +45,7 @@ public class SurveyController : Controller
             Name = surveyCreationDTODown.Name,
             Instructions = surveyCreationDTODown.Instructions,
             Questions = surveyCreationDTODown.Questions,
-            UserProducts = new List<UserProduct>(),
+            UserProducts = surveyCreationDTODown.UserProducts,
             Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
             CreationDate = surveyCreationDTODown.CreationDate,
             CreatorId = surveyCreationDTODown.AdminId,
