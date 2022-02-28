@@ -34,9 +34,32 @@ namespace SensoStatWeb.Repository
         public async Task<bool>? DeleteSurvey(int id)
         {
             var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
+
+            if (_context.Instructions != null)
+            {
+
+                foreach (var instruction in _context.Instructions.ToList())
+                {
+                    if (deleteSurvey.Instructions != null)
+                    {
+                        foreach (var instructionDeleteSurvey in deleteSurvey.Instructions.ToList())
+                        {
+                            if (instructionDeleteSurvey.Id == instruction.Id)
+                            {
+                                _context.Instructions.Remove(instruction);
+                            }
+                        }
+
+                    }
+                }
+
+            }
+
+
             _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
-            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
+
+            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey)).FirstOrDefault();
             if (result == null)
             {
                 return true;

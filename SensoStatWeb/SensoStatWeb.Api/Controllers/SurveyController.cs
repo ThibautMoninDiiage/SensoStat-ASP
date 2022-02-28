@@ -69,7 +69,7 @@ public class SurveyController : Controller
     }
 
     [HttpPut]
-    public IActionResult Update([FromBody]Survey survey)
+    public IActionResult Survey([FromBody]Survey survey)
     {
         var result = _surveyRepository.UpdateSurvey(survey);
         if (result == null)

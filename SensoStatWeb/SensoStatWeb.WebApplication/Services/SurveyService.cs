@@ -23,13 +23,6 @@ namespace SensoStatWeb.WebApplication.Services
             return surveys;
         }
 
-
-
-        public Task<bool> DeleteSurvey()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Survey> GetSurvey()
         {
             throw new NotImplementedException();
@@ -44,6 +37,12 @@ namespace SensoStatWeb.WebApplication.Services
         {
             var result = await _httpService.SendHttpRequest<SurveyCreationDTODown>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, surveyCreationDTODown);
             return result;
+        }
+
+        public async Task<bool> DeleteSurvey(int id)
+        {
+            var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Delete, id);
+            return deletedSurvey == null;
         }
     }
 }

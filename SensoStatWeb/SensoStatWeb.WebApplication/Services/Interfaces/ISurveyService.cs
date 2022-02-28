@@ -12,7 +12,7 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
 
         Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
 
-        Task<bool> DeleteSurvey();
+        Task<bool> DeleteSurvey(int id);
 
         Task<Survey> UpdateSurvey();
 

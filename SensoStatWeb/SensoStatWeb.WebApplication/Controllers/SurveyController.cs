@@ -102,6 +102,13 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             return RedirectToAction("index", "surveys");
         }
+
+        public async Task<IActionResult> DeleteSurvey(int id)
+        {
+            var deletedSurvey = await _surveyService.DeleteSurvey(id);
+
+            return RedirectToAction("Index", "surveys");
+        }
     }
 }
 
