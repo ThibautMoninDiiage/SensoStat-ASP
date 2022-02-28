@@ -13,6 +13,8 @@ namespace SensoStatWeb.WebApplication.Controllers
     {
         private readonly ISurveyService _surveyService;
         private readonly IFileService _fileService;
+        private SurveyCreationDTODown _surveyCreationDTODown = new SurveyCreationDTODown();
+        private IEnumerable<Product> _products;
 
         public SurveyController(ISurveyService surveyService, IFileService fileService)
         {
@@ -31,22 +33,34 @@ namespace SensoStatWeb.WebApplication.Controllers
             var content = await _fileService.ReadCsvFile(file.OpenReadStream());
             var finalResult = content.Split("\r\n").Select(l => l.Split(";"));
 
+            var presentationPlan = finalResult.Skip(1).Select(o => new PresentationPlanDTODown() { UserCode = o[0], Products = o.Skip(1)}).ToList();
+
+            _products = presentationPlan
+                .SelectMany(x => x.Products)
+                .Distinct()
+                .Select(x => new Product() { Code = Int32.Parse(x) });
+
+            // _products = x.ForEach(o => o.Products.ToList().Select(u => new Product() { Code = Int32.Parse(u)}));
+
+
+
             var model = new SurveyViewModel
             {
-                Survey = new Survey { Name = surveyName},
+                SurveyCreationDTODown = new SurveyCreationDTODown { Name = surveyName},
                 PresentationPlan = finalResult
             };
 
             return this.View("Detail", model);
         }
 
-        [HttpPost]
-        public IActionResult CreateSurvey(List<string>? inputQuestionInstruction, string? orderInputs, string surveyName)
+
+        public async Task<IActionResult> CreateSurvey(List<string>? inputQuestionInstruction, string? orderInputs, string surveyName)
         {
             var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
 
             var questions = new List<Question>();
             var instructions = new List<Instruction>();
+            var userProducts = new List<UserProduct>();
 
             for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
@@ -70,16 +84,20 @@ namespace SensoStatWeb.WebApplication.Controllers
                     instructions.Add(instruction);
                 }
             }
-            var survey = new Survey
+            var survey = new SurveyCreationDTODown
             {
+                Id = 1,
                 Name = surveyName,
                 Questions = questions,
+                Instructions = instructions,
+                AdminId = 1,
                 CreationDate = DateTime.Now,
+                UserProducts = userProducts
             };
 
-            var resultCreation = _surveyService.CreateSurvey(survey);
+            var resultCreation = await _surveyService.CreateSurvey(survey);
 
-            if (resultCreation == null)
+            if (resultCreation != null)
                 return this.View("Detail");
 
             return RedirectToAction("index", "surveys");

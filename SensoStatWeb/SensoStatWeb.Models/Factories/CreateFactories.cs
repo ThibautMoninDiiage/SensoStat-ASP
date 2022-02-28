@@ -22,19 +22,17 @@ namespace SensoStatWeb.Models.Factories
 
             return administrators;
         }
+        //public static List<User> CreateUser()
+        //{
+            //var users = new List<User>()
+            //{
+                //new User{Id = 5,FirstName ="Alexis",LastName ="Desgranges"},
+                //new User{Id = 6,FirstName ="Clement",LastName ="Delarue"},
+                //new User{Id = 7,FirstName ="Jean-Christophe",LastName ="Pouzin"},
+            //};
 
-        public static List<User> CreateUser()
-        {
-            var users = new List<User>()
-            {
-                new User{Id = 5,FirstName ="Alexis",LastName ="Desgranges"},
-                new User{Id = 6,FirstName ="Clement",LastName ="Delarue"},
-                new User{Id = 7,FirstName ="Jean-Christophe",LastName ="Pouzin"},
-            };
-
-            return users;
-        }
-
+            //return users;
+        //}
         public static List<SurveyState> CreateSurveyStates()
         {
             var surveyStates = new List<SurveyState>()
@@ -76,7 +74,8 @@ namespace SensoStatWeb.Models.Factories
         {
             Surveys = new List<Survey>();
             var admin = CreateAdmin().FirstOrDefault();
-            var user = CreateUser().Find(u => u.Id == 6);
+            //var user = CreateUser().Find(u => u.Id == 6);
+            var user = new User() { Id = 1};
             var survey = new Survey()
             {
                 Id = 1,
@@ -84,7 +83,7 @@ namespace SensoStatWeb.Models.Factories
                 CreatorId = admin.Id,
                 CreationDate = DateTime.Now,
                 StateId = CreateSurveyStates().FirstOrDefault().Id,
-                UserId = user.Id,
+                //UserId = user.Id,
                 Questions = Questions, 
             };
 
@@ -120,28 +119,29 @@ namespace SensoStatWeb.Models.Factories
 
         public static List<UserProduct> LinkUserProducts()
         {
-            var users = CreateUser();
+            //var users = CreateUser();
+            var users = new List<User>();
             var products = CreateProducts();
             int index = 0;
             int[] position = new int[] {0,1,2};
             Random rnd = new Random();
             List<UserProduct> userProducts = new List<UserProduct>();
-            foreach (var user in users)
-            {
-                List<UserProduct> userProducts1 = new List<UserProduct>();
-                foreach (var product in products)
-                {
-                    index = position[rnd.Next(position[0], position[position.Count() - 1])];
-                    var cont = userProducts1.GroupBy(up => up.Position);
-                    while (cont.Count() > 2)
-                    {
-                        index = position[rnd.Next(position[0], position[position.Count() - 1])];
-                        cont = userProducts1.GroupBy(up => up.Position);
-                    }
-                    userProducts1.Add(new UserProduct { ProductId = product.Id, UserId = user.Id,Position = index});
-                }
-                userProducts.AddRange(userProducts1);
-            }
+            //foreach (var user in users)
+            //{
+            //    List<UserProduct> userProducts1 = new List<UserProduct>();
+            //    foreach (var product in products)
+            //    {
+            //        index = position[rnd.Next(position[0], position[position.Count() - 1])];
+            //        var cont = userProducts1.GroupBy(up => up.Position);
+            //        while (cont.Count() > 2)
+            //        {
+            //            index = position[rnd.Next(position[0], position[position.Count() - 1])];
+            //            cont = userProducts1.GroupBy(up => up.Position);
+            //        }
+            //        userProducts1.Add(new UserProduct { ProductId = product.Id, UserId = user.Id,Position = index});
+            //    }
+            //    userProducts.AddRange(userProducts1);
+            //}
             return userProducts;
         }
     }
