@@ -22,7 +22,6 @@ namespace SensoStatWeb.Models.Factories
 
             return administrators;
         }
-
         //public static List<User> CreateUser()
         //{
             //var users = new List<User>()
@@ -34,7 +33,6 @@ namespace SensoStatWeb.Models.Factories
 
             //return users;
         //}
-
         public static List<SurveyState> CreateSurveyStates()
         {
             var surveyStates = new List<SurveyState>()
@@ -77,6 +75,7 @@ namespace SensoStatWeb.Models.Factories
             Surveys = new List<Survey>();
             var admin = CreateAdmin().FirstOrDefault();
             //var user = CreateUser().Find(u => u.Id == 6);
+            var user = new User() { Id = 1};
             var survey = new Survey()
             {
                 Id = 1,
@@ -121,6 +120,7 @@ namespace SensoStatWeb.Models.Factories
         public static List<UserProduct> LinkUserProducts()
         {
             //var users = CreateUser();
+            var users = new List<User>();
             var products = CreateProducts();
             int index = 0;
             int[] position = new int[] {0,1,2};

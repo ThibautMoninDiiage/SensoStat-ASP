@@ -10,6 +10,7 @@ namespace SensoStatWeb.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Code { get; set; }
+
         public List<Survey>? Surveys { get; set; }
     }
 }
