@@ -35,7 +35,7 @@ namespace SensoStatWeb.Models.Seeder
                 }
                 else
                 {
-                    context.Users.AddRange(CreateFactories.CreateUser());
+                    //context.Users.AddRange(CreateFactories.CreateUser());
                 }
                 if (context.Questions.Any())
                 {

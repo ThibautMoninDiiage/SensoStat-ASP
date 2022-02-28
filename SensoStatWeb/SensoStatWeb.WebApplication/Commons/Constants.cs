@@ -6,4 +6,3 @@ namespace SensoStatWeb.WebApplication.Commons
         public const string BaseUrlApi = "https://appsensostatapi.azurewebsites.net/";
     }
 }
-

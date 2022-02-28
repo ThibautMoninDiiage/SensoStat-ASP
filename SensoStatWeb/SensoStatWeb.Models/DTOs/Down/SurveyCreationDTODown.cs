@@ -18,14 +18,17 @@ namespace SensoStatWeb.Models.DTOs.Down
         [JsonProperty("questions")]
         public List<Question> Questions { get; set; }
 
-        [JsonProperty("products")]
-        public List<Product> Products { get; set; }
+        [JsonProperty("userProducts")]
+        public List<UserProduct> UserProducts { get; set; }
 
         [JsonProperty("adminId")]
         public int AdminId { get; set; }
 
-        [JsonProperty("users")]
-        public List<User> Users { get; set; }
+        [JsonProperty("creationDate")]
+        public DateTime CreationDate { get; set; }
+
+        //[JsonProperty("users")]
+        //public User User { get; set; }
     }
 }
 
