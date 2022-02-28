@@ -38,13 +38,13 @@ public class SurveyController : Controller
     }
 
     [HttpPost]
-    public IActionResult Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
+    public async Task<IActionResult> Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
         Survey survey = new Survey()
         {
             Name = surveyCreationDTODown.Name,
-            Instructions = new List<Instruction>(),
-            Questions = new List<Question>(),
+            Instructions = surveyCreationDTODown.Instructions,
+            Questions = surveyCreationDTODown.Questions,
             UserProducts = new List<UserProduct>(),
             Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
             CreationDate = surveyCreationDTODown.CreationDate,
@@ -56,16 +56,10 @@ public class SurveyController : Controller
             UserId = 1,
         };
 
-        var result = _surveyRepository.CreateSurvey(survey);
+        var result = await _surveyRepository.CreateSurvey(survey);
 
-        if(result == null)
-        {
-            return NotFound();
-        }
-        else
-        {
-            return Ok(result);
-        }
+
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpPut]
