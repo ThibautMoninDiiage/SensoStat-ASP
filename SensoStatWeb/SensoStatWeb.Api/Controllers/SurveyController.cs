@@ -40,20 +40,34 @@ public class SurveyController : Controller
     [HttpPost]
     public async Task<IActionResult> Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
-        Survey survey = new Survey()
+        //Survey survey = new Survey()
+        //{
+        //    Name = surveyCreationDTODown.Name,
+        //    Instructions = surveyCreationDTODown.Instructions,
+        //    Questions = surveyCreationDTODown.Questions,
+        //    UserProducts = surveyCreationDTODown.UserProducts,
+        //    Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
+        //    CreationDate = surveyCreationDTODown.CreationDate,
+        //    CreatorId = surveyCreationDTODown.AdminId,
+        //    Id = _surveyRepository.GetAllSurveys().Count + 1,
+        //    StateId = 1,
+        //    SurveyState = _surveyStateRepository.GetSurveyState(1),
+        //    User = _userRepository.GetUser(1),
+        //    UserId = 1,
+        //};
+
+        var survey = new Survey()
         {
             Name = surveyCreationDTODown.Name,
-            Instructions = surveyCreationDTODown.Instructions,
-            Questions = surveyCreationDTODown.Questions,
-            UserProducts = surveyCreationDTODown.UserProducts,
-            Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
-            CreationDate = surveyCreationDTODown.CreationDate,
-            CreatorId = surveyCreationDTODown.AdminId,
-            Id = _surveyRepository.GetAllSurveys().Count + 1,
-            StateId = 1,
+            CreatorId = 1,
+            Administrator = _administratorRepository.GetAdministrator(1),
+            UserProducts = new List<UserProduct>(),
+            CreationDate = DateTime.Now,
             SurveyState = _surveyStateRepository.GetSurveyState(1),
-            User = _userRepository.GetUser(1),
-            UserId = 1,
+            StateId = 1,
+            Users = new List<User>(),
+            Instructions = new List<Instruction>(),
+            Questions = new List<Question>(),
         };
 
         var result = await _surveyRepository.CreateSurvey(survey);

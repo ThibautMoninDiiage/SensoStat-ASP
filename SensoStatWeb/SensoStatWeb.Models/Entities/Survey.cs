@@ -12,27 +12,23 @@ namespace SensoStatWeb.Models.Entities
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public string? Name { get; set; }
 
-        public int CreatorId { get; set; }
+        public int? CreatorId { get; set; }
 
         [ForeignKey("CreatorId")]
         public Administrator? Administrator { get; set; }
 
-        public int StateId { get; set; }
+        public int? StateId { get; set; }
 
         [ForeignKey("StateId")]
         public SurveyState? SurveyState { get; set; }
 
-        public int UserId { get; set; }
+        public List<User>? Users { get; set; }
 
-        [ForeignKey("UserId")]
-        public User? User { get; set; }
-
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
         public List<Question>? Questions { get; set; }
 

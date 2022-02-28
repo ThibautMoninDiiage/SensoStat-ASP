@@ -8,7 +8,7 @@ namespace SensoStatWeb.Models.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [ForeignKey("UserId")]
         public User? User { get; set; }
         [Key]

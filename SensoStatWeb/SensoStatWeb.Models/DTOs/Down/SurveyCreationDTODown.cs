@@ -6,26 +6,26 @@ namespace SensoStatWeb.Models.DTOs.Down
 {
 	public class SurveyCreationDTODown
 	{
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        //[JsonProperty("id")]
+        //public int Id { get; set; }
 
         [JsonProperty("name")]
         public string? Name { get; set; }
 
-        [JsonProperty("instructions")]
-        public List<Instruction> Instructions { get; set; }
+        //[JsonProperty("instructions")]
+        //public List<Instruction>? Instructions { get; set; }
 
-        [JsonProperty("questions")]
-        public List<Question> Questions { get; set; }
+        //[JsonProperty("questions")]
+        //public List<Question>? Questions { get; set; }
 
         [JsonProperty("userProducts")]
-        public List<UserProduct> UserProducts { get; set; }
+        public List<UserProduct>? UserProducts { get; set; }
 
         [JsonProperty("adminId")]
         public int AdminId { get; set; }
 
-        [JsonProperty("creationDate")]
-        public DateTime CreationDate { get; set; }
+        //[JsonProperty("creationDate")]
+        //public DateTime? CreationDate { get; set; }
 
         //[JsonProperty("users")]
         //public User User { get; set; }

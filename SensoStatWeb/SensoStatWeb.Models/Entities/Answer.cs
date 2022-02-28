@@ -7,7 +7,6 @@ namespace SensoStatWeb.Models.Entities
     public class Answer
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         [ForeignKey("Id")]
         public Question? Question { get; set; }

@@ -12,7 +12,7 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public User GetUser(int id)
+        public User GetUser(string id)
         {
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }

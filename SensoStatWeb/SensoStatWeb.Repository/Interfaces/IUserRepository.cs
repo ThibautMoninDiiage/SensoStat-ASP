@@ -5,7 +5,7 @@ namespace SensoStatWeb.Repository.Interfaces
 {
 	public interface IUserRepository
 	{
-		public User GetUser(int id);
+		public User GetUser(string id);
 	}
 }
 
