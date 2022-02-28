@@ -13,6 +13,8 @@ namespace SensoStatWeb.WebApplication.Controllers
     {
         private readonly ISurveyService _surveyService;
         private readonly IFileService _fileService;
+        private SurveyCreationDTODown _surveyCreationDTODown = new SurveyCreationDTODown();
+        private IEnumerable<Product> _products;
 
         public SurveyController(ISurveyService surveyService, IFileService fileService)
         {
@@ -30,6 +32,17 @@ namespace SensoStatWeb.WebApplication.Controllers
         {
             var content = await _fileService.ReadCsvFile(file.OpenReadStream());
             var finalResult = content.Split("\r\n").Select(l => l.Split(";"));
+
+            var presentationPlan = finalResult.Skip(1).Select(o => new PresentationPlanDTODown() { UserCode = o[0], Products = o.Skip(1)}).ToList();
+
+            _products = presentationPlan
+                .SelectMany(x => x.Products)
+                .Distinct()
+                .Select(x => new Product() { Code = Int32.Parse(x) });
+
+            // _products = x.ForEach(o => o.Products.ToList().Select(u => new Product() { Code = Int32.Parse(u)}));
+
+
 
             var model = new SurveyViewModel
             {
