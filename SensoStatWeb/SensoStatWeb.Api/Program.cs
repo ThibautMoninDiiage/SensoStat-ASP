@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SensoStatWeb.Models.Entities;
-using SensoStatWeb.Models.Seeder;
 using SensoStatWeb.Repository;
 using SensoStatWeb.Repository.Interfaces;
 

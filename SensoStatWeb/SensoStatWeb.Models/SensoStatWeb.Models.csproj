@@ -15,8 +15,6 @@
     <Folder Include="DTOs\" />
     <Folder Include="DTOs\Down\" />
     <Folder Include="Entities\" />
-    <Folder Include="Factories\" />
-    <Folder Include="Seeder\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
