@@ -6,10 +6,10 @@ namespace SensoStatWeb.Models.Entities
     [Table("Survey")]
     public class Survey
     {
-        public Survey()
-        {
+        //public Survey()
+        //{
 
-        }
+        //}
 
         [Key]
         public int Id { get; set; }
@@ -34,6 +34,6 @@ namespace SensoStatWeb.Models.Entities
 
         public List<Instruction>? Instructions { get; set; }
 
-        public List<UserProduct>? UserProducts { get; set; }
+        public List<Product>? Products { get; set; }
     }
 }

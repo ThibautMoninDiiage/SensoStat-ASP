@@ -33,15 +33,23 @@ namespace SensoStatWeb.WebApplication.Controllers
             _surveyCreationDTODown.Name = surveyName;
 
             var content = await _fileService.ReadCsvFile(file.OpenReadStream());
-            var finalResult = content.Split("\r\n").Select(l => l.Split(";"));
+            var finalResult = content.Split("\r\n").Select(l => l.Replace("\"", "")).Select(l => l.Split(";"));
 
-            var presentationPlan = finalResult.Skip(1).Select(o => new PresentationPlanDTODown() { UserCode = o[0], Products = o.Skip(1)}).ToList();
+            var presentationPlan = finalResult.Skip(1).Take(finalResult.Count() - 2).Select(o => new PresentationPlanDTODown() { UserCode = o[1], Products = o.Skip(2)}).ToList();
 
             // Create each product + Distinct
             _products = presentationPlan
                 .SelectMany(x => x.Products)
                 .Distinct()
-                .Select(x => new Product() { Code = Int32.Parse(x) });
+                .Select(x => new Product() { Code = x });
+
+            _surveyCreationDTODown.Users = new List<User>();
+
+            presentationPlan.ForEach(p =>_surveyCreationDTODown.Users.Add(new User() { Code = p.UserCode }));
+
+            _surveyCreationDTODown.Products = new List<Product>();
+
+            _surveyCreationDTODown.Products = _products.ToList();
 
             _surveyCreationDTODown.UserProducts = new List<UserProduct>();
 
@@ -51,12 +59,13 @@ namespace SensoStatWeb.WebApplication.Controllers
                 {
                     var userProduct = new UserProduct()
                     {
-                        User = new User { Code = surveyUser.UserCode },
+                        User = new User() { Code = surveyUser.UserCode },
                         Position = i,
-                        Product = _products.FirstOrDefault(x => x.Code == Int32.Parse(surveyUser.Products.ToList()[i])),
+                        Product = _products.FirstOrDefault(x => x.Code == surveyUser.Products.ToList()[i]),
                     };
 
                     _surveyCreationDTODown.UserProducts.Add(userProduct);
+
                 }
             }
 

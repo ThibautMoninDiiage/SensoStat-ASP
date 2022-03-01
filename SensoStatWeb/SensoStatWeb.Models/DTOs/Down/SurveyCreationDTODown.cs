@@ -24,6 +24,12 @@ namespace SensoStatWeb.Models.DTOs.Down
         [JsonProperty("adminId")]
         public int AdminId { get; set; }
 
+        [JsonProperty("users")]
+        public List<User>? Users { get; set; }
+
+        [JsonProperty("products")]
+        public List<Product>? Products { get; set; }
+
         //[JsonProperty("creationDate")]
         //public DateTime? CreationDate { get; set; }
 

@@ -12,9 +12,21 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public User GetUser(string id)
+        public async Task<User> GetUser(string id)
         {
             return _context.Users.FirstOrDefault(u => u.Id == id);
+        }
+
+        public async Task<User> CreateUser(User user)
+        {
+            _context.Users?.Add(user);
+            _context.SaveChanges();
+            return _context.Users.Where(u => u.Equals(user)).FirstOrDefault();
+        }
+
+        public async Task<List<User>> GetUsers()
+        {
+            return _context.Users.ToList();
         }
     }
 }

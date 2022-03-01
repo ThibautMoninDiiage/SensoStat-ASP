@@ -93,39 +93,39 @@ namespace SensoStatWeb.Models.Factories
             return survey;
         }
 
-        public static List<SurveyInstruction> CreateSurveyInstruction()
-        {
-            List<SurveyInstruction> surveyInstructions = new List<SurveyInstruction>()
-            {
-                new SurveyInstruction() { InstructionId = 1,Position = 1,SurveyId = 1},
-                new SurveyInstruction() { InstructionId = 2,Position = 6,SurveyId = 1},
-            };
+        //public static List<SurveyInstruction> CreateSurveyInstruction()
+        //{
+        //    List<SurveyInstruction> surveyInstructions = new List<SurveyInstruction>()
+        //    {
+        //        new SurveyInstruction() { InstructionId = 1,Position = 1,SurveyId = 1},
+        //        new SurveyInstruction() { InstructionId = 2,Position = 6,SurveyId = 1},
+        //    };
 
-            return surveyInstructions;
-        }
+        //    return surveyInstructions;
+        //}
 
-        public static List<Product> CreateProducts()
-        {
-            var products = new List<Product>()
-            {
-                new Product{Id = 1,Code = 019,Surveys = Surveys},
-                new Product{Id = 2,Code = 150,Surveys = Surveys},
-                new Product{Id = 3,Code = 300,Surveys = Surveys},
-            };
+        //public static List<Product> CreateProducts()
+        //{
+        //    var products = new List<Product>()
+        //    {
+        //        new Product{Id = 1,Code = 019,Surveys = Surveys},
+        //        new Product{Id = 2,Code = 150,Surveys = Surveys},
+        //        new Product{Id = 3,Code = 300,Surveys = Surveys},
+        //    };
 
-            Products = products;
+        //    Products = products;
 
-            return products;
-        }
+        //    return products;
+        //}
 
-        public static List<UserProduct> LinkUserProducts()
-        {
+        //public static List<UserProduct> LinkUserProducts()
+        //{
             //var users = CreateUser();
-            var products = CreateProducts();
-            int index = 0;
-            int[] position = new int[] {0,1,2};
-            Random rnd = new Random();
-            List<UserProduct> userProducts = new List<UserProduct>();
+            //var products = CreateProducts();
+            //int index = 0;
+            //int[] position = new int[] {0,1,2};
+            //Random rnd = new Random();
+            //List<UserProduct> userProducts = new List<UserProduct>();
             //foreach (var user in users)
             //{
             //    List<UserProduct> userProducts1 = new List<UserProduct>();
@@ -142,7 +142,7 @@ namespace SensoStatWeb.Models.Factories
             //    }
             //    userProducts.AddRange(userProducts1);
             //}
-            return userProducts;
-        }
+            //return userProducts;
+        //}
     }
 }

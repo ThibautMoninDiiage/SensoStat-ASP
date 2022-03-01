@@ -7,10 +7,12 @@ namespace SensoStatWeb.Models.Entities
     public class Question
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string? Libelle { get; set; }
         public int Position { get; set; }
-        public List<Survey>? Surveys { get; set; }
+        public int SurveyId { get; set; }
+        [ForeignKey("SurveyId")]
+        public Survey? Survey { get; set; }
+        public List<Answer>? Answers { get; set; }
     }
 }

@@ -61,30 +61,30 @@ namespace SensoStatWeb.Models.Seeder
                 {
                     context.Surveys.AddRange(CreateFactories.CreateSurvey());
                 }
-                if (context.SurveyInstructions.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.SurveyInstructions.AddRange(CreateFactories.CreateSurveyInstruction());
-                }
-                if (context.Products.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.Products.AddRange(CreateFactories.CreateProducts());
-                }
-                if (context.UserProducts.Any())
-                {
-                    return;
-                }
-                else
-                {
-                    context.UserProducts.AddRange(CreateFactories.LinkUserProducts());
-                }
+                //if (context.SurveyInstructions.Any())
+                //{
+                //    return;
+                //}
+                //else
+                //{
+                //    context.SurveyInstructions.AddRange(CreateFactories.CreateSurveyInstruction());
+                //}
+                //if (context.Products.Any())
+                //{
+                //    return;
+                //}
+                //else
+                //{
+                //    context.Products.AddRange(CreateFactories.CreateProducts());
+                //}
+                //if (context.UserProducts.Any())
+                //{
+                //    return;
+                //}
+                //else
+                //{
+                //    context.UserProducts.AddRange(CreateFactories.LinkUserProducts());
+                //}
 
                 context.SaveChanges();
             }

@@ -16,6 +16,6 @@ namespace SensoStatWeb.Models.Entities
         [Required]
         public string? Password { get; set; }
         [JsonIgnore]
-        public new List<Survey>? Surveys { get; set;}
+        public List<Survey>? Surveys { get; set;}
     }
 }
