@@ -119,9 +119,9 @@ public class SurveyController : Controller
         }
     }
 
-    [HttpGet]
+    [HttpGet("UserId")]
     [ActionName("Survey")]
-    public IActionResult GetSurveyByUserId([FromQuery] int userId)
+    public IActionResult GetSurveyByUserId([FromRoute] int userId)
     {
         var result = _surveyRepository.GetSurvey(userId);
 

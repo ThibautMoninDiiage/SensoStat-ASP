@@ -7,10 +7,6 @@ namespace SensoStatWeb.Models.Entities
     [Table("Administrator")]
     public class Administrator
     {
-        [Key]
-        public int Id { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
         [Required]
         [Key]
         public int Id { get; set; }
