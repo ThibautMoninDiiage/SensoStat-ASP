@@ -7,8 +7,6 @@ namespace SensoStatWeb.WebApplication.ViewModels
     public class SurveyViewModel
     {
         public SurveyCreationDTODown SurveyCreationDTODown { get; set; }
-
-        public IEnumerable<string[]> PresentationPlan { get; set; }
     }
 }
 

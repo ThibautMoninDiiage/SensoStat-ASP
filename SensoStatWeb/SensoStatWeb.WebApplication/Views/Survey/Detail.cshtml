@@ -1,18 +1,18 @@
-﻿@model SensoStatWeb.WebApplication.ViewModels.SurveyViewModel
+﻿@model SensoStatWeb.Models.DTOs.Down.SurveyCreationDTODown
+
 
 <form class="surveyCreationDetailParent" asp-action="createSurvey" asp-controller="survey">
 
-    <input name="surveyName" type="hidden" value="@Model.SurveyCreationDTODown.Name" />
-
+    <input asp-for="@Model.Name" type="hidden"/>
 
     <div class="titleSurvey">
-        <h1 class="Title">Nom séance : <span>@Model.SurveyCreationDTODown.Name</span></h1>
+        <h1 class="Title">Nom séance : <span>@Model.Name</span></h1>
 
-        @if (Model?.SurveyCreationDTODown.Id != 0)
+        @*@if (Model?.Id != 0)
         {
             <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
 
-        }
+        }*@
     </div>
 
     <div style="width:100%" class="spacedButtons">
@@ -23,11 +23,9 @@
     <input value="" type="hidden" name="orderInputs" id="orderInputs" />
 
     <ul id="sortlist">
-    
-    </ul>
     </ul>
 
-    @if (Model?.SurveyCreationDTODown.Id != 0)
+    @*@if (Model?.Id != 0)
     {
         <section class="surveyButtons">
             <button class="orangeRoundedButton">Déployer séance</button>
@@ -37,7 +35,7 @@
             <button class="orangeRoundedButton">Télécharger données</button>
             <button class="orangeRoundedButton">Supprimer la séance</button>
         </section>
-    }
+    }*@
 
     <div style="margin-top:auto" class="spacedButtons" style="width:100%">
         <a asp-controller="surveys" asp-action="" style="background-color:transparent;color:#FF9D0A" class="orangeRoundedButton">Retour</a>

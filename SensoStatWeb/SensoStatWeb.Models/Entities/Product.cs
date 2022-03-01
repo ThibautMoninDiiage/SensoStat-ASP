@@ -7,9 +7,11 @@ namespace SensoStatWeb.Models.Entities
     public class Product
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        public int Code { get; set; }
-        public List<Survey>? Surveys { get; set;}
+        public string? Code { get; set; }
+        public int SurveyId { get; set; }
+        [ForeignKey("SurveyId")]
+        public Survey? Survey { get; set;}
+        public List<UserProduct>? UserProducts { get; set; }
     }
 }
