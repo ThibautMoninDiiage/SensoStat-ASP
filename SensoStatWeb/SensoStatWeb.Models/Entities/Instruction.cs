@@ -7,9 +7,11 @@ namespace SensoStatWeb.Models.Entities
     public class Instruction
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string? Libelle { get; set; }
+        public int SurveyId { get; set; }
+        [ForeignKey("SurveyId")]
+        public Survey? Survey { get; set; }
         public int? Position { get; set; }
     }
 }
