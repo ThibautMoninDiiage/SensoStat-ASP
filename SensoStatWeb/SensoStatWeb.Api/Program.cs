@@ -1,39 +1,69 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SensoStatWeb.Models.Entities;
-using SensoStatWeb.Models.Seeder;
 using SensoStatWeb.Repository;
 using SensoStatWeb.Repository.Interfaces;
 
+#region Builder
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Cors
+
 builder.Services.AddCors();
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+
+#endregion
+
+#region Swagger
+
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IAdministratorRepository,DbAdministratorRepository>();
-builder.Services.AddScoped<ISurveyRepository,DbSurveyRepository>();
-builder.Services.AddScoped<IInstructionRepository,DbInstructionRepository>();
-builder.Services.AddScoped<IQuestionRepository,DbQuestionRepository>();
+#endregion
+
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+#region IOC
+
+builder.Services.AddScoped<IAdministratorRepository, DbAdministratorRepository>();
+builder.Services.AddScoped<ISurveyRepository, DbSurveyRepository>();
+builder.Services.AddScoped<IInstructionRepository, DbInstructionRepository>();
+builder.Services.AddScoped<IQuestionRepository, DbQuestionRepository>();
 builder.Services.AddScoped<IUserRepository, DbUserRepository>();
 builder.Services.AddScoped<ISurveyStateRepository, DbSurveyStateRepository>();
+builder.Services.AddScoped<IProductRepository, DbProductRepository>();
+builder.Services.AddScoped<IUserProductRepository, DbUserProductRepository>();
 
-builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Server = tcp:sensostatg1.database.windows.net, 1433; Initial Catalog = Sensostat; Persist Security Info=False; User ID = senso; Password = Deviceqrtmtbtdbr1.; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;"));
-//builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Data Source=.;Initial Catalog=SensoStat;User Id=UserSensoStat;Password=123"));
+#endregion
+
+#region Database / DbContext
+
+string connexion = "";
+
+#if DEBUG
+
+connexion = builder.Configuration.GetConnectionString("local");
+builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
+
+#endif
+
+if (connexion == "")
+{
+    connexion = builder.Configuration.GetConnectionString("sqlAzure");
+    builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
+}
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
 //context.Database.EnsureDeleted();
 context.Database.EnsureCreated();
 
-var app = builder.Build();
+#endregion
 
-//using (var scope = app.Services.CreateScope())
-//{
-    //var services = scope.ServiceProvider;
-    // SeedData.Initialize(services);
-//}
+#endregion
+
+#region App
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
@@ -52,3 +82,4 @@ app.MapControllers();
 
 app.Run();
 
+#endregion

@@ -80,6 +80,11 @@ namespace SensoStatWeb.Repository
             return _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
         }
 
+        public Survey GetSurveyByUserId(int userId)
+        {
+            return _context.Users.Where(u => u.Id == userId.ToString()).Select(u => u.Survey).FirstOrDefault();
+        }
+
         public async Task<Survey> UpdateSurvey(Survey survey)
         {
             _context.Surveys.Update(survey);

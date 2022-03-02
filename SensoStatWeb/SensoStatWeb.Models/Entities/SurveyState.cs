@@ -7,7 +7,6 @@ namespace SensoStatWeb.Models.Entities
     public class SurveyState
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string? Libelle { get; set; }
 

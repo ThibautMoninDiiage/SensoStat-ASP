@@ -5,7 +5,7 @@ namespace SensoStatWeb.Repository.Interfaces
 {
 	public interface ISurveyStateRepository
 	{
-		public SurveyState GetSurveyState(int id);
+		public Task<SurveyState> GetSurveyState(int id);
 	}
 }
 

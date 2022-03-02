@@ -13,13 +13,17 @@ public class SurveyController : Controller
     private readonly IAdministratorRepository _administratorRepository;
     private readonly IUserRepository _userRepository;
     private readonly ISurveyStateRepository _surveyStateRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly IUserProductRepository _userProductRepository;
 
-    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository,IUserRepository userRepository,ISurveyStateRepository surveyStateRepository)
+    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository,IUserRepository userRepository,ISurveyStateRepository surveyStateRepository,IProductRepository productRepository,IUserProductRepository userProductRepository)
     {
         _surveyRepository = surveyRepository;
         _administratorRepository = administratorRepository;
         _userRepository = userRepository;
         _surveyStateRepository = surveyStateRepository;
+        _productRepository = productRepository;
+        _userProductRepository = userProductRepository;
     }
 
     [HttpGet]
@@ -38,34 +42,53 @@ public class SurveyController : Controller
     }
 
     [HttpPost]
-    public IActionResult Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
+    public async Task<IActionResult> Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
-        Survey survey = new Survey()
+        var survey = new Survey()
         {
             Name = surveyCreationDTODown.Name,
+            CreatorId = 1,
+            Administrator = _administratorRepository.GetAdministrator(1),
+            CreationDate = DateTime.Now,
+            SurveyState = await _surveyStateRepository.GetSurveyState(1),
+            StateId = 1,
+            Users = new List<User>(),
             Instructions = new List<Instruction>(),
             Questions = new List<Question>(),
-            UserProducts = new List<UserProduct>(),
-            Administrator = _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
-            CreationDate = surveyCreationDTODown.CreationDate,
-            CreatorId = surveyCreationDTODown.AdminId,
-            Id = _surveyRepository.GetAllSurveys().Count + 1,
-            StateId = 1,
-            SurveyState = _surveyStateRepository.GetSurveyState(1),
-            User = _userRepository.GetUser(1),
-            UserId = 1,
+            Products = new List<Product>(),
         };
 
-        var result = _surveyRepository.CreateSurvey(survey);
+        var result = await _surveyRepository.CreateSurvey(survey);
 
-        if(result == null)
+        foreach (var userProduct in surveyCreationDTODown.Users)
         {
-            return NotFound();
+            userProduct.Id = userProduct.Code + result.Id;
+            userProduct.Answers = new List<Answer>();
+            userProduct.Code = userProduct.Code;
+            userProduct.UserProducts = new List<UserProduct>();
+            userProduct.Survey = _surveyRepository.GetSurvey(result.Id);
+            await _userRepository.CreateUser(userProduct);
         }
-        else
+
+        foreach (var userProduct in surveyCreationDTODown.Products)
         {
-            return Ok(result);
+            userProduct.Survey = _surveyRepository.GetSurvey(result.Id);
+            userProduct.UserProducts = new List<UserProduct>();
+            await _productRepository.CreateProduct(userProduct);
         }
+
+        var users = await _userRepository.GetUsers();
+        var products = await _productRepository.GetAllProducts();
+
+        foreach (var userProduct in surveyCreationDTODown.UserProducts)
+        {
+            userProduct.User = users.Where(u => u.Id == userProduct.User.Code + result.Id).FirstOrDefault();
+            userProduct.Product = products.FirstOrDefault(p => p.Code == userProduct.Product.Code);
+            await _userProductRepository.CreateUserProduct(userProduct);
+        }
+
+
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpPut]
@@ -96,5 +119,20 @@ public class SurveyController : Controller
         }
     }
 
+    [HttpGet("UserId")]
+    [ActionName("Survey")]
+    public IActionResult GetSurveyByUserId([FromRoute] int userId)
+    {
+        var result = _surveyRepository.GetSurvey(userId);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(result);
+        }
+    }
 
 }

@@ -12,7 +12,7 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public SurveyState GetSurveyState(int id)
+        public async Task<SurveyState> GetSurveyState(int id)
         {
             return _context.SurveyStates.FirstOrDefault(u => u.Id == id);
         }
