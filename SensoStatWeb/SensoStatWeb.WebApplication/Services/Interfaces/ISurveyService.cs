@@ -8,13 +8,13 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
     {
         Task<List<Survey>> GetSurveys();
 
-        Task<Survey> GetSurvey();
+        Task<Survey> GetSurvey(int surveyId);
 
         Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
 
         Task<bool> DeleteSurvey();
 
-        Task<Survey> UpdateSurvey();
+        Task<Survey> UpdateSurvey(Survey survey);
 
     }
 }

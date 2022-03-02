@@ -16,7 +16,7 @@ public class SurveyController : Controller
     private readonly IProductRepository _productRepository;
     private readonly IUserProductRepository _userProductRepository;
 
-    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository,IUserRepository userRepository,ISurveyStateRepository surveyStateRepository,IProductRepository productRepository,IUserProductRepository userProductRepository)
+    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository, IUserRepository userRepository, ISurveyStateRepository surveyStateRepository, IProductRepository productRepository, IUserProductRepository userProductRepository)
     {
         _surveyRepository = surveyRepository;
         _administratorRepository = administratorRepository;
@@ -27,18 +27,25 @@ public class SurveyController : Controller
     }
 
     [HttpGet]
-    // GET: SurveyController
-    public IActionResult Survey()
+    public IActionResult Survey(int surveyId = 0)
     {
-        var result = _surveyRepository.GetAllSurveys();
-        if(result == null)
+        try
         {
-            return NotFound();
+            if (surveyId == 0)
+            {
+                return Ok(_surveyRepository.GetAllSurveys());
+            }
+            else
+            {
+                return Ok(_surveyRepository.GetSurvey(surveyId));
+            }
         }
-        else
+        catch(Exception ex)
         {
-            return Ok(result);
+            Console.WriteLine(ex);
         }
+
+        return NotFound();
     }
 
     [HttpPost]
@@ -106,7 +113,8 @@ public class SurveyController : Controller
     }
 
     [HttpDelete]
-    public IActionResult Survey(int id)
+    [ActionName("Survey")]
+    public IActionResult SurveyDelete(int id)
     {
         var result = _surveyRepository.DeleteSurvey(id);
         if(result.Result != true)

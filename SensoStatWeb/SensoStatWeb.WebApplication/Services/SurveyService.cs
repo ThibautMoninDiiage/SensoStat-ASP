@@ -30,14 +30,18 @@ namespace SensoStatWeb.WebApplication.Services
             throw new NotImplementedException();
         }
 
-        public Task<Survey> GetSurvey()
+        public async Task<Survey> GetSurvey(int surveyId)
         {
-            throw new NotImplementedException();
+            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get);
+
+            return survey;
         }
 
-        public Task<Survey> UpdateSurvey()
+        public async Task<Survey> UpdateSurvey(Survey survey)
         {
-            throw new NotImplementedException();
+            var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Patch);
+
+            return surveyUpdated;
         }
 
         public async Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
@@ -47,4 +51,3 @@ namespace SensoStatWeb.WebApplication.Services
         }
     }
 }
-

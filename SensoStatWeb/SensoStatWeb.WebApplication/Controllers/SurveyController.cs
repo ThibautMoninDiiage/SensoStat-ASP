@@ -75,18 +75,28 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
-        public async Task<IActionResult> EditPage(int surveyId)
+        public async Task<IActionResult> EditPage(int surveyId = 0)
         {
-            // Get all information of the survey in the api
+            try
+            {
+                if (surveyId == 0)
+                    new Exception("Survey Id can't be 0");
 
-            // return all informations to the view
+                var survey = await _surveyService.GetSurvey(surveyId);
 
-            return View("detail");
+                return View("detail", survey);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return RedirectToAction("index", "surveys");
         }
 
-        public async Task<IActionResult> EditSurvey(SurveyCreationDTODown SurveyCreationDTODown, List<string>? inputQuestionInstruction, string? orderInputs)
+        public async Task<IActionResult> EditSurvey(SurveyCreationDTODown surveyCreationDTODown, List<string>? inputQuestionInstruction, string? orderInputs)
         {
-
+            // Thanks this list we can know if the current input is an instruction or a question
             var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
 
             var questions = new List<Question>();
@@ -115,12 +125,19 @@ namespace SensoStatWeb.WebApplication.Controllers
                 }
             }
 
-            var survey = new SurveyCreationDTODown() { Name = "test"};
+            var survey = new Survey()
+            {
+                Name = surveyCreationDTODown.Name,
+                Instructions = instructions,
+                Questions = questions,
+            };
+
+            // UPDATE the survey in the api
 
              // var resultCreation = await _surveyService.CreateSurvey(survey);
 
 
-            return View("Detail", survey);
+            return RedirectToAction("index", "surveys");
         }
     }
 }
