@@ -19,7 +19,7 @@ namespace SensoStatWeb.WebApplication.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var surveys = await _surveyService.GetSurveys();
+            var surveys = await _surveyService.GetSurveys(HttpContext.Request.Cookies["Token"]);
 
             var model = new SurveysViewModel
             {

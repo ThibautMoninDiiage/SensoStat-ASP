@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
@@ -20,6 +21,7 @@ public class QuestionController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult Questions()
     {
         var result = _questionRepository.GetAllQuestions();
@@ -35,6 +37,7 @@ public class QuestionController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public IActionResult Question([FromBody]Question question)
     {
         var result = _questionRepository.CreateQuestion(question);
@@ -50,6 +53,7 @@ public class QuestionController : Controller
     }
 
     [HttpDelete]
+    [Authorize]
     public IActionResult Question([FromBody]int id)
     {
         var result = _questionRepository.DeleteQuestion(id);

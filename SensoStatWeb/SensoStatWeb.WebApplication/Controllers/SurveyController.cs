@@ -69,7 +69,7 @@ namespace SensoStatWeb.WebApplication.Controllers
                 }
             }
 
-            await _surveyService.CreateSurvey(_surveyCreationDTODown);
+            await _surveyService.CreateSurvey(_surveyCreationDTODown,HttpContext.Request.Cookies["Token"]);
 
 
             return RedirectToAction("index", "surveys");
@@ -84,7 +84,6 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             var questions = new List<Question>();
             var instructions = new List<Instruction>();
-            var userProducts = new List<UserProduct>();
 
             for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
