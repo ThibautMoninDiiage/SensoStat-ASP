@@ -6,15 +6,15 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
 {
     public interface ISurveyService
     {
-        Task<List<Survey>> GetSurveys();
+        Task<List<Survey>> GetSurveys(string token);
 
-        Task<Survey> GetSurvey();
+        Task<Survey> GetSurvey(string token);
 
-        Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
+        Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown,string token);
 
-        Task<bool> DeleteSurvey();
+        Task<bool> DeleteSurvey(string token);
 
-        Task<Survey> UpdateSurvey();
+        Task<Survey> UpdateSurvey(string token);
 
     }
 }

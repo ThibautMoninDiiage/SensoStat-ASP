@@ -1,15 +1,11 @@
-﻿using SensoStatWeb.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.Models.Entities;
 
 namespace SensoStatWeb.Repository.Interfaces
 {
     public interface IAdministratorRepository
     {
-        public Administrator Login(string username, string password);
+        public AdministratorTokenDTODown Login(string username, string password);
 
         public Administrator GetAdministrator(int id);
     }

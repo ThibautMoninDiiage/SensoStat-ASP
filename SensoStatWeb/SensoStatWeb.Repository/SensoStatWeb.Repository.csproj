@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SensoStatWeb.Business\SensoStatWeb.Business.csproj" />
     <ProjectReference Include="..\SensoStatWeb.Models\SensoStatWeb.Models.csproj" />
   </ItemGroup>
 

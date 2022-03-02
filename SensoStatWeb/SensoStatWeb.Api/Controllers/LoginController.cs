@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
@@ -21,10 +22,10 @@ public class LoginController : Controller
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password)) return BadRequest();
         var admin = _administrationRepository.Login(login,password);
         if (admin == null) return NotFound();
-
-        return Ok(new
+        return Ok(new AdministratorTokenDTODown
         {
-            Admin = admin
+            Administrator = admin.Administrator,
+            Token = admin.Token,
         });
     }
 }
