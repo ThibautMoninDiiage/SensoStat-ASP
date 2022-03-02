@@ -101,22 +101,25 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 
 #region Database / DbContext
 
-string connexion = "";
+//string connexion = "";
 
-#if DEBUG
+//#if DEBUG
 
-connexion = builder.Configuration.GetConnectionString("local");
-builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
+//connexion = builder.Configuration.GetConnectionString("local");
+//builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
 
-#endif
+//#endif
 
-if (connexion == "")
-{
-    //connexion = builder.Configuration.GetConnectionString("sqlAzure");
-    connexion = Environment.GetEnvironmentVariable("CUSTOMCONNSTR_sqlAzure");
-    builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
+//if (connexion == "")
+//{
+//    //connexion = builder.Configuration.GetConnectionString("sqlAzure");
+//    connexion = Environment.GetEnvironmentVariable("CUSTOMCONNSTR_sqlAzure");
+//    builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
 
-}
+//}
+
+
+builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Server = tcp:sensostatg1.database.windows.net, 1433; Initial Catalog = Sensostat; Persist Security Info=False; User ID = senso; Password = Deviceqrtmtbtdbr1.; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;"));
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
 //context.Database.EnsureDeleted();
