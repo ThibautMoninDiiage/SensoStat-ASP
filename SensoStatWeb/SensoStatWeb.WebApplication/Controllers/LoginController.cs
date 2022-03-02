@@ -29,7 +29,8 @@ namespace SensoStatWeb.WebApplication.Controllers
                 return this.View("Index", loginViewModel); // redirect to Index page
 
             var resultLogin = await _administratorService.Login(loginViewModel.Username, loginViewModel.Password);
-            
+
+            HttpContext.Response.Cookies.Append("Token",resultLogin.Token,new CookieOptions() { HttpOnly = true,SameSite = SameSiteMode.Strict});
             // If the password or the username are false
             if (resultLogin == null)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
@@ -20,6 +21,7 @@ public class InstructionController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult Instructions()
     {
         var result = _instructionRepository.GetAllInstructions();
@@ -35,6 +37,7 @@ public class InstructionController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public IActionResult Instruction([FromBody]Instruction instruction)
     {
         var result = _instructionRepository.CreateInstruction(instruction);
@@ -50,6 +53,7 @@ public class InstructionController : Controller
     }
 
     [HttpDelete]
+    [Authorize]
     public IActionResult Instruction(int id)
     {
         var result = _instructionRepository.DeleteInstruction(id);

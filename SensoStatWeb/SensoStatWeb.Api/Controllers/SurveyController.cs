@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
@@ -27,6 +28,7 @@ public class SurveyController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     // GET: SurveyController
     public IActionResult Survey()
     {
@@ -42,6 +44,7 @@ public class SurveyController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
         var survey = new Survey()
@@ -92,6 +95,7 @@ public class SurveyController : Controller
     }
 
     [HttpPut]
+    [Authorize]
     public IActionResult Update([FromBody]Survey survey)
     {
         var result = _surveyRepository.UpdateSurvey(survey);
@@ -106,6 +110,7 @@ public class SurveyController : Controller
     }
 
     [HttpDelete]
+    [Authorize]
     public IActionResult Survey(int id)
     {
         var result = _surveyRepository.DeleteSurvey(id);
@@ -121,6 +126,7 @@ public class SurveyController : Controller
 
     [HttpGet("UserId")]
     [ActionName("Survey")]
+    [Authorize]
     public IActionResult GetSurveyByUserId([FromRoute] int userId)
     {
         var result = _surveyRepository.GetSurvey(userId);
