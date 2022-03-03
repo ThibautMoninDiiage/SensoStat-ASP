@@ -76,7 +76,7 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
 
         
-
+        [HttpPost]
         public async Task<IActionResult> CreateSurvey(SurveyCreationDTODown SurveyCreationDTODown, List<string>? inputQuestionInstruction, string? orderInputs)
         {
 
@@ -128,6 +128,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
+        [HttpDelete]
         public async Task<IActionResult> DeleteSurvey(int id)
         {
             var deletedSurvey = await _surveyService.DeleteSurvey(id);
@@ -136,4 +137,3 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
     }
 }
-
