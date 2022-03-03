@@ -11,8 +11,14 @@ namespace SensoStatWeb.xUnit
 {
 	public class UnitTests
 	{
-        public readonly Mock<SensoStatDbContext> _dbContext = new();
+        #region Variables
+
+        private readonly Mock<SensoStatDbContext> _dbContext = new();
         public Mock<IInstructionRepository> instructionMock = new Mock<IInstructionRepository>();
+
+        #endregion
+
+        #region UselessTest
 
         [Fact]
         public void UselessTest()
@@ -37,12 +43,16 @@ namespace SensoStatWeb.xUnit
             #endregion
         }
 
+        #endregion
+
+        #region Instructions
+
         [Fact]
-        public void GetInstructions()
+        public void GetInstructionsFailed()
         {
             #region Arrange
 
-            InstructionController instructionController = new InstructionController(instructionMock.Object);
+            InstructionController instructionController = new(instructionMock.Object);
 
             #endregion
 
@@ -54,8 +64,8 @@ namespace SensoStatWeb.xUnit
 
             #region Assert
 
-            Assert.IsType<NotFoundObjectResult>(getAllInstructions);
-
+            Assert.IsType<NotFoundResult>(getAllInstructions);
+            
             #endregion
         }
 
@@ -64,21 +74,21 @@ namespace SensoStatWeb.xUnit
         {
             #region Arrange
 
-            InstructionController instructionController = new InstructionController(instructionMock.Object);
-            Instruction instruction = new Instruction();
-            instruction.Libelle = "Sentez le produit";
+            Instruction instruction = new();
+            // instructionMock.Setup(x => x.CreateInstruction(instruction)).Returns(instruction);
+            InstructionController instructionController = new(instructionMock.Object);
 
             #endregion
 
             #region Act
 
-            var createInstruction = instructionController.Instruction(instruction);
+            var result = ((OkObjectResult)instructionController.Instruction(instruction)).Value;
 
             #endregion
 
             #region Assert
 
-            Assert.IsType<OkObjectResult>(createInstruction);
+            Assert.True(instruction.Equals(result));
 
             #endregion
         }
@@ -127,5 +137,6 @@ namespace SensoStatWeb.xUnit
             #endregion
         }
 
+        #endregion
     }
 }
