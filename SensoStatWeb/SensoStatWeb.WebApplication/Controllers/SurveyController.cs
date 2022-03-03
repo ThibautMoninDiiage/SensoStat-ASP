@@ -6,6 +6,8 @@ using System.Linq;
 using SensoStatWeb.WebApplication.Services.Interfaces;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.Models.Entities.Interfaces;
+using SensoStatWeb.WebApplication.Wrappers;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
@@ -28,7 +30,7 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Detail(string surveyName, IFormFile file)
+        public async Task<IActionResult> CreateSurvey(string surveyName, IFormFile file)
         {
             _surveyCreationDTODown.Name = surveyName;
 
@@ -75,11 +77,44 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
-        
-
-        public async Task<IActionResult> CreateSurvey(SurveyCreationDTODown SurveyCreationDTODown, List<string>? inputQuestionInstruction, string? orderInputs)
+        public async Task<IActionResult> EditPage(int surveyId = 0)
         {
+            try
+            {
+                if (surveyId == 0)
+                    new Exception("Survey Id can't be 0");
 
+                var survey = await _surveyService.GetSurvey(surveyId);
+
+
+                var questionInstructions = new List<QuestionInstructionWrapper>();
+
+                questionInstructions.AddRange(survey.Instructions.Select(x => new QuestionInstructionWrapper(x)));
+                questionInstructions.AddRange(survey.Questions.Select(x => new QuestionInstructionWrapper(x)));
+
+                questionInstructions.OrderBy(y => y.Position);
+
+
+                var model = new SurveyViewModel
+                {
+                    Survey = survey,
+                    QuestionsInstructions = questionInstructions.OrderBy(x => x.Position)
+                };
+
+
+                return View("detail", model);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return RedirectToAction("index", "surveys");
+        }
+
+        public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, string? orderInputs)
+        {
+            // Thanks this list we can know if the current input is an instruction or a question
             var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
 
             var questions = new List<Question>();
@@ -107,22 +142,22 @@ namespace SensoStatWeb.WebApplication.Controllers
                     instructions.Add(instruction);
                 }
             }
-            //var survey = new SurveyCreationDTODown
-            //{
-            //    Id = 1,
-            //    Name = SurveyCreationDTODown.Name,
-            //    Questions = questions,
-            //    Instructions = instructions,
-            //    AdminId = 1,
-            //    CreationDate = DateTime.Now,
-            //    UserProducts = userProducts
-            //};
 
-            // var resultCreation = await _surveyService.CreateSurvey(survey);
+            var updatedSurvey = new Survey()
+            {
+                Id = survey.Id,
+                Name = survey.Name,
+                Instructions = instructions,
+                Questions = questions,
+                
+            };
 
+            await _surveyService.UpdateSurvey(updatedSurvey);
 
-            if (false)
-                return this.View("Detail");
+            // UPDATE the survey in the api
+
+             // var resultCreation = await _surveyService.CreateSurvey(survey);
+
 
             return RedirectToAction("index", "surveys");
         }

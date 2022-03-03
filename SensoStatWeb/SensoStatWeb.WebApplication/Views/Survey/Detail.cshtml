@@ -1,18 +1,16 @@
-﻿@model SensoStatWeb.Models.DTOs.Down.SurveyCreationDTODown
+﻿@model SensoStatWeb.WebApplication.ViewModels.SurveyViewModel
 
 
-<form class="surveyCreationDetailParent" asp-action="createSurvey" asp-controller="survey">
+<form class="surveyCreationDetailParent" asp-action="editSurvey" asp-controller="survey">
 
-    <input asp-for="@Model.Name" type="hidden"/>
+    <input asp-for="@Model.Survey.Name" type="hidden" />
+    <input asp-for="@Model.Survey.Id" type="hidden" />
 
     <div class="titleSurvey">
-        <h1 class="Title">Nom séance : <span>@Model.Name</span></h1>
+        <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
 
-        @*@if (Model?.Id != 0)
-        {
-            <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
+        <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
 
-        }*@
     </div>
 
     <div style="width:100%" class="spacedButtons">
@@ -23,19 +21,24 @@
     <input value="" type="hidden" name="orderInputs" id="orderInputs" />
 
     <ul id="sortlist">
+        @foreach (var questionInstruction in Model.QuestionsInstructions)
+            {
+                <li class="roundedOrangeInput bigInput" draggable="true">
+                    <p style="margin-top:auto;margin-bottom:auto">@questionInstruction.Title : </p>
+                    <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" placeholder="Ajouter une @questionInstruction.Title"/>
+                    <i onclick="deleteInput(this)" name="questionsInstructionsBin" onclick="deleteInput" class="fas fa-trash-alt"></i>
+                </li>
+            }
     </ul>
 
-    @*@if (Model?.Id != 0)
-    {
-        <section class="surveyButtons">
-            <button class="orangeRoundedButton">Déployer séance</button>
-            <button class="orangeRoundedButton">Supprimer le déploiement</button>
-            <button class="orangeRoundedButton">Télécharger les liens</button>
+    <section class="surveyButtons">
+        <button class="orangeRoundedButton">Déployer séance</button>
+        <button class="orangeRoundedButton">Supprimer le déploiement</button>
+        <button class="orangeRoundedButton">Télécharger les liens</button>
 
-            <button class="orangeRoundedButton">Télécharger données</button>
-            <button class="orangeRoundedButton">Supprimer la séance</button>
-        </section>
-    }*@
+        <button class="orangeRoundedButton">Télécharger données</button>
+        <button class="orangeRoundedButton">Supprimer la séance</button>
+    </section>
 
     <div style="margin-top:auto" class="spacedButtons" style="width:100%">
         <a asp-controller="surveys" asp-action="" style="background-color:transparent;color:#FF9D0A" class="orangeRoundedButton">Retour</a>
@@ -43,10 +46,8 @@
     </div>
 
     <script>
-
-    window.addEventListener("DOMContentLoaded", () => {
+        window.addEventListener("DOMContentLoaded", () => {
             slist();
         });
-        
-        </script>
+    </script>
 </form>

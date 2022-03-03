@@ -11,12 +11,14 @@
     <None Remove="ViewModels\" />
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
     <None Remove="Commons\" />
+    <None Remove="Wrappers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\scripts\" />
     <Folder Include="Commons\" />
+    <Folder Include="Wrappers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SensoStatWeb.Business\SensoStatWeb.Business.csproj">

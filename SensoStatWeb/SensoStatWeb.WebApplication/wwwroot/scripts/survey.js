@@ -73,7 +73,8 @@ function orderInputs(){
   
           var li = document.createElement('li'); // Create parent div
           var input = document.createElement('input'); // Create input
-          var i = document.createElement('i'); // create i ``
+          var i = document.createElement('i'); // create i 
+          var p = document.createElement('p');
   
           li.classList.add("roundedOrangeInput"); // Add class to parent div
           li.classList.add("bigInput"); // Add class to parent div
@@ -82,11 +83,17 @@ function orderInputs(){
   
           input.placeholder = "Ajouter une " + name; // Add placeholder in input
           input.name = "inputQuestionInstruction";
+          
+          p.textContent = name + " : ";
+          p.style.marginTop = "auto";
+          p.style.marginBottom = "auto";
+
   
           i.onclick = deleteInput; // When click on i call deleteInput
           i.classList.add("fas"); // Add trash style to i
           i.classList.add("fa-trash-alt"); // Add trash style to i
   
+          li.appendChild(p);
           li.appendChild(input); // Add input to div
           li.appendChild(i);  // Add i to div
   
@@ -97,6 +104,11 @@ function orderInputs(){
       }
   
       function deleteInput(caller){
+        if(caller.srcElement == undefined){
+          caller.parentNode.remove();
+        }
+        else{
           caller.srcElement.parentNode.remove(); // find the parent div and remove it
+        }
           orderInputs();
       }

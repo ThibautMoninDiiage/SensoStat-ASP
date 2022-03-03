@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SensoStatWeb.Models.Entities
 {
@@ -10,6 +11,7 @@ namespace SensoStatWeb.Models.Entities
         public int Id { get; set; }
         public string? Libelle { get; set; }
 
+        [JsonIgnore]
         public List<Survey>? Surveys { get; set; }
     }
 }
