@@ -16,35 +16,38 @@ namespace SensoStatWeb.WebApplication.Services
             _httpService = httpService;
         }
 
-        public async Task<List<Survey>> GetSurveys(string token)
+        public async Task<List<Survey>> GetSurveys(string token = "")
         {
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,null,token);
+            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
 
             return surveys;
         }
 
+        public async Task<Survey> GetSurvey(int surveyId, string token = "")
+        {
+            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get, bearer:token);
+
+            return survey;
+        }
 
 
-        public Task<bool> DeleteSurvey(string token)
+        public Task<bool> DeleteSurvey(int surveyId, string token = "")
         {
             throw new NotImplementedException();
         }
 
-        public Task<Survey> GetSurvey(string token)
+
+        public async Task<Survey> UpdateSurvey(Survey survey, string token = "")
         {
-            throw new NotImplementedException();
+            var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Put, survey);
+
+            return surveyUpdated;
         }
 
-        public Task<Survey> UpdateSurvey(string token)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown, string token)
+        public async Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown, string token = "")
         {
             var result = await _httpService.SendHttpRequest<SurveyCreationDTODown>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, surveyCreationDTODown,token);
             return result;
         }
     }
 }
-

@@ -30,13 +30,14 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             var resultLogin = await _administratorService.Login(loginViewModel.Username, loginViewModel.Password);
 
-            HttpContext.Response.Cookies.Append("Token",resultLogin.Token,new CookieOptions() { HttpOnly = true,SameSite = SameSiteMode.Strict});
             // If the password or the username are false
             if (resultLogin == null)
             {
                 loginViewModel.ErrorMessage = "Nom d'utilisateur ou mot de passe incorect";
                 return this.View("Index", loginViewModel);
             }
+
+            HttpContext.Response.Cookies.Append("Token", resultLogin.Token, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
 
             // When the password is correct
             return RedirectToAction("Index", "surveys");
