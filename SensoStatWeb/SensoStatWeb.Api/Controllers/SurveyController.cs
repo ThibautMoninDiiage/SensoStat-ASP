@@ -106,7 +106,8 @@ public class SurveyController : Controller
     }
 
     [HttpDelete]
-    public IActionResult Survey(int id)
+    [ActionName("Survey")]
+    public IActionResult Survey([FromQuery]int id)
     {
         var result = _surveyRepository.DeleteSurvey(id);
         if(result.Result != true)
