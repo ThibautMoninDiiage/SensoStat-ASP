@@ -25,7 +25,7 @@
             {
                 <li class="roundedOrangeInput bigInput" draggable="true">
                     <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" />
-                    <i class="fas fa-trash-alt"></i>
+                    <i onclick="deleteInput(this)" name="questionsInstructionsBin" onclick="deleteInput" class="fas fa-trash-alt"></i>
                 </li>
             }
     </ul>
@@ -44,7 +44,9 @@
         <input type="submit" class="orangeRoundedButton" value="Créer" />
     </div>
 
-    <script>window.addEventListener("DOMContentLoaded", () => {
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
             slist();
-        });</script>
+        });
+    </script>
 </form>

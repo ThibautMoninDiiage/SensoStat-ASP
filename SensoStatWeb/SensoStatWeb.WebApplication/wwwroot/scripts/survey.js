@@ -97,6 +97,11 @@ function orderInputs(){
       }
   
       function deleteInput(caller){
+        if(caller.srcElement == undefined){
+          caller.parentNode.remove();
+        }
+        else{
           caller.srcElement.parentNode.remove(); // find the parent div and remove it
+        }
           orderInputs();
       }
