@@ -16,27 +16,28 @@ namespace SensoStatWeb.WebApplication.Services
             _httpService = httpService;
         }
 
-        public async Task<List<Survey>> GetSurveys(string token)
+        public async Task<List<Survey>> GetSurveys(string token = "")
         {
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,null,token);
+            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
 
             return surveys;
         }
 
+        public async Task<Survey> GetSurvey(int surveyId, string token = "")
+        {
+            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get, bearer:token);
+
+            return survey;
+        }
 
 
         public Task<bool> DeleteSurvey(int surveyId, string token = "")
         {
             throw new NotImplementedException();
         }
-        public async Task<Survey> GetSurvey(int surveyId, string token = "")
-        {
-            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get);
 
-            return survey;
-        }
 
-        public Task<Survey> UpdateSurvey(Survey survey, string token = "")
+        public async Task<Survey> UpdateSurvey(Survey survey, string token = "")
         {
             var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Put, survey);
 
