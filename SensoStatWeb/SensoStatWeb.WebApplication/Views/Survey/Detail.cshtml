@@ -1,12 +1,13 @@
-﻿@model SensoStatWeb.Models.Entities.Survey
+﻿@model SensoStatWeb.WebApplication.ViewModels.SurveyViewModel
 
 
 <form class="surveyCreationDetailParent" asp-action="editSurvey" asp-controller="survey">
 
-    <input asp-for="@Model.Name" type="hidden" />
+    <input asp-for="@Model.Survey.Name" type="hidden" />
+    <input asp-for="@Model.Survey.Id" type="hidden" />
 
     <div class="titleSurvey">
-        <h1 class="Title">Nom séance : <span>@Model.Name</span></h1>
+        <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
 
         <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
 
@@ -20,6 +21,13 @@
     <input value="" type="hidden" name="orderInputs" id="orderInputs" />
 
     <ul id="sortlist">
+        @foreach (var questionInstruction in Model.QuestionsInstructions)
+            {
+                <li class="roundedOrangeInput bigInput" draggable="true">
+                    <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" />
+                    <i class="fas fa-trash-alt"></i>
+                </li>
+            }
     </ul>
 
     <section class="surveyButtons">

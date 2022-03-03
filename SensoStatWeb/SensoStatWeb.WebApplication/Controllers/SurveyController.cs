@@ -6,6 +6,7 @@ using System.Linq;
 using SensoStatWeb.WebApplication.Services.Interfaces;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.Models.Entities.Interfaces;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
@@ -84,7 +85,21 @@ namespace SensoStatWeb.WebApplication.Controllers
 
                 var survey = await _surveyService.GetSurvey(surveyId);
 
-                return View("detail", survey);
+                var questionInstructions = new List<IQuestionInstruction>();
+
+                questionInstructions.AddRange(survey.Instructions);
+                questionInstructions.AddRange(survey.Questions);
+
+                questionInstructions.OrderBy(q => q.Position);
+
+                var model = new SurveyViewModel
+                {
+                    Survey = survey,
+                    QuestionsInstructions = questionInstructions
+                };
+
+
+                return View("detail", model);
             }
             catch(Exception ex)
             {
@@ -94,7 +109,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
-        public async Task<IActionResult> EditSurvey(SurveyCreationDTODown surveyCreationDTODown, List<string>? inputQuestionInstruction, string? orderInputs)
+        public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, string? orderInputs)
         {
             // Thanks this list we can know if the current input is an instruction or a question
             var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
@@ -125,12 +140,16 @@ namespace SensoStatWeb.WebApplication.Controllers
                 }
             }
 
-            var survey = new Survey()
+            var updatedSurvey = new Survey()
             {
-                Name = surveyCreationDTODown.Name,
+                Id = survey.Id,
+                Name = survey.Name,
                 Instructions = instructions,
                 Questions = questions,
+                
             };
+
+            await _surveyService.UpdateSurvey(updatedSurvey);
 
             // UPDATE the survey in the api
 

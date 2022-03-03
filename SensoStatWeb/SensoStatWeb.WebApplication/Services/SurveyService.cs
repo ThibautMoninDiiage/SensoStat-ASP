@@ -39,7 +39,7 @@ namespace SensoStatWeb.WebApplication.Services
 
         public async Task<Survey> UpdateSurvey(Survey survey)
         {
-            var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Patch);
+            var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Put, survey);
 
             return surveyUpdated;
         }

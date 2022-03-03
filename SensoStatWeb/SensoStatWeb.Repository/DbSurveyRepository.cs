@@ -1,4 +1,5 @@
-﻿using SensoStatWeb.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,14 @@ namespace SensoStatWeb.Repository
 
         public Survey GetSurvey(int id)
         {
-            return _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
+
+            var survey = _context.Surveys
+                .Include(s => s.SurveyState)
+                .Include(s => s.Instructions)
+                .Include(s => s.Questions)
+                .Where(s => s.Id == id)
+                .FirstOrDefault();
+            return survey;
         }
 
         public Survey GetSurveyByUserId(int userId)
