@@ -15,7 +15,7 @@
             {
                 <div class="oneSurvey">
                     <div><i class="fas fa-circle greyCircle"></i> @survey.Name</div>
-                    <div><a asp-controller="survey" asp-action="detail"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey()"><i class="fas fa-trash-alt"></i></a></div>
+                    <div><a asp-controller="survey" asp-action="detail"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey(@survey.Id)"><i class="fas fa-trash-alt"></i></a></div>
                 </div>
             }
         }
