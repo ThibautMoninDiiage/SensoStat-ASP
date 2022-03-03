@@ -67,7 +67,6 @@ namespace SensoStatWeb.xUnit
             InstructionController instructionController = new InstructionController(instructionMock.Object);
             Instruction instruction = new Instruction();
             instruction.Libelle = "Sentez le produit";
-            _dbContext.Setup(x => x.Instructions.Add(instruction));
 
             #endregion
 
@@ -80,7 +79,6 @@ namespace SensoStatWeb.xUnit
             #region Assert
 
             Assert.IsType<OkObjectResult>(createInstruction);
-            _dbContext.Verify(x => x.Add(It.IsAny<Instruction>()), Times.Once);
 
             #endregion
         }
@@ -124,7 +122,7 @@ namespace SensoStatWeb.xUnit
 
             #region Assert
 
-            Assert.IsType<OkObjectResult>(deleteInstruction);
+            Assert.IsType<BadRequestObjectResult>(deleteInstruction);
 
             #endregion
         }
