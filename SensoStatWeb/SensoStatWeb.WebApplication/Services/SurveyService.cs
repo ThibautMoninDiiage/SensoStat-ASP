@@ -18,14 +18,14 @@ namespace SensoStatWeb.WebApplication.Services
 
         public async Task<List<Survey>> GetSurveys(string token = "")
         {
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,null,token);
+            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
 
             return surveys;
         }
 
         public async Task<Survey> GetSurvey(int surveyId, string token = "")
         {
-            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get);
+            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get, bearer:token);
 
             return survey;
         }

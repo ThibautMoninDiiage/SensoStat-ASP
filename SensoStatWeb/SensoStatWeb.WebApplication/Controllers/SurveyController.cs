@@ -84,7 +84,7 @@ namespace SensoStatWeb.WebApplication.Controllers
                 if (surveyId == 0)
                     new Exception("Survey Id can't be 0");
 
-                var survey = await _surveyService.GetSurvey(surveyId);
+                var survey = await _surveyService.GetSurvey(surveyId, HttpContext.Request.Cookies["Token"]);
 
 
                 var questionInstructions = new List<QuestionInstructionWrapper>();
