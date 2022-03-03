@@ -16,19 +16,13 @@ namespace SensoStatWeb.WebApplication.Services
             _httpService = httpService;
         }
 
-        public async Task<List<Survey>> GetSurveys(string token)
+        public async Task<List<Survey>> GetSurveys(string token = "")
         {
             var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,null,token);
 
             return surveys;
         }
 
-
-
-        public Task<bool> DeleteSurvey(int surveyId, string token = "")
-        {
-            throw new NotImplementedException();
-        }
         public async Task<Survey> GetSurvey(int surveyId, string token = "")
         {
             var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get);
@@ -36,7 +30,14 @@ namespace SensoStatWeb.WebApplication.Services
             return survey;
         }
 
-        public Task<Survey> UpdateSurvey(Survey survey, string token = "")
+
+        public Task<bool> DeleteSurvey(int surveyId, string token = "")
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public async Task<Survey> UpdateSurvey(Survey survey, string token = "")
         {
             var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Put, survey);
 
