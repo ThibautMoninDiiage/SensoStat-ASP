@@ -1,4 +1,5 @@
-﻿using SensoStatWeb.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,31 +36,37 @@ namespace SensoStatWeb.Repository
         {
             var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
 
-            if (_context.Instructions != null)
+            // INSTRUCTIONS
+            var deleteInstructions = _context.Instructions.Where(i => i.SurveyId == deleteSurvey.Id).ToList();
+            _context.Instructions.RemoveRange(deleteInstructions);
+
+            // ANSWERS
+            var deleteAnswers = _context.Answers.Where(a => a.Question.SurveyId == deleteSurvey.Id).ToList();
+            if(deleteAnswers.Count != null)
             {
-
-                foreach (var instruction in _context.Instructions.ToList())
-                {
-                    if (deleteSurvey.Instructions != null)
-                    {
-                        foreach (var instructionDeleteSurvey in deleteSurvey.Instructions.ToList())
-                        {
-                            if (instructionDeleteSurvey.Id == instruction.Id)
-                            {
-                                _context.Instructions.Remove(instruction);
-                            }
-                        }
-
-                    }
-                }
-
+                _context.Answers.RemoveRange(deleteAnswers);
             }
 
+            // QUESTIONS
+            var deleteQuestion = _context.Questions.Where(q => q.SurveyId == deleteSurvey.Id).ToList();
+            _context.Questions.RemoveRange(deleteQuestion);
+
+            // USER PRODUCTS
+            var deleteUserProducts = _context.UserProducts.Where(u => u.Product.SurveyId == deleteSurvey.Id).ToList();
+            _context.UserProducts.RemoveRange(deleteUserProducts);
+
+            // PRODUCTS
+            var deleteProducts = _context.Products.Where(p => p.SurveyId == deleteSurvey.Id).ToList();
+            _context.Products.RemoveRange(deleteProducts);
+
+            // USERS
+            var deleteUsers = _context.Users.Where(u => u.SurveyId == deleteSurvey.Id).ToList();
+            _context.Users.RemoveRange(deleteUsers);
 
             _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
 
-            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey)).FirstOrDefault();
+            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey)).SingleOrDefault();
             if (result == null)
             {
                 return true;
