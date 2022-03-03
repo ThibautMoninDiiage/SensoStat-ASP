@@ -7,6 +7,7 @@ using SensoStatWeb.WebApplication.Services.Interfaces;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities.Interfaces;
+using SensoStatWeb.WebApplication.Wrappers;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
@@ -85,17 +86,19 @@ namespace SensoStatWeb.WebApplication.Controllers
 
                 var survey = await _surveyService.GetSurvey(surveyId);
 
-                var questionInstructions = new List<IQuestionInstruction>();
 
-                questionInstructions.AddRange(survey.Instructions);
-                questionInstructions.AddRange(survey.Questions);
+                var questionInstructions = new List<QuestionInstructionWrapper>();
 
-                questionInstructions.OrderBy(q => q.Position);
+                questionInstructions.AddRange(survey.Instructions.Select(x => new QuestionInstructionWrapper(x)));
+                questionInstructions.AddRange(survey.Questions.Select(x => new QuestionInstructionWrapper(x)));
+
+                questionInstructions.OrderBy(y => y.Position);
+
 
                 var model = new SurveyViewModel
                 {
                     Survey = survey,
-                    QuestionsInstructions = questionInstructions
+                    QuestionsInstructions = questionInstructions.OrderBy(x => x.Position)
                 };
 
 

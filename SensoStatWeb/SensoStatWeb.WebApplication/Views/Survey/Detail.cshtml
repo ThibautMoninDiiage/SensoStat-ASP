@@ -24,7 +24,8 @@
         @foreach (var questionInstruction in Model.QuestionsInstructions)
             {
                 <li class="roundedOrangeInput bigInput" draggable="true">
-                    <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" />
+                    <p style="margin-top:auto;margin-bottom:auto">@questionInstruction.Title : </p>
+                    <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" placeholder="Ajouter une @questionInstruction.Title"/>
                     <i onclick="deleteInput(this)" name="questionsInstructionsBin" onclick="deleteInput" class="fas fa-trash-alt"></i>
                 </li>
             }
