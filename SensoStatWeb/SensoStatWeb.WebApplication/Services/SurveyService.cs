@@ -41,7 +41,7 @@ namespace SensoStatWeb.WebApplication.Services
 
         public async Task<bool> DeleteSurvey(int id)
         {
-            var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Delete, id);
+            var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?id={id}", HttpMethod.Delete);
             return deletedSurvey == null;
         }
     }
