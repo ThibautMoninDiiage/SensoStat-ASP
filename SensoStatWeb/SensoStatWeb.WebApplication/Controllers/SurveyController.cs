@@ -142,17 +142,44 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             var baseSurvey = await _surveyService.GetSurvey(survey.Id, HttpContext.Request.Cookies["Token"]);
 
-
-
             var surveyToUpdate = new Survey()
             {
                 Id = survey.Id,
-                Name = survey.Name
+                Name = survey.Name,
+                Questions = new List<Question>(),
+                Instructions = new List<Instruction>()
             };
 
-            surveyToUpdate.Instructions = instructions.Where(i => !baseSurvey.Instructions.Any(x => x.Libelle == i.Libelle)).ToList();
-            surveyToUpdate.Questions = questions.Where(q => !baseSurvey.Questions.Any(x => x.Libelle == q.Libelle)).ToList();
 
+            foreach (var question in questions)
+            {
+                var baseQuestion = baseSurvey.Questions?.FirstOrDefault(q => q.Libelle == question.Libelle);
+
+                if (baseQuestion != null)
+                {
+                    baseQuestion.Position = question.Position;
+                    surveyToUpdate.Questions?.Add(baseQuestion);
+                }
+                else
+                {
+                    surveyToUpdate.Questions?.Add(question);
+                }
+            }
+
+            foreach (var instruction in instructions)
+            {
+                var baseInstruction = baseSurvey.Instructions?.FirstOrDefault(i => i.Libelle == instruction.Libelle);
+
+                if (baseInstruction != null)
+                {
+                    baseInstruction.Position = instruction.Position;
+                    surveyToUpdate.Instructions?.Add(baseInstruction);
+                }
+                else
+                {
+                    surveyToUpdate.Instructions?.Add(instruction);
+                }
+            }
 
             var resultCreation = await _surveyService.UpdateSurvey(surveyToUpdate, HttpContext.Request.Cookies["Token"]);
 
