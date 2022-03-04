@@ -112,17 +112,14 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
-        public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, string? orderInputs)
+        public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, List<string> inputListPosition)
         {
-            // Thanks this list we can know if the current input is an instruction or a question
-            var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
-
             var questions = new List<Question>();
             var instructions = new List<Instruction>();
 
             for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
-                if (listPosition?[i - 1] == "question")
+                if (inputListPosition?[i - 1] == "question")
                 {
                     var question = new Question()
                     {
