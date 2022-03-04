@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Business;
+using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Api.Business;
 
 #region Builder
 
@@ -87,6 +89,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 #region IOC
 
+//Injection de dépendances pour les repository
 builder.Services.AddScoped<IAdministratorRepository, DbAdministratorRepository>();
 builder.Services.AddScoped<ISurveyRepository, DbSurveyRepository>();
 builder.Services.AddScoped<IInstructionRepository, DbInstructionRepository>();
@@ -94,8 +97,20 @@ builder.Services.AddScoped<IQuestionRepository, DbQuestionRepository>();
 builder.Services.AddScoped<IUserRepository, DbUserRepository>();
 builder.Services.AddScoped<ISurveyStateRepository, DbSurveyStateRepository>();
 builder.Services.AddScoped<IProductRepository, DbProductRepository>();
-builder.Services.AddScoped<IUserProductRepository, DbUserProductRepository>();
+builder.Services.AddScoped<IUserProductRepository, UUserProductRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+
+//Injection de dépendances pour les services
+builder.Services.AddScoped<IAdministratorServices, AdministratorServices>();
+builder.Services.AddScoped<ISurveyServices, SurveyServices>();
+builder.Services.AddScoped<IInstructionServices, InstructionServices>();
+builder.Services.AddScoped<IQuestionServices, QuestionServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ISurveyStateServices, SurveyStateServices>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
+builder.Services.AddScoped<IUserProductServices, UserProductServices>();
+
 
 #endregion
 
@@ -105,7 +120,7 @@ string connexion = "";
 
 #if DEBUG
 
-connexion = builder.Configuration.GetConnectionString("local");
+connexion = builder.Configuration.GetConnectionString("sqlAzure");
 builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
 
 #endif

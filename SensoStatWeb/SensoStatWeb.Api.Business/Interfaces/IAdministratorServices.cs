@@ -1,9 +1,9 @@
 ﻿using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 
-namespace SensoStatWeb.Repository.Interfaces
+namespace SensoStatWeb.Api.Business.Interfaces
 {
-    public interface IAdministratorRepository
+    public interface IAdministratorServices
     {
         Task<AdministratorTokenDTODown>? Login(string username, string password);
 

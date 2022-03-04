@@ -22,14 +22,7 @@ namespace SensoStatWeb.Repository
             _context.Surveys.Add(survey);
             _context.SaveChanges();
             var result = _context.Surveys.Where(s => s.Equals(survey));
-            if(result == null)
-            {
-                return null;
-            }
-            else
-            {
-                return result.FirstOrDefault();
-            }
+            return result.FirstOrDefault();
         }
 
         public async Task<bool>? DeleteSurvey(int id)
@@ -38,24 +31,16 @@ namespace SensoStatWeb.Repository
             _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
             var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
-            if (result == null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result == null ? true : false;
         }
 
-        public List<Survey> GetAllSurveys()
+        public async Task<List<Survey>>? GetAllSurveys()
         {
             return _context.Surveys.ToList();
         }
 
-        public Survey GetSurvey(int id)
+        public async Task<Survey>? GetSurvey(int id)
         {
-
             var survey = _context.Surveys
                 .Include(s => s.SurveyState)
                 .Include(s => s.Instructions)
@@ -65,24 +50,16 @@ namespace SensoStatWeb.Repository
             return survey;
         }
 
-        public Survey GetSurveyByUserId(int userId)
+        public async Task<Survey>? GetSurveyByUserId(int userId)
         {
             return _context.Users.Where(u => u.Id == userId.ToString()).Select(u => u.Survey).FirstOrDefault();
         }
 
-        public async Task<Survey> UpdateSurvey(Survey survey)
+        public async Task<Survey>? UpdateSurvey(Survey survey)
         {
             _context.Surveys.Update(survey);
             var result = _context.Surveys.Where(s => s.Equals(survey));
-            if (result == null)
-            {
-                return null;
-            }
-            else
-            {
-                _context.SaveChanges();
-                return result.FirstOrDefault();
-            }
+            return result.FirstOrDefault();
         }
     }
 }

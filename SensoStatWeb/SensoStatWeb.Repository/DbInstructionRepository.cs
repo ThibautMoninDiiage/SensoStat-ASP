@@ -12,7 +12,7 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public List<Instruction> GetAllInstructions()
+        public async Task<List<Instruction>>? GetAllInstructions()
         {
             return _context.Instructions.ToList();
         }
@@ -23,15 +23,7 @@ namespace SensoStatWeb.Repository
             _context.SaveChanges();
 
             var result = _context.Instructions.Where(s => s.Equals(instruction));
-
-            if (result == null)
-            {
-                return null;
-            }
-            else
-            {
-                return result.FirstOrDefault();
-            }
+            return result?.FirstOrDefault();
         }
 
         public async Task<bool>? DeleteInstruction(int id)
@@ -42,15 +34,7 @@ namespace SensoStatWeb.Repository
             _context.SaveChanges();
 
             var result = _context.Instructions.Where(s => s.Equals(deletedInstruction));
-
-            if (result == null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result == null ? true : false;
         }
     }
 }
