@@ -47,24 +47,10 @@ function slist () {
           } else {
             i.parentNode.insertBefore(current, i);
           }
-          orderInputs();
         }
       };
     }
-    orderInputs();
   }
-
-function orderInputs(){
-
-    var orderInput = document.getElementById("orderInputs");
-
-    var list = document.getElementById("sortlist");
-    orderInput.value = "";
-
-    list.querySelectorAll('input').forEach(currentInput => {
-        orderInput.value += currentInput.placeholder.replace("Ajouter une", "");
-    });
-}
   
       function addInput(name) {
           event.preventDefault();
@@ -75,11 +61,15 @@ function orderInputs(){
           var input = document.createElement('input'); // Create input
           var i = document.createElement('i'); // create i 
           var p = document.createElement('p');
+          var inputListPosition = document.createElement('input');
   
           li.classList.add("roundedOrangeInput"); // Add class to parent div
           li.classList.add("bigInput"); // Add class to parent div
-  
           li.setAttribute("draggable", "true");
+
+          inputListPosition.name = 'inputListPosition';
+          inputListPosition.type = 'hidden';
+          inputListPosition.value = name;
   
           input.placeholder = "Ajouter une " + name; // Add placeholder in input
           input.name = "inputQuestionInstruction";
@@ -93,7 +83,9 @@ function orderInputs(){
           i.classList.add("fas"); // Add trash style to i
           i.classList.add("fa-trash-alt"); // Add trash style to i
   
+
           li.appendChild(p);
+          li.appendChild(inputListPosition);
           li.appendChild(input); // Add input to div
           li.appendChild(i);  // Add i to div
   
@@ -110,5 +102,4 @@ function orderInputs(){
         else{
           caller.srcElement.parentNode.remove(); // find the parent div and remove it
         }
-          orderInputs();
       }

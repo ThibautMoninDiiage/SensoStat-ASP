@@ -103,6 +103,7 @@ public class SurveyController : Controller
 
     [HttpPut]
     [Authorize]
+    [ActionName("Survey")]
     public IActionResult Update([FromBody]Survey survey)
     {
         var result = _surveyRepository.UpdateSurvey(survey);
