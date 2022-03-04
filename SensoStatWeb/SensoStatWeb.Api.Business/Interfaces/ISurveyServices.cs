@@ -1,8 +1,9 @@
-﻿using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.Models.Entities;
 
-namespace SensoStatWeb.Repository.Interfaces
+namespace SensoStatWeb.Api.Business.Interfaces
 {
-    public interface ISurveyRepository
+    public interface ISurveyServices
     {
         Task<List<Survey>>? GetAllSurveys();
 
@@ -10,7 +11,7 @@ namespace SensoStatWeb.Repository.Interfaces
 
         Task<Survey>? GetSurveyByUserId(int userId);
 
-        Task<Survey>? CreateSurvey(Survey survey);
+        Task<Survey>? CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
 
         Task<Survey>? UpdateSurvey(Survey survey);
 

@@ -17,11 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{EE82DDFA-4A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A3C4059C-1AE5-4809-A923-7D2BC03EDCF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoStatWeb.Repository", "SensoStatWeb.Repository\SensoStatWeb.Repository.csproj", "{E8CF303D-14A8-4996-B42B-A7C89E600E00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensoStatWeb.Repository", "SensoStatWeb.Repository\SensoStatWeb.Repository.csproj", "{E8CF303D-14A8-4996-B42B-A7C89E600E00}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{56FF328C-6007-4C22-BA87-98206CF28769}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoStatWeb.xUnit", "SensoStatWeb.xUnit\SensoStatWeb.xUnit.csproj", "{4E3269B2-5279-49E7-8878-4B647F863793}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensoStatWeb.xUnit", "SensoStatWeb.xUnit\SensoStatWeb.xUnit.csproj", "{4E3269B2-5279-49E7-8878-4B647F863793}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoStatWeb.Api.Business", "SensoStatWeb.Api.Business\SensoStatWeb.Api.Business.csproj", "{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{4E3269B2-5279-49E7-8878-4B647F863793}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E3269B2-5279-49E7-8878-4B647F863793}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E3269B2-5279-49E7-8878-4B647F863793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{BA0152E0-A05E-4485-A41C-97724329BA95} = {A3C4059C-1AE5-4809-A923-7D2BC03EDCF4}
 		{E8CF303D-14A8-4996-B42B-A7C89E600E00} = {EE82DDFA-4A2E-4F6B-83BF-CEF3035E8A91}
 		{4E3269B2-5279-49E7-8878-4B647F863793} = {56FF328C-6007-4C22-BA87-98206CF28769}
+		{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719} = {EE82DDFA-4A2E-4F6B-83BF-CEF3035E8A91}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {812E8BF4-26A2-4071-A256-9CC4C2D2D29A}

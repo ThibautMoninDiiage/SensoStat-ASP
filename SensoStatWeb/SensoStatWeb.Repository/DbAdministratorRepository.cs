@@ -16,12 +16,12 @@ namespace SensoStatWeb.Repository
             _jwtService = jwtService; 
         }
 
-        public Administrator GetAdministrator(int id)
+        public async Task<Administrator>? GetAdministrator(int id)
         {
             return _context.Administrators.FirstOrDefault(a => a.Id == id);
         }
 
-        public AdministratorTokenDTODown Login(string username, string password)
+        public async Task<AdministratorTokenDTODown>? Login(string username, string password)
         {
             var admin = _context.Administrators.FirstOrDefault(a => a.UserName == username && a.Password == password);
             var token = _jwtService.generateJwtToken(admin);

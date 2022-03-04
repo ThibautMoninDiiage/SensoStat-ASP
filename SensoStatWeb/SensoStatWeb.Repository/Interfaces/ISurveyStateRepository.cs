@@ -1,11 +1,10 @@
-﻿using System;
-using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.Entities;
 
 namespace SensoStatWeb.Repository.Interfaces
 {
 	public interface ISurveyStateRepository
 	{
-		public Task<SurveyState> GetSurveyState(int id);
+		Task<SurveyState>? GetSurveyState(int id);
 	}
 }
 

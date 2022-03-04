@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
@@ -17,9 +16,9 @@ public class UserController : Controller
 
 
     [HttpGet]
-    public IActionResult User([FromQuery]int id)
+    public async Task<IActionResult> User([FromQuery]int id)
     {
-        var result = _userRepository.CreateUrl(id);
+        var result =await _userRepository.CreateUrl(id);
         return Ok(result);
     }
 }

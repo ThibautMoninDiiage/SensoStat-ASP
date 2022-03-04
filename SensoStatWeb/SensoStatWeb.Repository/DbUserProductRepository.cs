@@ -3,14 +3,14 @@ using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Repository
 {
-    public class DbUserProductRepository : IUserProductRepository
+    public class UUserProductRepository : IUserProductRepository
     {
         private readonly SensoStatDbContext _context;
-        public DbUserProductRepository(SensoStatDbContext context)
+        public UUserProductRepository(SensoStatDbContext context)
         {
             _context = context;
         }
-        public async Task<UserProduct> CreateUserProduct(UserProduct userProduct)
+        public async Task<UserProduct>? CreateUserProduct(UserProduct userProduct)
         {
             _context.UserProducts.Add(userProduct);
             _context.SaveChanges();

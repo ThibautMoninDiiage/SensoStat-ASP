@@ -1,10 +1,9 @@
-﻿using System;
-using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.Entities;
 
-namespace SensoStatWeb.Repository.Interfaces
+namespace SensoStatWeb.Api.Business.Interfaces
 {
-	public interface IInstructionRepository
-	{
+    public interface IInstructionServices
+    {
         Task<List<Instruction>>? GetAllInstructions();
 
         Task<Instruction>? CreateInstruction(Instruction instruction);
@@ -12,4 +11,3 @@ namespace SensoStatWeb.Repository.Interfaces
         Task<bool>? DeleteInstruction(int id);
     }
 }
-
