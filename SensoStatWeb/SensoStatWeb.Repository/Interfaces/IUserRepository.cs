@@ -10,6 +10,8 @@ namespace SensoStatWeb.Repository.Interfaces
 		public Task<User> CreateUser(User user);
 
 		public Task<List<User>> GetUsers();
+
+		public Task<List<User>> CreateUrl(int id);
 	}
 }
 
