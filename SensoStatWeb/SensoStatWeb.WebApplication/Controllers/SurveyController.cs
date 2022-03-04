@@ -143,21 +143,21 @@ namespace SensoStatWeb.WebApplication.Controllers
                 }
             }
 
-            var updatedSurvey = new Survey()
+            var baseSurvey = await _surveyService.GetSurvey(survey.Id, HttpContext.Request.Cookies["Token"]);
+
+
+
+            var surveyToUpdate = new Survey()
             {
                 Id = survey.Id,
-                Name = survey.Name,
-                Instructions = instructions,
-                Questions = questions,
-                
+                Name = survey.Name
             };
 
-            await _surveyService.UpdateSurvey(updatedSurvey, HttpContext.Request.Cookies["Token"]);
+            surveyToUpdate.Instructions = instructions.Where(i => !baseSurvey.Instructions.Any(x => x.Libelle == i.Libelle)).ToList();
+            surveyToUpdate.Questions = questions.Where(q => !baseSurvey.Questions.Any(x => x.Libelle == q.Libelle)).ToList();
 
-            // UPDATE the survey in the api
 
-             // var resultCreation = await _surveyService.CreateSurvey(survey);
-
+            var resultCreation = await _surveyService.UpdateSurvey(surveyToUpdate, HttpContext.Request.Cookies["Token"]);
 
             return RedirectToAction("index", "surveys");
         }
