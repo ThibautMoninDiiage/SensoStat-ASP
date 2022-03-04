@@ -152,7 +152,7 @@ namespace SensoStatWeb.WebApplication.Controllers
                 
             };
 
-            await _surveyService.UpdateSurvey(updatedSurvey);
+            await _surveyService.UpdateSurvey(updatedSurvey, HttpContext.Request.Cookies["Token"]);
 
             // UPDATE the survey in the api
 
