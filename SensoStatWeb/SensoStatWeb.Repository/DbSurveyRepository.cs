@@ -72,17 +72,33 @@ namespace SensoStatWeb.Repository
 
         public async Task<Survey> UpdateSurvey(Survey survey)
         {
-            _context.Surveys.Update(survey);
-            var result = _context.Surveys.Where(s => s.Equals(survey));
-            if (result == null)
+            try
             {
-                return null;
+                var surveyDb = _context.Surveys?.Include(s => s.Questions).Include(s => s.Instructions).FirstOrDefault(s => s.Id == survey.Id);
+
+                // Check if the survey exist in database
+                if (surveyDb != null)
+                {
+                    // If the questions of the survey are modified
+                    if (!surveyDb.Questions.SequenceEqual(survey.Questions))
+                        surveyDb.Questions = survey.Questions;
+
+                    if (!surveyDb.Instructions.SequenceEqual(survey.Instructions))
+                        surveyDb.Instructions = survey.Instructions;
+
+
+                    // _context.Surveys.Update(survey);
+
+                    _context.SaveChanges();
+                    return surveyDb;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                _context.SaveChanges();
-                return result.FirstOrDefault();
+                Console.WriteLine(ex);
             }
+
+            return null;
         }
     }
 }
