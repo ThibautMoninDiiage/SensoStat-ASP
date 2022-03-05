@@ -7,13 +7,14 @@ namespace SensoStatWeb.Models.Entities
     public class UserProduct
     {
         [Key]
+        public int Id { get; set; }
         public string? UserId { get; set; }
         [ForeignKey("UserId")]
         public User? User { get; set; }
-        [Key]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product? Product { get; set; } 
         public int Position { get; set; }
+        public Survey? Survey { get; set; }
     }
 }

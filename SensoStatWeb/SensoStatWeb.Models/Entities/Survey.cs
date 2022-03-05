@@ -35,5 +35,6 @@ namespace SensoStatWeb.Models.Entities
         public List<Instruction>? Instructions { get; set; }
 
         public List<Product>? Products { get; set; }
+        public List<UserProduct>? UserProducts { get; set; }
     }
 }
