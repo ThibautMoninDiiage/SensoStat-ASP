@@ -55,7 +55,7 @@ if (connexion == "")
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
 //context.Database.EnsureDeleted();
-context.Database.EnsureCreated();
+//context.Database.EnsureCreated();
 
 #endregion
 
