@@ -20,7 +20,7 @@ namespace SensoStatWeb.Api.Business
             List<Product> createdProducts = new List<Product>();
             foreach (var product in products)
             {
-                product.Survey = await _surveyRepository.GetSurvey(survey.Id);
+                product.Survey = survey;
                 product.UserProducts = new List<UserProduct>();
                 createdProducts.Add(await _productRepository.CreateProduct(product));
             }
