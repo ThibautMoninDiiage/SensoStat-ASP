@@ -34,6 +34,7 @@ namespace SensoStatWeb.Repository
 
         public async Task<bool>? DeleteSurvey(int id)
         {
+            // GET THE SURVEY
             var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
 
             // INSTRUCTIONS
@@ -60,9 +61,11 @@ namespace SensoStatWeb.Repository
             var deleteUsers = _context.Users.Where(u => u.SurveyId == deleteSurvey.Id).ToList();
             _context.Users.RemoveRange(deleteUsers);
 
+            // DELETE THE SURVEY
             _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
 
+            // LOOKI IF THE SURVEY ALWAYS EXISTS
             var result = _context.Surveys.Where(s => s.Equals(deleteSurvey)).SingleOrDefault();
             if (result == null)
             {
