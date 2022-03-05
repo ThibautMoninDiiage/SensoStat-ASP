@@ -73,3 +73,28 @@ ul li i{
         margin-top:10px;
     }
 }
+
+.newBienvenue {
+    margin-top: 10px;
+    width: 100vw;
+}
+
+.newInstQuest {
+    width: 48%;
+}
+
+@media screen and (max-width: 1200px) {
+    .newInstQuest {
+        width: 47%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .newInstQuest {
+        width: 100vw;
+    }
+}
+
+
+
+
