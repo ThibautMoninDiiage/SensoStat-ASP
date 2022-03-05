@@ -11,10 +11,12 @@
   new window.alert(alerte);
 }
 
-function deleteSurvey(id) {
+async function deleteSurvey(id) {
   console.log(id);
 
-  fetch("https://localhost:7290/Survey/DeleteSurvey?id=" + id, { method: 'DELETE' });
+    await fetch("https://localhost:7290/surveys/DeleteSurvey?id=" + id, { method: 'DELETE' });
+
+    window.location.reload();
 
   enableWindow();
 }

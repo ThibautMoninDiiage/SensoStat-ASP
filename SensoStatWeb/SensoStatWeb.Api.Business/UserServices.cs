@@ -30,7 +30,7 @@ namespace SensoStatWeb.Api.Business
                 user.Answers = new List<Answer>();
                 user.Code = user.Code;
                 user.UserProducts = new List<UserProduct>();
-                user.Survey = await _surveyServices.GetSurvey(survey.Id);
+                user.Survey = survey;
                 createdUsers.Add(await _userRepository.CreateUser(user));
             }
             return createdUsers;
