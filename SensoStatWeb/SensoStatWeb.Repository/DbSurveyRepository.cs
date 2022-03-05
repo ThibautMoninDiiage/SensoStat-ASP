@@ -27,9 +27,38 @@ namespace SensoStatWeb.Repository
 
         public async Task<bool>? DeleteSurvey(int id)
         {
+            // GET THE SURVEY
             var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
+
+            // INSTRUCTIONS
+            var deleteInstructions = _context.Instructions.Where(i => i.SurveyId == deleteSurvey.Id).ToList();
+            _context.Instructions.RemoveRange(deleteInstructions);
+
+            // ANSWERS
+            var deleteAnswers = _context.Answers.Where(a => a.Question.SurveyId == deleteSurvey.Id).ToList();
+            _context.Answers.RemoveRange(deleteAnswers);
+
+            // QUESTIONS
+            var deleteQuestion = _context.Questions.Where(q => q.SurveyId == deleteSurvey.Id).ToList();
+            _context.Questions.RemoveRange(deleteQuestion);
+
+            // USER PRODUCTS
+            var deleteUserProducts = _context.UserProducts.Where(u => u.Product.SurveyId == deleteSurvey.Id).ToList();
+            _context.UserProducts.RemoveRange(deleteUserProducts);
+
+            // PRODUCTS
+            var deleteProducts = _context.Products.Where(p => p.SurveyId == deleteSurvey.Id).ToList();
+            _context.Products.RemoveRange(deleteProducts);
+
+            // USERS
+            var deleteUsers = _context.Users.Where(u => u.SurveyId == deleteSurvey.Id).ToList();
+            _context.Users.RemoveRange(deleteUsers);
+
+            // DELETE THE SURVEY
             _context.Surveys.Remove(deleteSurvey);
             _context.SaveChanges();
+
+            // LOOK IF THE SURVEY ALWAYS EXISTS
             var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
             return result == null ? true : false;
         }

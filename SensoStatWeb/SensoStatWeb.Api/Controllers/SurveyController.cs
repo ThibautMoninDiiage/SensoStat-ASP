@@ -67,10 +67,17 @@ public class SurveyController : Controller
     [HttpDelete]
     [Authorize]
     [ActionName("Survey")]
-    public async Task<IActionResult> SurveyDelete(int id)
+    public IActionResult Survey([FromQuery]int id)
     {
-        var result = await _surveyServices.DeleteSurvey(id);
-        return result != true ? Ok(result) : NotFound();
+        var result = _surveyRepository.DeleteSurvey(id);
+        if(result.Result != true)
+        {
+            return Ok(result.Result);
+        }
+        else
+        {
+            return NotFound();
+        }
     }
 
     [HttpGet("UserId")]
@@ -81,5 +88,4 @@ public class SurveyController : Controller
         var result =await _surveyServices.GetSurvey(userId);
         return result == null ? NotFound() : Ok(result);
     }
-
 }

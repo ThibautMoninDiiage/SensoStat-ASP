@@ -30,7 +30,6 @@ namespace SensoStatWeb.WebApplication.Services
             return survey;
         }
 
-
         public Task<bool> DeleteSurvey(int surveyId, string token = "")
         {
             throw new NotImplementedException();
@@ -48,6 +47,12 @@ namespace SensoStatWeb.WebApplication.Services
         {
             var result = await _httpService.SendHttpRequest<SurveyCreationDTODown>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, surveyCreationDTODown,token);
             return result;
+        }
+
+        public async Task<bool> DeleteSurvey(int id)
+        {
+            var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?id={id}", HttpMethod.Delete);
+            return deletedSurvey == null;
         }
     }
 }

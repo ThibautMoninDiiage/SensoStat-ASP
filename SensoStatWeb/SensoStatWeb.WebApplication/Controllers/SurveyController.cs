@@ -112,6 +112,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
+        
         public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, List<string> inputListPosition)
         {
             var questions = new List<Question>();
@@ -185,6 +186,13 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             return RedirectToAction("index", "surveys");
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSurvey(int id)
+        {
+            var deletedSurvey = await _surveyService.DeleteSurvey(id);
+
+            return RedirectToAction("Index", "surveys");
+        }
     }
 }
-
