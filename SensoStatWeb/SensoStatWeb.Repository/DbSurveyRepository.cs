@@ -42,10 +42,7 @@ namespace SensoStatWeb.Repository
 
             // ANSWERS
             var deleteAnswers = _context.Answers.Where(a => a.Question.SurveyId == deleteSurvey.Id).ToList();
-            if(deleteAnswers.Count != null)
-            {
-                _context.Answers.RemoveRange(deleteAnswers);
-            }
+            _context.Answers.RemoveRange(deleteAnswers);
 
             // QUESTIONS
             var deleteQuestion = _context.Questions.Where(q => q.SurveyId == deleteSurvey.Id).ToList();
