@@ -19,7 +19,10 @@ namespace SensoStatWeb.Api.Business
             foreach (var userProduct in userProducts)
             {
                 userProduct.User = users.Where(u => u.Id == userProduct.User.Code + survey.Id).FirstOrDefault();
+                userProduct.UserId = userProduct.User.Id;
                 userProduct.Product = products.FirstOrDefault(p => p.Code == userProduct.Product.Code);
+                userProduct.ProductId = userProduct.Product.Id;
+                userProduct.Survey = survey;
                 await _userProductRepository.CreateUserProduct(userProduct);
             }
             return createdUserProducts;
