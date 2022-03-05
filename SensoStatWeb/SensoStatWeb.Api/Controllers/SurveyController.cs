@@ -67,17 +67,11 @@ public class SurveyController : Controller
     [HttpDelete]
     [Authorize]
     [ActionName("Survey")]
-    public IActionResult Survey([FromQuery]int id)
+    public async Task<IActionResult> Delete([FromQuery]int id)
     {
-        var result = _surveyRepository.DeleteSurvey(id);
-        if(result.Result != true)
-        {
-            return Ok(result.Result);
-        }
-        else
-        {
-            return NotFound();
-        }
+        var result = _surveyServices.DeleteSurvey(id);
+
+        return await result == false ? NotFound() : Ok(result);
     }
 
     [HttpGet("UserId")]

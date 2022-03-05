@@ -41,8 +41,7 @@ namespace SensoStatWeb.Api.Business
 
         public async Task<bool>? DeleteSurvey(int id)
         {
-            bool result = await _surveyRepository.DeleteSurvey(id);
-            return result;
+            return await _surveyRepository.DeleteSurvey(id);
         }
 
         public async Task<List<Survey>>? GetAllSurveys()
