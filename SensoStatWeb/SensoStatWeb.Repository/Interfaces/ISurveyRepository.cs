@@ -14,6 +14,12 @@ namespace SensoStatWeb.Repository.Interfaces
 
         Task<Survey> UpdateSurvey(Survey survey);
 
+        /// <summary>
+        /// Method used to delete a survey.
+        /// We're deleting : Instructions - Answers - Questions - UserProducts - Products - Users associated to it from the DbContext
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
         Task<bool> DeleteSurvey(int id);
     }
 }
