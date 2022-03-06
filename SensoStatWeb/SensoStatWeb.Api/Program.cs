@@ -115,7 +115,6 @@ builder.Services.AddScoped<IUserProductServices, UserProductServices>();
 #endregion
 
 #region Database / DbContext
-
 string connexion = "";
 
 #if DEBUG
