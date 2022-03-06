@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 using Moq;
-using SensoStatWeb.Repository.Interfaces;
+using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.Entities;
 using System.Collections.Generic;
 using SensoStatWeb.Api.Controllers;
@@ -14,7 +14,7 @@ namespace SensoStatWeb.xUnit
         #region Variables
 
         private readonly Mock<SensoStatDbContext> _dbContext = new();
-        public Mock<IInstructionRepository> instructionMock = new Mock<IInstructionRepository>();
+        public Mock<IInstructionServices> instructionMock = new Mock<IInstructionServices>();
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace SensoStatWeb.xUnit
 
             #region Act
 
-            var result = ((OkObjectResult)instructionController.Instruction(instruction)).Value;
+            var result = instructionController.Instruction(instruction);
 
             #endregion
 
