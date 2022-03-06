@@ -4,16 +4,22 @@ namespace SensoStatWeb.Repository.Interfaces
 {
     public interface ISurveyRepository
     {
-        List<Survey> GetAllSurveys();
+        Task<List<Survey>>? GetAllSurveys();
 
-        public Survey GetSurvey(int id);
+        Task<Survey>? GetSurvey(int id);
 
-        public Survey GetSurveyByUserId(int userId);
+        Task<Survey>? GetSurveyByUserId(int userId);
 
-        Task<Survey> CreateSurvey(Survey survey);
+        Task<Survey>? CreateSurvey(Survey survey);
 
-        Task<Survey> UpdateSurvey(Survey survey);
+        Task<Survey>? UpdateSurvey(Survey survey);
 
-        Task<bool> DeleteSurvey(int id);
+        /// <summary>
+        /// Method used to delete a survey.
+        /// We're deleting : Instructions - Answers - Questions - UserProducts - Products - Users associated to it from the DbContext
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true or false</returns>
+        Task<bool>? DeleteSurvey(int id);
     }
 }

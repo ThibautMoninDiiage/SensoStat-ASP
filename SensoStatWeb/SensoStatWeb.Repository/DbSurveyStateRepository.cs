@@ -1,5 +1,4 @@
-﻿using System;
-using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Repository
@@ -12,7 +11,7 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public async Task<SurveyState> GetSurveyState(int id)
+        public async Task<SurveyState>? GetSurveyState(int id)
         {
             return _context.SurveyStates.FirstOrDefault(u => u.Id == id);
         }

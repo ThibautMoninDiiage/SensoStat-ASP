@@ -17,14 +17,14 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public async Task<Product> CreateProduct(Product product)
+        public async Task<Product>? CreateProduct(Product product)
         {
             _context.Products?.Add(product);
             _context.SaveChanges();
             return _context.Products.Where(p => p.Equals(product)).FirstOrDefault();
         }
 
-        public async Task<List<Product>> GetAllProducts()
+        public async Task<List<Product>>? GetAllProducts()
         {
             return _context.Products.ToList();
         }

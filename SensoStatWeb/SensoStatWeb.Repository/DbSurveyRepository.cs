@@ -22,40 +22,62 @@ namespace SensoStatWeb.Repository
             _context.Surveys.Add(survey);
             _context.SaveChanges();
             var result = _context.Surveys.Where(s => s.Equals(survey));
-            if(result == null)
-            {
-                return null;
-            }
-            else
-            {
-                return result.FirstOrDefault();
-            }
+            return result.FirstOrDefault();
         }
 
         public async Task<bool>? DeleteSurvey(int id)
         {
-            var deleteSurvey = _context.Surveys.Where(s => s.Id == id).FirstOrDefault();
-            _context.Surveys.Remove(deleteSurvey);
-            _context.SaveChanges();
-            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
-            if (result == null)
+            // GET THE SURVEY
+            var deleteSurvey = _context.Surveys?.Where(s => s.Id == id).FirstOrDefault();
+
+            try
             {
-                return true;
+                // INSTRUCTIONS
+                var deleteInstructions = _context.Instructions?.Where(i => i.SurveyId == deleteSurvey.Id).ToList();
+                _context.Instructions?.RemoveRange(deleteInstructions);
+
+                // ANSWERS
+                var deleteAnswers = _context.Answers?.Where(a => a.Question.SurveyId == deleteSurvey.Id).ToList();
+                _context.Answers?.RemoveRange(deleteAnswers);
+
+                // QUESTIONS
+                var deleteQuestion = _context.Questions?.Where(q => q.SurveyId == deleteSurvey.Id).ToList();
+                _context.Questions?.RemoveRange(deleteQuestion);
+
+                // USER PRODUCTS
+                var deleteUserProducts = _context.UserProducts?.Where(u => u.Product.SurveyId == deleteSurvey.Id).ToList();
+                _context.UserProducts?.RemoveRange(deleteUserProducts);
+
+                // PRODUCTS
+                var deleteProducts = _context.Products?.Where(p => p.SurveyId == deleteSurvey.Id).ToList();
+                _context.Products?.RemoveRange(deleteProducts);
+
+                // USERS
+                var deleteUsers = _context.Users?.Where(u => u.SurveyId == deleteSurvey.Id).ToList();
+                _context.Users?.RemoveRange(deleteUsers);
+
+                // DELETE THE SURVEY
+                _context.Surveys?.Remove(deleteSurvey);
+                _context.SaveChanges();
+
+                // LOOK IF THE SURVEY ALWAYS EXISTS
             }
-            else
+            catch (Exception ex)
             {
-                return false;
+                Console.WriteLine(ex);
             }
+            var result = _context.Surveys?.Where(s => s.Equals(deleteSurvey));
+
+            return result == null ? true : false;
         }
 
-        public List<Survey> GetAllSurveys()
+        public async Task<List<Survey>>? GetAllSurveys()
         {
             return _context.Surveys.ToList();
         }
 
-        public Survey GetSurvey(int id)
+        public async Task<Survey>? GetSurvey(int id)
         {
-
             var survey = _context.Surveys
                 .Include(s => s.SurveyState)
                 .Include(s => s.Instructions)
@@ -65,24 +87,40 @@ namespace SensoStatWeb.Repository
             return survey;
         }
 
-        public Survey GetSurveyByUserId(int userId)
+        public async Task<Survey>? GetSurveyByUserId(int userId)
         {
             return _context.Users.Where(u => u.Id == userId.ToString()).Select(u => u.Survey).FirstOrDefault();
         }
 
-        public async Task<Survey> UpdateSurvey(Survey survey)
+        public async Task<Survey>? UpdateSurvey(Survey survey)
         {
-            _context.Surveys.Update(survey);
-            var result = _context.Surveys.Where(s => s.Equals(survey));
-            if (result == null)
+            try
             {
-                return null;
+                var surveyDb = _context.Surveys?.Include(s => s.Questions).Include(s => s.Instructions).FirstOrDefault(s => s.Id == survey.Id);
+
+                // Check if the survey exist in database
+                if (surveyDb != null)
+                {
+                    // If the questions of the survey are modified
+                    if (!surveyDb.Questions.SequenceEqual(survey.Questions))
+                        surveyDb.Questions = survey.Questions;
+
+                    if (!surveyDb.Instructions.SequenceEqual(survey.Instructions))
+                        surveyDb.Instructions = survey.Instructions;
+
+
+                    // _context.Surveys.Update(survey);
+
+                    _context.SaveChanges();
+                    return surveyDb;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                _context.SaveChanges();
-                return result.FirstOrDefault();
+                Console.WriteLine(ex);
             }
+
+            return null;
         }
     }
 }

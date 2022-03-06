@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
-using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
@@ -8,24 +8,25 @@ namespace SensoStatWeb.Api.Controllers;
 
 public class LoginController : Controller
 {
-    public IAdministratorRepository _administrationRepository;
+    public IAdministratorServices _administratorServices;
 
-    public LoginController(IAdministratorRepository administratorRepository)
+    public LoginController(IAdministratorServices administratorServices)
     {
-        _administrationRepository = administratorRepository;
+        _administratorServices = administratorServices;
     }
 
     // GET: LoginController
     [HttpGet]
-    public IActionResult Get([FromQuery] string login, [FromQuery] string password)
+    public async Task<IActionResult> Get([FromQuery] string login, [FromQuery] string password)
     {
         if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password)) return BadRequest();
-        var admin = _administrationRepository.Login(login,password);
-        if (admin == null) return NotFound();
-        return Ok(new AdministratorTokenDTODown
-        {
-            Administrator = admin.Administrator,
-            Token = admin.Token,
-        });
+        var admin =await _administratorServices.Login(login,password);
+        return admin == null ? NotFound() : Ok(
+            new AdministratorTokenDTODown
+            {
+                Administrator = admin.Administrator,
+                Token = admin.Token,
+            }
+        );
     }
 }

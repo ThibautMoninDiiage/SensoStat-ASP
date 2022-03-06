@@ -1,46 +1,34 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
-using SensoStatWeb.Repository.Interfaces;
-using System.Linq;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class SurveyController : Controller
 {
-    private readonly ISurveyRepository _surveyRepository;
-    private readonly IAdministratorRepository _administratorRepository;
-    private readonly IUserRepository _userRepository;
-    private readonly ISurveyStateRepository _surveyStateRepository;
-    private readonly IProductRepository _productRepository;
-    private readonly IUserProductRepository _userProductRepository;
+    private readonly ISurveyServices _surveyServices;
+    private readonly IUserServices _userServices;
+    private readonly IProductServices _productServices;
+    private readonly IUserProductServices _userProductServices;
 
-    public SurveyController(ISurveyRepository surveyRepository, IAdministratorRepository administratorRepository, IUserRepository userRepository, ISurveyStateRepository surveyStateRepository, IProductRepository productRepository, IUserProductRepository userProductRepository)
+    public SurveyController(ISurveyServices surveyServices, IUserServices userServices, IProductServices productServices, IUserProductServices userProductServices)
     {
-        _surveyRepository = surveyRepository;
-        _administratorRepository = administratorRepository;
-        _userRepository = userRepository;
-        _surveyStateRepository = surveyStateRepository;
-        _productRepository = productRepository;
-        _userProductRepository = userProductRepository;
+        _surveyServices = surveyServices;
+        _userServices = userServices;
+        _productServices = productServices;
+        _userProductServices = userProductServices;
     }
 
     [HttpGet]
     [Authorize]
-    public IActionResult Survey(int surveyId = 0)
+    public async Task<IActionResult> Survey(int surveyId = 0)
     {
         try
         {
-            if (surveyId == 0)
-            {
-                return Ok(_surveyRepository.GetAllSurveys());
-            }
-            else
-            {
-                return Ok(_surveyRepository.GetSurvey(surveyId));
-            }
+            return surveyId == 0 ? Ok(await _surveyServices.GetAllSurveys()) : Ok(await _surveyServices.GetSurvey(surveyId));
         }
         catch(Exception ex)
         {
@@ -54,99 +42,44 @@ public class SurveyController : Controller
     [Authorize]
     public async Task<IActionResult> Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
-        var survey = new Survey()
-        {
-            Name = surveyCreationDTODown.Name,
-            CreatorId = 1,
-            Administrator = _administratorRepository.GetAdministrator(1),
-            CreationDate = DateTime.Now,
-            SurveyState = await _surveyStateRepository.GetSurveyState(1),
-            StateId = 1,
-            Users = new List<User>(),
-            Instructions = new List<Instruction>(),
-            Questions = new List<Question>(),
-            Products = new List<Product>(),
-        };
 
-        var result = await _surveyRepository.CreateSurvey(survey);
+        var createdSurvey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
 
-        foreach (var userProduct in surveyCreationDTODown.Users)
-        {
-            userProduct.Id = userProduct.Code + result.Id;
-            userProduct.Answers = new List<Answer>();
-            userProduct.Code = userProduct.Code;
-            userProduct.UserProducts = new List<UserProduct>();
-            userProduct.Survey = _surveyRepository.GetSurvey(result.Id);
-            await _userRepository.CreateUser(userProduct);
-        }
+        var createdUsers = await _userServices.CreateUsers(surveyCreationDTODown.Users,createdSurvey);
 
-        foreach (var userProduct in surveyCreationDTODown.Products)
-        {
-            userProduct.Survey = _surveyRepository.GetSurvey(result.Id);
-            userProduct.UserProducts = new List<UserProduct>();
-            await _productRepository.CreateProduct(userProduct);
-        }
+        var createdProducts = await _productServices.CreateProducts(surveyCreationDTODown.Products,createdSurvey);
 
-        var users = await _userRepository.GetUsers();
-        var products = await _productRepository.GetAllProducts();
+        var createdUserProduct = await _userProductServices.CreateUserProducts(surveyCreationDTODown.UserProducts,createdSurvey,createdUsers,createdProducts);
 
-        foreach (var userProduct in surveyCreationDTODown.UserProducts)
-        {
-            userProduct.User = users.Where(u => u.Id == userProduct.User.Code + result.Id).FirstOrDefault();
-            userProduct.Product = products.FirstOrDefault(p => p.Code == userProduct.Product.Code);
-            await _userProductRepository.CreateUserProduct(userProduct);
-        }
-
-
-        return result == null ? NotFound() : Ok(result);
+        return createdSurvey == null ? NotFound() : Ok(createdSurvey);
     }
 
     [HttpPut]
     [Authorize]
-    public IActionResult Update([FromBody]Survey survey)
+    [ActionName("Survey")]
+    public async Task<IActionResult> Update([FromBody] Survey survey)
     {
-        var result = _surveyRepository.UpdateSurvey(survey);
-        if (result == null)
-        {
-            return NotFound();
-        }
-        else
-        {
-            return Ok(result);
-        }
+        var result = await _surveyServices.UpdateSurvey(survey);
+
+        return result == null ? NotFound() : Ok(result);
     }
 
     [HttpDelete]
     [Authorize]
     [ActionName("Survey")]
-    public IActionResult SurveyDelete(int id)
+    public async Task<IActionResult> Delete([FromQuery]int id)
     {
-        var result = _surveyRepository.DeleteSurvey(id);
-        if(result.Result != true)
-        {
-            return Ok(result.Result);
-        }
-        else
-        {
-            return NotFound();
-        }
+        var result = _surveyServices.DeleteSurvey(id);
+
+        return await result == false ? NotFound() : Ok(result);
     }
 
     [HttpGet("UserId")]
     [ActionName("Survey")]
     [Authorize]
-    public IActionResult GetSurveyByUserId([FromRoute] int userId)
+    public async Task<IActionResult> GetSurveyByUserId([FromRoute] int userId)
     {
-        var result = _surveyRepository.GetSurvey(userId);
-
-        if (result == null)
-        {
-            return NotFound();
-        }
-        else
-        {
-            return Ok(result);
-        }
+        var result =await _surveyServices.GetSurvey(userId);
+        return result == null ? NotFound() : Ok(result);
     }
-
 }

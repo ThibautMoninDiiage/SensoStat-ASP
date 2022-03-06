@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Business;
+using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Api.Business;
 
 #region Builder
 
@@ -87,6 +89,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 #region IOC
 
+//Injection de dépendances pour les repository
 builder.Services.AddScoped<IAdministratorRepository, DbAdministratorRepository>();
 builder.Services.AddScoped<ISurveyRepository, DbSurveyRepository>();
 builder.Services.AddScoped<IInstructionRepository, DbInstructionRepository>();
@@ -94,32 +97,40 @@ builder.Services.AddScoped<IQuestionRepository, DbQuestionRepository>();
 builder.Services.AddScoped<IUserRepository, DbUserRepository>();
 builder.Services.AddScoped<ISurveyStateRepository, DbSurveyStateRepository>();
 builder.Services.AddScoped<IProductRepository, DbProductRepository>();
-builder.Services.AddScoped<IUserProductRepository, DbUserProductRepository>();
+builder.Services.AddScoped<IUserProductRepository, UUserProductRepository>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+
+//Injection de dépendances pour les services
+builder.Services.AddScoped<IAdministratorServices, AdministratorServices>();
+builder.Services.AddScoped<ISurveyServices, SurveyServices>();
+builder.Services.AddScoped<IInstructionServices, InstructionServices>();
+builder.Services.AddScoped<IQuestionServices, QuestionServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<ISurveyStateServices, SurveyStateServices>();
+builder.Services.AddScoped<IProductServices, ProductServices>();
+builder.Services.AddScoped<IUserProductServices, UserProductServices>();
+
 
 #endregion
 
 #region Database / DbContext
+string connexion = "";
 
-//string connexion = "";
+#if DEBUG
 
-//#if DEBUG
+connexion = builder.Configuration.GetConnectionString("sqlAzure");
+builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
 
-//connexion = builder.Configuration.GetConnectionString("local");
-//builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
+#endif
 
-//#endif
+if (connexion == "")
+{
+    //connexion = builder.Configuration.GetConnectionString("sqlAzure");
+    connexion = Environment.GetEnvironmentVariable("CUSTOMCONNSTR_sqlAzure");
+    builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
 
-//if (connexion == "")
-//{
-//    //connexion = builder.Configuration.GetConnectionString("sqlAzure");
-//    connexion = Environment.GetEnvironmentVariable("CUSTOMCONNSTR_sqlAzure");
-//    builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
-
-//}
-
-
-builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer("Server = tcp:sensostatg1.database.windows.net, 1433; Initial Catalog = Sensostat; Persist Security Info=False; User ID = senso; Password = Deviceqrtmtbtdbr1.; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;"));
+}
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
 //context.Database.EnsureDeleted();

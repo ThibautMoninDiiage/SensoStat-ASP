@@ -1,15 +1,16 @@
-﻿using System;
-using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.Entities;
 
 namespace SensoStatWeb.Repository.Interfaces
 {
 	public interface IUserRepository
 	{
-		public Task<User> GetUser(string id);
+		Task<User>? GetUser(string id);
 
-		public Task<User> CreateUser(User user);
+		Task<User>? CreateUser(User user);
 
-		public Task<List<User>> GetUsers();
+		Task<List<User>>? GetUsers();
+
+		Task<List<User>>? CreateUrl(int id);
 	}
 }
 

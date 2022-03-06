@@ -112,17 +112,15 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
-        public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, string? orderInputs)
+        
+        public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, List<string> inputListPosition)
         {
-            // Thanks this list we can know if the current input is an instruction or a question
-            var listPosition = orderInputs?.Substring(1)?.Split(" ").ToList();
-
             var questions = new List<Question>();
             var instructions = new List<Instruction>();
 
             for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
-                if (listPosition?[i - 1] == "question")
+                if (inputListPosition?[i - 1] == "question")
                 {
                     var question = new Question()
                     {
@@ -143,24 +141,50 @@ namespace SensoStatWeb.WebApplication.Controllers
                 }
             }
 
-            var updatedSurvey = new Survey()
+            var baseSurvey = await _surveyService.GetSurvey(survey.Id, HttpContext.Request.Cookies["Token"]);
+
+            var surveyToUpdate = new Survey()
             {
                 Id = survey.Id,
                 Name = survey.Name,
-                Instructions = instructions,
-                Questions = questions,
-                
+                Questions = new List<Question>(),
+                Instructions = new List<Instruction>()
             };
 
-            await _surveyService.UpdateSurvey(updatedSurvey);
 
-            // UPDATE the survey in the api
+            foreach (var question in questions)
+            {
+                var baseQuestion = baseSurvey.Questions?.FirstOrDefault(q => q.Libelle == question.Libelle);
 
-             // var resultCreation = await _surveyService.CreateSurvey(survey);
+                if (baseQuestion != null)
+                {
+                    baseQuestion.Position = question.Position;
+                    surveyToUpdate.Questions?.Add(baseQuestion);
+                }
+                else
+                {
+                    surveyToUpdate.Questions?.Add(question);
+                }
+            }
 
+            foreach (var instruction in instructions)
+            {
+                var baseInstruction = baseSurvey.Instructions?.FirstOrDefault(i => i.Libelle == instruction.Libelle);
+
+                if (baseInstruction != null)
+                {
+                    baseInstruction.Position = instruction.Position;
+                    surveyToUpdate.Instructions?.Add(baseInstruction);
+                }
+                else
+                {
+                    surveyToUpdate.Instructions?.Add(instruction);
+                }
+            }
+
+            var resultCreation = await _surveyService.UpdateSurvey(surveyToUpdate, HttpContext.Request.Cookies["Token"]);
 
             return RedirectToAction("index", "surveys");
         }
     }
 }
-

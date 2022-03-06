@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SensoStatWeb.Business.Commons;
 using SensoStatWeb.Business.Helpers;
 using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.Entities;
@@ -39,6 +40,33 @@ namespace SensoStatWeb.Business
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public List<User> generateJwtTokenForUser(List<User> users)
+        {
+            foreach (var user in users)
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_apiSettings.JwtSecret);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                    new Claim("id", user.Id),
+                    new Claim(ClaimTypes.PrimarySid, user.SurveyId.ToString()),
+                    // Cela va garantir que le token est unique
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                }),
+                    Issuer = _apiSettings.JwtIssuer,
+                    Audience = _apiSettings.JwtAudience,
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                user.Link = Constants.BaseUrlApp + tokenHandler.WriteToken(token);
+            }
+
+            return users;
         }
     }
 }

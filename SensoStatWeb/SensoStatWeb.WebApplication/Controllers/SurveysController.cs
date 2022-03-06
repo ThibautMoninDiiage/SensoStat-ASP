@@ -27,12 +27,15 @@ namespace SensoStatWeb.WebApplication.Controllers
                 Surveys = surveys
             };
 
-            return this.View(model);
+            return this.View("index", model);
         }
 
-        public IActionResult CreateSurvey()
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSurvey(int id)
         {
-            return View("Index");
+            var deletedSurvey = await _surveyService.DeleteSurvey(id, HttpContext.Request.Cookies["Token"]);
+
+            return RedirectToAction("index", "login");
         }
     }
 }
