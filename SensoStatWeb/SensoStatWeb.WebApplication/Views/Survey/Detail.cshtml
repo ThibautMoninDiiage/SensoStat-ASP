@@ -12,7 +12,7 @@
     </div>
 
     <section class="surveyButtons" style="margin-top: 20px; margin-bottom: 20px">
-            <button onclick="addInput('Introduction', 0)" class="orangeRoundedButton doubleButton newBienvenue">Message de bienvenue</button>
+            <button onclick="addInput('Introduction')" class="orangeRoundedButton doubleButton newBienvenue">Message de bienvenue</button>
             <button onclick="addInput('Instruction')" class="orangeRoundedButton doubleButton newInstQuest">Nouvelle instruction</button>
             <button onclick="addInput('Question')" class="orangeRoundedButton doubleButton newInstQuest">Nouvelle question</button>
     </section>
@@ -22,11 +22,15 @@
     <ul id="sortlist">
         @foreach (var questionInstruction in Model.QuestionsInstructions)
         {
-            <li class="roundedOrangeInput bigInput" draggable="true">
+            <li class="roundedOrangeInput bigInput">
                 <input name="inputListPosition" value="@questionInstruction.Title" type="hidden"/>
                 <p style="margin-top:auto;margin-bottom:auto">@questionInstruction.Title : </p>
                 <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" placeholder="Ajouter une @questionInstruction.Title" />
-                <i onclick="deleteInput(this)" name="questionsInstructionsBin" class="fas fa-trash-alt"></i>
+
+                @if (questionInstruction.Title != "Conclusion" && !(questionInstruction.Title == "Introduction" && questionInstruction.Position == 1))
+                {
+                    <i onclick="deleteInput(this)" name="questionsInstructionsBin" class="fas fa-trash-alt"></i>
+                }
             </li>
         }
     </ul>
@@ -48,13 +52,6 @@
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             slist();
-        });
-
-        window.addEventListener('load', function () {
-            addInput('Introduction', 0)
-        });
-        window.addEventListener('load', function () {
-            addInput('Conclusion')
         });
     </script>
 </form>

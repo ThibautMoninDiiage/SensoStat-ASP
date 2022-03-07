@@ -24,6 +24,14 @@ namespace SensoStatWeb.Repository
             return _context.Products.Where(p => p.Equals(product)).FirstOrDefault();
         }
 
+        public async Task<List<Product>> CreateProduct(List<Product> products)
+        {
+            _context.Products.AddRange(products);
+            _context.SaveChanges();
+
+            return products;
+        }
+
         public async Task<List<Product>>? GetAllProducts()
         {
             return _context.Products.ToList();

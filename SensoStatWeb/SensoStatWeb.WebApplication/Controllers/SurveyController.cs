@@ -89,8 +89,8 @@ namespace SensoStatWeb.WebApplication.Controllers
 
                 var questionInstructions = new List<QuestionInstructionWrapper>();
 
-                questionInstructions.AddRange(survey.Instructions.Select(x => new QuestionInstructionWrapper(x)));
-                questionInstructions.AddRange(survey.Questions.Select(x => new QuestionInstructionWrapper(x)));
+                questionInstructions.AddRange(survey.Instructions?.Select(x => new QuestionInstructionWrapper(x)));
+                questionInstructions.AddRange(survey.Questions?.Select(x => new QuestionInstructionWrapper(x)));
 
                 questionInstructions.OrderBy(y => y.Position);
 
@@ -120,7 +120,7 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
-                if (inputListPosition?[i - 1] == "question")
+                if (inputListPosition?[i - 1].ToLower() == "question")
                 {
                     var question = new Question()
                     {
@@ -132,10 +132,23 @@ namespace SensoStatWeb.WebApplication.Controllers
                 }
                 else
                 {
+                    var instructionStatusCode = 1; // Set status to default
+
+                    switch (inputListPosition?[i - 1].ToLower())
+                    {
+                        case "introduction":
+                            instructionStatusCode = 0;
+                            break;
+                        case "conclusion":
+                            instructionStatusCode = 2;
+                            break ;;
+                    }
+
                     var instruction = new Instruction()
                     {
                         Libelle = inputQuestionInstruction[i - 1],
-                        Position = i
+                        Position = i,
+                        Status = instructionStatusCode
                     };
                     instructions.Add(instruction);
                 }

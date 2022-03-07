@@ -17,14 +17,17 @@ namespace SensoStatWeb.Api.Business
 
         public async Task<List<Product>>? CreateProducts(List<Product> products,Survey survey)
         {
-            List<Product> createdProducts = new List<Product>();
-            foreach (var product in products)
-            {
-                product.Survey = survey;
-                product.UserProducts = new List<UserProduct>();
-                createdProducts.Add(await _productRepository.CreateProduct(product));
-            }
-            return createdProducts;
+            // List<Product> createdProducts = new List<Product>();
+            //foreach (var product in products)
+            //{
+            //    product.Survey = survey;
+            //    product.UserProducts = new List<UserProduct>();
+            //    createdProducts.Add(await _productRepository.CreateProduct(product));
+            //}
+
+            products.ForEach(p => p.Survey = survey);
+
+            return await _productRepository.CreateProduct(products);
         }
 
         public async Task<List<Product>>? GetAllProducts()

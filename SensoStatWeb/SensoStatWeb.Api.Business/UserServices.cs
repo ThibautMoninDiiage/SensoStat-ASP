@@ -31,9 +31,9 @@ namespace SensoStatWeb.Api.Business
                 user.Code = user.Code;
                 user.UserProducts = new List<UserProduct>();
                 user.Survey = survey;
-                createdUsers.Add(await _userRepository.CreateUser(user));
             }
-            return createdUsers;
+
+            return await _userRepository.CreateUser(users);
         }
 
         public async Task<List<User>>? GetUsers()
