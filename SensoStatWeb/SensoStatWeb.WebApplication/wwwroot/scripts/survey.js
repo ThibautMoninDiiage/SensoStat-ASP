@@ -65,12 +65,12 @@ function slist() {
 
   }
 
-function addInput(name, position = 1) {
+function addInput(name, position = 1, isDeletable = true) {
   event.preventDefault(); 
   var ul = document.getElementById('sortlist'); // get the list  
-  var li = document.createElement('li'); // Create parent div
+    var li = document.createElement('li'); // Create parent div
+    var i = document.createElement('i'); // create i 
   var input = document.createElement('input'); // Create input
-  var i = document.createElement('i'); // create i 
   var p = document.createElement('p');
   var inputListPosition = document.createElement('input');
 
@@ -85,16 +85,22 @@ function addInput(name, position = 1) {
 
   p.textContent = name + " : ";
   p.style.marginTop = "auto";
-  p.style.marginBottom = "auto";
+    p.style.marginBottom = "auto";
 
-  i.onclick = deleteInput; // When click on i call deleteInput
-  i.classList.add("fas"); // Add trash style to i
-  i.classList.add("fa-trash-alt"); // Add trash style to i
+
+
+
 
   li.appendChild(p);
   li.appendChild(inputListPosition);
-  li.appendChild(input); // Add input to div
-  li.appendChild(i);  // Add i to div
+    li.appendChild(input); // Add input to div
+
+    if (isDeletable) {
+        i.onclick = deleteInput; // When click on i call deleteInput
+        i.classList.add("fas"); // Add trash style to i
+        i.classList.add("fa-trash-alt"); // Add trash style to i
+        li.appendChild(i);  // Add i to div
+    }
   if (position == 1) {
     ul.appendChild(li); // Add div and child to list
   } 
