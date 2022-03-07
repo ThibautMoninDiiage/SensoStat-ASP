@@ -27,7 +27,7 @@
                 <p style="margin-top:auto;margin-bottom:auto">@questionInstruction.Title : </p>
                 <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" placeholder="Ajouter une @questionInstruction.Title" />
 
-                @if (questionInstruction.Title != "Conclusion")
+                @if (questionInstruction.Title != "Conclusion" && !(questionInstruction.Title == "Introduction" && questionInstruction.Position == 1))
                 {
                     <i onclick="deleteInput(this)" name="questionsInstructionsBin" class="fas fa-trash-alt"></i>
                 }
@@ -52,7 +52,6 @@
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             slist();
-            addInput("Introduction");
         });
     </script>
 </form>

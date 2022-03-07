@@ -76,22 +76,12 @@ function addInput(name) {
   var p = document.createElement('p');
   var inputListPosition = document.createElement('input');
 
-  var introdution = ul.childNodes;
-
-  // If there is already an intro input
-  if(introdution){
-
-  }
-
   li.classList.add("roundedOrangeInput"); // Add class to parent div
   li.classList.add("bigInput"); // Add class to parent div
 
-  if(name != "Conclusion" && name != "Introduction"){
+  if(name != "Introduction"){
     li.classList.add("QuestionInstruction"); // Add class to parent div
   }
-
-
-
 
   i.onclick = deleteInput; // When click on i call deleteInput
   i.classList.add("fas"); // Add trash style to i
@@ -111,10 +101,8 @@ function addInput(name) {
   li.appendChild(p);
   li.appendChild(inputListPosition);
   li.appendChild(input); // Add input to div
+  li.appendChild(i);
 
-  if(name != "Conclusion"){
-    li.appendChild(i);  // Add i to div
-  }
 
   // If it's a introduction field
   if(name == 'Introduction'){
@@ -123,9 +111,6 @@ function addInput(name) {
 
       var firstChild = ul.childNodes[0];
       ul.insertBefore(li, firstChild);
-    }
-    else if(name == "Conclusion"){
-      ul.appendChild(li); // Add div and child to list
     }
     else{
       var lastChild = ul.children[ul.children.length - 1];

@@ -34,7 +34,8 @@ namespace SensoStatWeb.Api.Business
                 Products = new List<Product>(),
             };
 
-            survey.Instructions.Add(new Instruction() { Libelle = "Merci de votre participation", Position = 0, Status = 2});
+            survey.Instructions.Add(new Instruction() { Libelle = "Bienvenue à cette séance", Position = 1, Status = 0 });
+            survey.Instructions.Add(new Instruction() { Libelle = "Merci de votre participation", Position = 2, Status = 2});
 
             Survey result = await _surveyRepository.CreateSurvey(survey);
             return result;
