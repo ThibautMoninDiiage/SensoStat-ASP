@@ -12,7 +12,7 @@
     </div>
 
     <section class="surveyButtons" style="margin-top: 20px; margin-bottom: 20px">
-            <button onclick="addInput('Introduction', 0)" class="orangeRoundedButton doubleButton newBienvenue">Message de bienvenue</button>
+            <button onclick="addInput('Introduction')" class="orangeRoundedButton doubleButton newBienvenue">Message de bienvenue</button>
             <button onclick="addInput('Instruction')" class="orangeRoundedButton doubleButton newInstQuest">Nouvelle instruction</button>
             <button onclick="addInput('Question')" class="orangeRoundedButton doubleButton newInstQuest">Nouvelle question</button>
     </section>
@@ -48,13 +48,8 @@
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             slist();
+            addInput("Introduction");
+            addInput("Conclusion");
         });
-
-        //window.addEventListener('load', function () {
-        //    addInput('Introduction', 0, false)
-        //});
-        //window.addEventListener('load', function () {
-        //    addInput('Conclusion', 1, false)
-        //});
     </script>
 </form>

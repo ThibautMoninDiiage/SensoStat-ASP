@@ -1,7 +1,9 @@
 function slist() {
   var target = document.getElementById("sortlist");
   target.classList.add("slist");
-  let items = target.getElementsByTagName("li"),
+  //let items = target.querySelectorAll("li.QuestionInstruction");
+  let items = target.getElementsByTagName("li");
+
     current = null;
 
   var index = 0;
@@ -65,49 +67,70 @@ function slist() {
 
   }
 
-function addInput(name, position = 1, isDeletable = true) {
+function addInput(name) {
   event.preventDefault(); 
-  var ul = document.getElementById('sortlist'); // get the list  
-    var li = document.createElement('li'); // Create parent div
-    var i = document.createElement('i'); // create i 
+  var ul = document.getElementById('sortlist'); // get the list 
+  var i = document.createElement('i'); // create i 
+  var li = document.createElement('li'); // Create parent div
   var input = document.createElement('input'); // Create input
   var p = document.createElement('p');
   var inputListPosition = document.createElement('input');
 
+  var introdution = ul.childNodes;
+
+  // If there is already an intro input
+  if(introdution){
+
+  }
+
   li.classList.add("roundedOrangeInput"); // Add class to parent div
   li.classList.add("bigInput"); // Add class to parent div
-  li.setAttribute("draggable", "true");
+
+  if(name != "Conclusion" && name != "Introduction"){
+    li.classList.add("QuestionInstruction"); // Add class to parent div
+  }
+
+
+
+
+  i.onclick = deleteInput; // When click on i call deleteInput
+  i.classList.add("fas"); // Add trash style to i
+  i.classList.add("fa-trash-alt"); // Add trash style to i
+
   inputListPosition.name = 'inputListPosition';
   inputListPosition.type = 'hidden';
   inputListPosition.value = name;
+
   input.placeholder = "Ajouter une " + name; // Add placeholder in input
   input.name = "inputQuestionInstruction";
 
   p.textContent = name + " : ";
   p.style.marginTop = "auto";
-    p.style.marginBottom = "auto";
-
-
-
-
+  p.style.marginBottom = "auto";
 
   li.appendChild(p);
   li.appendChild(inputListPosition);
-    li.appendChild(input); // Add input to div
+  li.appendChild(input); // Add input to div
 
-    if (isDeletable) {
-        i.onclick = deleteInput; // When click on i call deleteInput
-        i.classList.add("fas"); // Add trash style to i
-        i.classList.add("fa-trash-alt"); // Add trash style to i
-        li.appendChild(i);  // Add i to div
-    }
-  if (position == 1) {
-    ul.appendChild(li); // Add div and child to list
-  } 
-  else {
-    var firstChild = ul.childNodes[0];
-    ul.insertBefore(li, firstChild);
+  if(name != "Conclusion"){
+    li.appendChild(i);  // Add i to div
   }
+
+  // If it's a introduction field
+  if(name == 'Introduction'){
+      // Check if there is already one intruction field
+      // var firstIntroduction = document.querySelector("input[value='Introduction']");
+
+      var firstChild = ul.childNodes[0];
+      ul.insertBefore(li, firstChild);
+    }
+    else if(name == "Conclusion"){
+      ul.appendChild(li); // Add div and child to list
+    }
+    else{
+      var lastChild = ul.childNodes[ul.childNodes.length - 1];
+      ul.insertBefore(li, lastChild); 
+    }
   slist();
 }
 
