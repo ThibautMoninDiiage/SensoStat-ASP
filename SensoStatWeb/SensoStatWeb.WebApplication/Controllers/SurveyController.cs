@@ -120,7 +120,7 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
             {
-                if (inputListPosition?[i - 1] == "question")
+                if (inputListPosition?[i - 1].ToLower() == "question")
                 {
                     var question = new Question()
                     {

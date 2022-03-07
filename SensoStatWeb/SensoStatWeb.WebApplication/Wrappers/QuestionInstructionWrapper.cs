@@ -19,7 +19,7 @@ namespace SensoStatWeb.WebApplication.Wrappers
             Id = instruction.Id;
             Libelle = instruction.Libelle;
             Position = instruction.Position;
-            Title = "instruction";
+            Title = "Instruction";
         }
 
         public QuestionInstructionWrapper(Question question)
@@ -27,7 +27,7 @@ namespace SensoStatWeb.WebApplication.Wrappers
             Id = question.Id;
             Libelle = question.Libelle;
             Position = question.Position;
-            Title = "question";
+            Title = "Question";
         }
     }
 
