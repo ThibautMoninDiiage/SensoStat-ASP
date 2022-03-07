@@ -23,8 +23,10 @@ namespace SensoStatWeb.Api.Business
                 userProduct.Product = products.FirstOrDefault(p => p.Code == userProduct.Product.Code);
                 userProduct.ProductId = userProduct.Product.Id;
                 userProduct.Survey = survey;
-                await _userProductRepository.CreateUserProduct(userProduct);
             }
+
+            await _userProductRepository.CreateUserProduct(userProducts);
+
             return createdUserProducts;
         }
     }

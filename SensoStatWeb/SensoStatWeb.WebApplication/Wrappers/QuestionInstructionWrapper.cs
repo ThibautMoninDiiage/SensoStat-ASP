@@ -19,7 +19,19 @@ namespace SensoStatWeb.WebApplication.Wrappers
             Id = instruction.Id;
             Libelle = instruction.Libelle;
             Position = instruction.Position;
-            Title = "instruction";
+
+            switch (instruction.Status)
+            {
+                case 0:
+                    Title = "Introduction";
+                    break;
+                case 2:
+                    Title = "Conclusion";
+                    break;
+                default:
+                    Title = "Instruction";
+                    break;
+            }
         }
 
         public QuestionInstructionWrapper(Question question)
@@ -27,7 +39,7 @@ namespace SensoStatWeb.WebApplication.Wrappers
             Id = question.Id;
             Libelle = question.Libelle;
             Position = question.Position;
-            Title = "question";
+            Title = "Question";
         }
     }
 

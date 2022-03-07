@@ -12,9 +12,7 @@
 }
 
 async function deleteSurvey(id) {
-  console.log(id);
-
-    await fetch("https://localhost:7290/surveys/DeleteSurvey?id=" + id, { method: 'DELETE' });
+    await fetch(window.location.href + "/DeleteSurvey?id=" + id, { method: 'DELETE' });
 
     window.location.reload();
 

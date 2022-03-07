@@ -16,6 +16,9 @@ namespace SensoStatWeb.Models.Entities
         [JsonIgnore]
         public Survey? Survey { get; set; }
         public int Position { get; set; }
+        // 0 => Start
+        // 1 => Normal
+        // 2 => End
         public int Status { get; set; }
     }
 }
