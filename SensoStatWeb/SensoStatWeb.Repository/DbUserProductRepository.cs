@@ -16,5 +16,13 @@ namespace SensoStatWeb.Repository
             _context.SaveChanges();
             return _context.UserProducts.FirstOrDefault(up => up.Equals(userProduct));
         }
+
+        public async Task<List<UserProduct>>? CreateUserProduct(IEnumerable<UserProduct> userProducts)
+        {
+            _context.UserProducts.AddRange(userProducts);
+            _context.SaveChanges();
+
+            return userProducts.ToList();
+        }
     }
 }

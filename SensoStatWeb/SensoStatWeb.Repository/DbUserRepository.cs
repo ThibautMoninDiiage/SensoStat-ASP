@@ -26,6 +26,13 @@ namespace SensoStatWeb.Repository
             return _context.Users.Where(u => u.Equals(user)).FirstOrDefault();
         }
 
+        public async Task<List<User>> CreateUser(IEnumerable<User> users)
+        {
+            _context.Users.AddRange(users);
+            _context.SaveChanges();
+            return users.ToList();
+        }
+
         public async Task<List<User>>? GetUsers()
         {
             return _context.Users.ToList();
