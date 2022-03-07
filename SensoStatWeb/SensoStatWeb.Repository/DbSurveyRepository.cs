@@ -19,10 +19,17 @@ namespace SensoStatWeb.Repository
 
         public async Task<Survey>? CreateSurvey(Survey survey)
         {
-            _context.Surveys.Add(survey);
-            _context.SaveChanges();
-            var result = _context.Surveys.Where(s => s.Equals(survey));
-            return result.FirstOrDefault();
+            try
+            {
+                _context.Surveys.Add(survey);
+                _context.SaveChanges();
+                return survey;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
 
         public async Task<bool>? DeleteSurvey(int id)
