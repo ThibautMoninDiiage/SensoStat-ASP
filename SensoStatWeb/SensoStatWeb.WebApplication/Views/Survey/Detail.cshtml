@@ -22,7 +22,7 @@
     <ul id="sortlist">
         @foreach (var questionInstruction in Model.QuestionsInstructions)
         {
-            <li class="roundedOrangeInput bigInput" draggable="true">
+            <li class="roundedOrangeInput bigInput">
                 <input name="inputListPosition" value="@questionInstruction.Title" type="hidden"/>
                 <p style="margin-top:auto;margin-bottom:auto">@questionInstruction.Title : </p>
                 <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" placeholder="Ajouter une @questionInstruction.Title" />
