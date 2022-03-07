@@ -128,7 +128,7 @@ function addInput(name) {
       ul.appendChild(li); // Add div and child to list
     }
     else{
-      var lastChild = ul.childNodes[ul.childNodes.length - 1];
+      var lastChild = ul.children[ul.children.length - 1];
       ul.insertBefore(li, lastChild); 
     }
   slist();
