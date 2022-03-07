@@ -26,7 +26,11 @@
                 <input name="inputListPosition" value="@questionInstruction.Title" type="hidden"/>
                 <p style="margin-top:auto;margin-bottom:auto">@questionInstruction.Title : </p>
                 <input value="@questionInstruction.Libelle" name="inputQuestionInstruction" placeholder="Ajouter une @questionInstruction.Title" />
-                <i onclick="deleteInput(this)" name="questionsInstructionsBin" class="fas fa-trash-alt"></i>
+
+                @if (questionInstruction.Title != "Conclusion")
+                {
+                    <i onclick="deleteInput(this)" name="questionsInstructionsBin" class="fas fa-trash-alt"></i>
+                }
             </li>
         }
     </ul>
