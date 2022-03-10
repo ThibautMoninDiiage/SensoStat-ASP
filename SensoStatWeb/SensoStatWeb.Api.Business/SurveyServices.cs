@@ -21,7 +21,7 @@ namespace SensoStatWeb.Api.Business
 
         }
 
-        public async Task<Survey>? CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
+        public async Task<Survey> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
         {
             var survey = new Survey()
             {
@@ -44,37 +44,37 @@ namespace SensoStatWeb.Api.Business
             return result;
         }
 
-        public async Task<bool>? DeleteSurvey(int id)
+        public async Task<bool> DeleteSurvey(int id)
         {
             return await _surveyRepository.DeleteSurvey(id);
         }
 
-        public async Task<bool>? DeploySurvey(int surveyId)
+        public async Task<bool> DeploySurvey(int surveyId)
         {
             var result = await _surveyRepository.DeploySurvey(surveyId);
             var userLink = await _userRepository.CreateUrl(surveyId);
 
-            return result == null || userLink == null ? false : true;
+            return result != false && userLink != null;
         }
 
-        public async Task<List<Survey>>? GetAllSurveys()
+        public async Task<List<Survey>> GetAllSurveys()
         {
             return await _surveyRepository.GetAllSurveys();
         }
 
-        public async Task<Survey>? GetSurvey(int id)
+        public async Task<Survey> GetSurvey(int id)
         {
             Survey result = await _surveyRepository.GetSurvey(id);
             return result;
         }
 
-        public async Task<Survey>? GetSurveyByUserId(int userId)
+        public async Task<Survey> GetSurveyByUserId(int userId)
         {
             Survey result = await _surveyRepository.GetSurveyByUserId(userId);
             return result;
         }
 
-        public async Task<Survey>? UpdateSurvey(Survey survey)
+        public async Task<Survey> UpdateSurvey(Survey survey)
         {
             Survey result = await _surveyRepository.UpdateSurvey(survey);
             return result;
