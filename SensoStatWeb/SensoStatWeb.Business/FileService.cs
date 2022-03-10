@@ -28,9 +28,9 @@ namespace SensoStatWeb.Business
 
             foreach (var userUrl in content)
             {
-                foreach (var userUrlPropery in userUrl.GetType().GetProperties())
+                foreach (var userUrlProperty in userUrl.GetType().GetProperties())
                 {
-                    var propertyValue = (string)userUrlPropery.GetValue(userUrl);
+                    var propertyValue = (string)userUrlProperty.GetValue(userUrl);
                     csvContent += propertyValue;
                     csvContent += ";";
                 }
