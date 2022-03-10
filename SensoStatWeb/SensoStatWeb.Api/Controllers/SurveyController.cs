@@ -82,4 +82,13 @@ public class SurveyController : Controller
         var result =await _surveyServices.GetSurvey(userId);
         return result == null ? NotFound() : Ok(result);
     }
+
+    [HttpGet("SurveyId")]
+    [ActionName("Survey")]
+    [Authorize]
+    public async Task<IActionResult> DeploySurvey([FromQuery]int surveyId)
+    {
+        var result = await _surveyServices.DeploySurvey(surveyId);
+        return result == null ? NotFound() : Ok(result);
+    }
 }

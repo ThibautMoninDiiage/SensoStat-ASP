@@ -10,12 +10,15 @@ namespace SensoStatWeb.Api.Business
         private readonly ISurveyRepository _surveyRepository;
         private readonly IAdministratorRepository _administratorRepository;
         private readonly ISurveyStateRepository _surveyStateRepository;
+        private readonly IUserRepository _userRepository;
 
-        public SurveyServices(ISurveyRepository surveyRepository,IAdministratorRepository administratorRepository,ISurveyStateRepository surveyStateRepository)
+        public SurveyServices(ISurveyRepository surveyRepository,IAdministratorRepository administratorRepository,ISurveyStateRepository surveyStateRepository,IUserRepository userRepository)
         {
             _surveyRepository = surveyRepository;
             _administratorRepository = administratorRepository;
             _surveyStateRepository = surveyStateRepository;
+            _userRepository = userRepository;
+
         }
 
         public async Task<Survey>? CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
@@ -44,6 +47,14 @@ namespace SensoStatWeb.Api.Business
         public async Task<bool>? DeleteSurvey(int id)
         {
             return await _surveyRepository.DeleteSurvey(id);
+        }
+
+        public async Task<bool>? DeploySurvey(int surveyId)
+        {
+            var result = await _surveyRepository.DeploySurvey(surveyId);
+            var userLink = await _userRepository.CreateUrl(surveyId);
+
+            return result == null || userLink == null ? false : true;
         }
 
         public async Task<List<Survey>>? GetAllSurveys()

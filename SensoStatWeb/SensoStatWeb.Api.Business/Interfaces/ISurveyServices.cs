@@ -16,5 +16,7 @@ namespace SensoStatWeb.Api.Business.Interfaces
         Task<Survey>? UpdateSurvey(Survey survey);
 
         Task<bool>? DeleteSurvey(int id);
+
+        Task<bool>? DeploySurvey(int surveyId);
     }
 }

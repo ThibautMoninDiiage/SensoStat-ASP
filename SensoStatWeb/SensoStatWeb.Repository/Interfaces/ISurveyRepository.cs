@@ -21,5 +21,7 @@ namespace SensoStatWeb.Repository.Interfaces
         /// <param name="id"></param>
         /// <returns>true or false</returns>
         Task<bool>? DeleteSurvey(int id);
+
+        Task<bool>? DeploySurvey(int surveyId);
     }
 }
