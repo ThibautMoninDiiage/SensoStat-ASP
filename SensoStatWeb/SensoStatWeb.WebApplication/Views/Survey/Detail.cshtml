@@ -8,7 +8,14 @@
 
     <div class="titleSurvey">
         <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
-        <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
+        @if(@Model.Survey.StateId == 1)
+        {
+            <h2>Status : <i class="fas fa-circle greyCircle"></i></h2>
+        }
+        else
+        {
+            <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
+        }
     </div>
 
     <section class="surveyButtons" style="margin-top: 20px; margin-bottom: 20px">
@@ -36,8 +43,8 @@
     </ul>
 
     <section class="surveyButtons" style="margin-top: 20px;">
-        <button class="orangeRoundedButton doubleButton">Déployer séance</button>
-        <button class="orangeRoundedButton doubleButton">Supprimer le déploiement</button>
+        <button asp-action="Deploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Deploy" class="orangeRoundedButton doubleButton">Déployer séance</button>
+        <button asp-action="Undeploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Undeploy" class="orangeRoundedButton doubleButton">Supprimer le déploiement</button>
         <button asp-action="ExportCsv" asp-route-surveyId="@Model.Survey.Id" class="orangeRoundedButton doubleButton">Télécharger les liens</button>
 
         <button class="orangeRoundedButton doubleButton">Télécharger données</button>

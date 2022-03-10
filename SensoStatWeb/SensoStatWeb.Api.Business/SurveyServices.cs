@@ -57,6 +57,13 @@ namespace SensoStatWeb.Api.Business
             return result != false && userLink != null;
         }
 
+        public async Task<bool> UndeploySurvey(int surveyId)
+        {
+            var result = await _surveyRepository.UndeploySurvey(surveyId);
+
+            return result != false;
+        }
+
         public async Task<List<Survey>> GetAllSurveys()
         {
             return await _surveyRepository.GetAllSurveys();

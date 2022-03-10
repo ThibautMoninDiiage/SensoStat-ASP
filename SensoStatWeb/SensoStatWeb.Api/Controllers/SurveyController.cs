@@ -86,9 +86,8 @@ public class SurveyController : Controller
     [HttpGet("SurveyId")]
     [ActionName("Survey")]
     [Authorize]
-    public async Task<IActionResult> DeploySurvey([FromQuery]int surveyId)
+    public async Task<IActionResult> DeploySurvey([FromQuery]int surveyId,[FromQuery]string action)
     {
-        var result = await _surveyServices.DeploySurvey(surveyId);
-        return result == null ? NotFound() : Ok(result);
+        return action == "Deploy" ? Ok( await _surveyServices.DeploySurvey(surveyId)) : Ok(await _surveyServices.UndeploySurvey(surveyId));
     }
 }
