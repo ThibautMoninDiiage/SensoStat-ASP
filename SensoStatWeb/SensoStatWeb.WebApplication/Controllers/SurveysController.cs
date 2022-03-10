@@ -31,11 +31,9 @@ namespace SensoStatWeb.WebApplication.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteSurvey(int id)
+        public async Task DeleteSurvey(int id)
         {
             var deletedSurvey = await _surveyService.DeleteSurvey(id, HttpContext.Request.Cookies["Token"]);
-
-            return RedirectToAction("index", "login");
         }
     }
 }
