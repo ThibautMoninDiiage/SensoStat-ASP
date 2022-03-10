@@ -26,16 +26,17 @@ namespace SensoStatWeb.Business
         {
             var csvContent = "";
 
+            // For each item in the list
             foreach (var userUrl in content)
             {
+                // We get each property of each objects
                 foreach (var userUrlProperty in userUrl.GetType().GetProperties())
                 {
-                    var propertyValue = (string)userUrlProperty.GetValue(userUrl);
-                    csvContent += propertyValue;
-                    csvContent += ";";
+                    csvContent += (string)userUrlProperty.GetValue(userUrl); // add property value to csv
+                    csvContent += ";"; // New cell
                 }
 
-                csvContent += "\r\n";
+                csvContent += "\r\n"; // New line
             }
 
             var stream = new MemoryStream(Encoding.ASCII.GetBytes(csvContent));
