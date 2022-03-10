@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
@@ -19,7 +20,10 @@ public class UserController : Controller
     public async Task<IActionResult> User([FromQuery]int id)
     {
         var result =await _userRepository.CreateUrl(id);
-        return Ok(result);
+
+        
+
+        return Ok(result.Select(r => new UserUrlDTODown() { Code = r.Code, Url = r.Link}));
     }
 }
 

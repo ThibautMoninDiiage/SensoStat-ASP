@@ -8,6 +8,8 @@ using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities.Interfaces;
 using SensoStatWeb.WebApplication.Wrappers;
+using System.Text;
+using Microsoft.Net.Http.Headers;
 
 namespace SensoStatWeb.WebApplication.Controllers
 {
@@ -15,13 +17,15 @@ namespace SensoStatWeb.WebApplication.Controllers
     {
         private readonly ISurveyService _surveyService;
         private readonly IFileService _fileService;
+        private readonly IUserService _userService;
         private SurveyCreationDTODown _surveyCreationDTODown = new SurveyCreationDTODown();
         private IEnumerable<Product> _products;
 
-        public SurveyController(ISurveyService surveyService, IFileService fileService)
+        public SurveyController(ISurveyService surveyService, IUserService userService, IFileService fileService)
         {
             _surveyService = surveyService;
             _fileService = fileService;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -111,7 +115,6 @@ namespace SensoStatWeb.WebApplication.Controllers
 
             return RedirectToAction("index", "surveys");
         }
-
         
         public async Task<IActionResult> EditSurvey(Survey survey, List<string>? inputQuestionInstruction, List<string> inputListPosition)
         {
@@ -198,6 +201,19 @@ namespace SensoStatWeb.WebApplication.Controllers
             var resultCreation = await _surveyService.UpdateSurvey(surveyToUpdate, HttpContext.Request.Cookies["Token"]);
 
             return RedirectToAction("index", "surveys");
+        }
+
+        public async Task<FileResult> ExportCsv(int surveyId)
+        {
+            var usersUrls = await _userService.GetUsersUrls(surveyId, HttpContext.Request.Cookies["Token"]);
+
+            var csvFileStream = await _fileService.WriteCsvFile(usersUrls);
+
+            return new FileStreamResult(csvFileStream, "text/plain")
+            {
+                FileDownloadName = "liens utilisateurs.csv"
+            };
+
         }
     }
 }
