@@ -215,5 +215,17 @@ namespace SensoStatWeb.WebApplication.Controllers
             };
 
         }
+
+        public async Task<IActionResult> Deploy(int surveyId,string action)
+        {
+            var deploySurvey = await _surveyService.Deploy(surveyId, action, HttpContext.Request.Cookies["Token"]);
+            return RedirectToAction("index", "surveys");
+        }
+
+        public async Task<IActionResult> Undeploy(int surveyId, string action)
+        {
+            var deploySurvey = await _surveyService.Undeploy(surveyId, action, HttpContext.Request.Cookies["Token"]);
+            return RedirectToAction("index", "surveys");
+        }
     }
 }

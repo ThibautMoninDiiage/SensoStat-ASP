@@ -15,5 +15,9 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
         Task<bool> DeleteSurvey(int surveyId, string token = "");
 
         Task<Survey> UpdateSurvey(Survey survey, string token = "");
+
+        Task<bool> Deploy(int surveyId, string action ,string token = "");
+
+        Task<bool> Undeploy(int surveyId, string action, string token = "");
     }
 }

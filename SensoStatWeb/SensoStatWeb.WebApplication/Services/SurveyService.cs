@@ -48,5 +48,17 @@ namespace SensoStatWeb.WebApplication.Services
             var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?id={id}", HttpMethod.Delete, bearer:token);
             return deletedSurvey == null;
         }
+
+        public async Task<bool> Deploy(int surveyId, string action, string token = "")
+        {
+            var deploySurvey = await _httpService.SendHttpRequest<bool>($"{Constants.BaseUrlApi}survey/SurveyId?surveyId={surveyId}&action={action}", HttpMethod.Get, bearer: token);
+            return deploySurvey;
+        }
+
+        public async Task<bool> Undeploy(int surveyId, string action, string token = "")
+        {
+            var deploySurvey = await _httpService.SendHttpRequest<bool>($"{Constants.BaseUrlApi}survey/SurveyId?surveyId={surveyId}&action={action}", HttpMethod.Get, bearer: token);
+            return deploySurvey;
+        }
     }
 }

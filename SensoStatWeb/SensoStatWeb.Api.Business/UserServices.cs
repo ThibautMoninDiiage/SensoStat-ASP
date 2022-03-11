@@ -21,7 +21,7 @@ namespace SensoStatWeb.Api.Business
             return result;
         }
 
-        public async Task<List<User>>? CreateUsers(List<User> users,Survey survey)
+        public async Task<List<User>> CreateUsers(List<User> users,Survey survey)
         {
             List<User> createdUsers = new List<User>(); 
             foreach (var user in users)
