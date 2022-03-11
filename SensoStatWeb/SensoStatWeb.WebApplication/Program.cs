@@ -17,7 +17,17 @@ builder.Services.AddScoped<IAnswerService, AnswerService>();
 
 var app = builder.Build();
 app.UseRouting(); // Start
-app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "login",
+        pattern: "",
+        defaults: new { controller = "login", action = "index" });
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+}
+);
 app.UseStaticFiles();
 
 app.Run();
