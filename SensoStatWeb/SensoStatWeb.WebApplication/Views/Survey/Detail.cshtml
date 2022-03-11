@@ -45,9 +45,9 @@
     <section class="surveyButtons" style="margin-top: 20px;">
         <button asp-action="Deploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Deploy" class="orangeRoundedButton doubleButton">Déployer séance</button>
         <button asp-action="Undeploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Undeploy" class="orangeRoundedButton doubleButton">Supprimer le déploiement</button>
-        <button asp-action="ExportCsv" asp-route-surveyId="@Model.Survey.Id" class="orangeRoundedButton doubleButton">Télécharger les liens</button>
+        <button asp-action="DownloadUsersUrls" asp-route-surveyId="@Model.Survey.Id" class="orangeRoundedButton doubleButton">Télécharger les liens</button>
 
-        <button class="orangeRoundedButton doubleButton">Télécharger données</button>
+        <button asp-action="DownloadUsersAnswers" asp-route-surveyId="@Model.Survey.Id" class="orangeRoundedButton doubleButton">Télécharger données</button>
         <a onclick="showPopupDeleteSurvey(@Model.Survey.Id)" class="orangeRoundedButton doubleButton">Supprimer la séance</a>
     </section>
 
