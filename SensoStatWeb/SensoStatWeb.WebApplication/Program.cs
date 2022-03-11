@@ -12,6 +12,7 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IAdministratorService, AdministratorService>();
 builder.Services.AddScoped<ISurveyService, SurveyService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
 
 
 var app = builder.Build();
