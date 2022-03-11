@@ -8,14 +8,17 @@
 
     <div class="titleSurvey">
         <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
+
+        <h2>Status :
         @if(@Model.Survey.StateId == 1)
         {
-            <h2>Status : <i class="fas fa-circle greyCircle"></i></h2>
+            <i class="fas fa-circle greyCircle"></i>
         }
         else
         {
-            <h2>Status : <i class="fas fa-circle blueCircle"></i></h2>
+            <i class="fas fa-circle blueCircle"></i>
         }
+        </h2>
     </div>
 
     <section class="surveyButtons" style="margin-top: 20px; margin-bottom: 20px">
