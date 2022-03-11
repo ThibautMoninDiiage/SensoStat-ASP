@@ -40,6 +40,10 @@
     background-color: #DE792C;
 }
 
+.orangeRoundedButton:disabled {
+    cursor:not-allowed !important;
+    background-color: #CF770A !important;
+}
 /* ========================== */
 
 /* === error messages for ModelStates === */
