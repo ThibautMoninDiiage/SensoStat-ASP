@@ -18,14 +18,16 @@ namespace SensoStatWeb.WebApplication.Controllers
         private readonly ISurveyService _surveyService;
         private readonly IFileService _fileService;
         private readonly IUserService _userService;
+        private readonly IAnswerService _answerService;
         private SurveyCreationDTODown _surveyCreationDTODown = new SurveyCreationDTODown();
         private IEnumerable<Product> _products;
 
-        public SurveyController(ISurveyService surveyService, IUserService userService, IFileService fileService)
+        public SurveyController(ISurveyService surveyService, IUserService userService, IFileService fileService, IAnswerService answerService)
         {
             _surveyService = surveyService;
             _fileService = fileService;
             _userService = userService;
+            _answerService = answerService;
         }
 
         public IActionResult Index()
@@ -203,7 +205,7 @@ namespace SensoStatWeb.WebApplication.Controllers
             return RedirectToAction("index", "surveys");
         }
 
-        public async Task<FileResult> ExportCsv(int surveyId)
+        public async Task<FileResult> DownloadUsersUrls(int surveyId)
         {
             var usersUrls = await _userService.GetUsersUrls(surveyId, HttpContext.Request.Cookies["Token"]);
 
@@ -213,7 +215,18 @@ namespace SensoStatWeb.WebApplication.Controllers
             {
                 FileDownloadName = "liens utilisateurs.csv"
             };
+        }
 
+        public async Task<FileResult> DownloadUsersAnswers(int surveyId)
+        {
+            var answers = await _answerService.GetSurveyAnswers(surveyId, HttpContext.Request.Cookies["Token"]);
+
+            var csvFileStream = await _fileService.WriteCsvFile(answers);
+
+            return new FileStreamResult(csvFileStream, "text/plain")
+            {
+                FileDownloadName = "réponses utilisateurs.csv"
+            };
         }
 
         public async Task<IActionResult> Deploy(int surveyId,string action)

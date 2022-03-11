@@ -24,24 +24,26 @@ namespace SensoStatWeb.Business
 
         public async Task<Stream> WriteCsvFile<T>(IEnumerable<T> content)
         {
-            var csvContent = "";
+            var csvContent = string.Empty;
+
+            // We browse each property of our object and we write the name of this property in top of column
+            content.FirstOrDefault().GetType().GetProperties().ToList()
+                .ForEach(property => csvContent += $"{property.Name};");
+            csvContent += "\r\n"; // New line
+
 
             // For each item in the list
-            foreach (var userUrl in content)
+            content.ToList().ForEach(line =>
             {
                 // We get each property of each objects
-                foreach (var userUrlProperty in userUrl.GetType().GetProperties())
-                {
-                    csvContent += (string)userUrlProperty.GetValue(userUrl); // add property value to csv
-                    csvContent += ";"; // New cell
-                }
+                line.GetType().GetProperties().ToList()
+                    .ForEach(property => csvContent += $"{(string)property.GetValue(line)};");
 
                 csvContent += "\r\n"; // New line
-            }
+            });
 
-            var stream = new MemoryStream(Encoding.ASCII.GetBytes(csvContent));
 
-            return stream;
+            return new MemoryStream(Encoding.ASCII.GetBytes(csvContent));
         }
     }
 }
