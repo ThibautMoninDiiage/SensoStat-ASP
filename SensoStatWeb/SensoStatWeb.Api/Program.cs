@@ -119,7 +119,7 @@ string connexion = "";
 
 #if DEBUG
 
-connexion = builder.Configuration.GetConnectionString("local");
+connexion = builder.Configuration.GetConnectionString("sqlAzure");
 builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
 
 #endif
