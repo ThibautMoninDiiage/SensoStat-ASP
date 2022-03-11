@@ -24,9 +24,13 @@ namespace SensoStatWeb.Repository
         public async Task<AdministratorTokenDTODown>? Login(string username, string password)
         {
             var admin = _context.Administrators.FirstOrDefault(a => a.UserName == username && a.Password == password);
-            var token = _jwtService.generateJwtToken(admin);
-            var result = new AdministratorTokenDTODown() { Administrator = admin, Token = token };
-            return result;
+            if (admin != null)
+            {
+                var token = _jwtService.generateJwtToken(admin);
+                return new AdministratorTokenDTODown() { Administrator = admin, Token = token };
+            }
+            
+            return null;
         }
     }
 }

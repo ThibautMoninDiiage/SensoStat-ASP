@@ -27,7 +27,7 @@ namespace SensoStatWeb.Business
             var csvContent = string.Empty;
 
             // We browse each property of our object and we write the name of this property in top of column
-            content.FirstOrDefault().GetType().GetProperties().ToList()
+            content?.FirstOrDefault()?.GetType().GetProperties().ToList()
                 .ForEach(property => csvContent += $"{property.Name};");
             csvContent += "\r\n"; // New line
 
