@@ -7,7 +7,10 @@ namespace SensoStatWeb.WebApplication.Filters
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if(context.HttpContext.Request.Path.Value != "/" && !context.HttpContext.Request.Path.Value.Contains("/login")!)
+            if(context.HttpContext.Request.Path.Value != "/" 
+                && !context.HttpContext.Request.Path.Value.Contains("/login") 
+                && !context.HttpContext.Request.Path.Value.Contains("/Error")
+                )
             {
                 var token = context.HttpContext?.Request?.Cookies?.FirstOrDefault(x => x.Key == "Token").Value;
 
@@ -28,10 +31,7 @@ namespace SensoStatWeb.WebApplication.Filters
         {
             Console.WriteLine("======= ERROR =======");
 
-            context.Result = new RedirectToRouteResult(new RouteValueDictionary(new
-            {
-                action = "Error"
-            }));
+            context.Result = new RedirectToPageResult("/Error");
 
             Console.WriteLine("=====================");
         }
