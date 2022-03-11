@@ -1,6 +1,6 @@
 ﻿@model SensoStatWeb.WebApplication.ViewModels.LoginViewModel
 
-<form method="post" asp-action="authenticate" class="sectionLogin">
+<form method="post" asp-action="authenticate" asp-controller="login" class="sectionLogin">
     <h1 class="Title">SensoStat - Back office</h1>
 
     <p class="errorText">@Model?.ErrorMessage</p>

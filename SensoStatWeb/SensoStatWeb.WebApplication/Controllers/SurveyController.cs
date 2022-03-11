@@ -92,23 +92,25 @@ namespace SensoStatWeb.WebApplication.Controllers
 
                 var survey = await _surveyService.GetSurvey(surveyId, HttpContext.Request.Cookies["Token"]);
 
-
-                var questionInstructions = new List<QuestionInstructionWrapper>();
-
-                questionInstructions.AddRange(survey.Instructions?.Select(x => new QuestionInstructionWrapper(x)));
-                questionInstructions.AddRange(survey.Questions?.Select(x => new QuestionInstructionWrapper(x)));
-
-                questionInstructions.OrderBy(y => y.Position);
-
-
-                var model = new SurveyViewModel
+                if (survey != null)
                 {
-                    Survey = survey,
-                    QuestionsInstructions = questionInstructions.OrderBy(x => x.Position)
-                };
+                    var questionInstructions = new List<QuestionInstructionWrapper>();
+
+                    questionInstructions.AddRange(survey.Instructions?.Select(x => new QuestionInstructionWrapper(x)));
+                    questionInstructions.AddRange(survey.Questions?.Select(x => new QuestionInstructionWrapper(x)));
+
+                    questionInstructions.OrderBy(y => y.Position);
 
 
-                return View("detail", model);
+                    var model = new SurveyViewModel
+                    {
+                        Survey = survey,
+                        QuestionsInstructions = questionInstructions.OrderBy(x => x.Position)
+                    };
+
+
+                    return View("detail", model);
+                }
             }
             catch(Exception ex)
             {
