@@ -26,12 +26,10 @@ namespace SensoStatWeb.Business
         {
             var csvContent = "";
 
-            // TO write the title of each column
-            foreach (var cell in content.FirstOrDefault().GetType().GetProperties())
-            {
-                csvContent += $"{cell.Name};";
-            }
+            content.FirstOrDefault().GetType().GetProperties().ToList()
+                .ForEach(property => csvContent += $"{property.Name};");
             csvContent += "\r\n"; // New line
+
 
             // For each item in the list
             foreach (var line in content)
