@@ -1,10 +1,15 @@
 ﻿using SensoStatWeb.Business;
 using SensoStatWeb.Business.Interfaces;
+using SensoStatWeb.WebApplication.Filters;
 using SensoStatWeb.WebApplication.Services;
 using SensoStatWeb.WebApplication.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args); // create web app
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); // Add controler with views to app
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<DefaultActionFilter>();
+})
+    .AddRazorRuntimeCompilation(); // Add controler with views to app
 
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IFileService, FileService>();
