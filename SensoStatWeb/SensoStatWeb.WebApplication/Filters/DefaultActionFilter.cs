@@ -7,6 +7,17 @@ namespace SensoStatWeb.WebApplication.Filters
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
+            if(context.HttpContext.Request.Path.Value != "/" && !context.HttpContext.Request.Path.Value.Contains("/login")!)
+            {
+                var token = context.HttpContext?.Request?.Cookies?.FirstOrDefault(x => x.Key == "Token").Value;
+
+                if (token == null)
+                    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                    {
+                        controller = "login", 
+                        action = ""
+                    }));
+            }
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
