@@ -1,5 +1,10 @@
 ﻿@model SensoStatWeb.WebApplication.ViewModels.SurveyViewModel
 
+@{
+    var isDeployed = @Model.Survey.StateId == 1;
+    var isNotDeployed = !isDeployed;
+}
+
 
 <form class="surveyCreationDetailParent" asp-action="editSurvey" asp-controller="survey">
 
@@ -10,7 +15,7 @@
         <h1 class="Title">Nom séance : <span>@Model.Survey.Name</span></h1>
 
         <h2>Status :
-        @if(@Model.Survey.StateId == 1)
+        @if(isDeployed)
         {
             <i class="fas fa-circle greyCircle"></i>
         }
@@ -46,8 +51,8 @@
     </ul>
 
     <section class="surveyButtons" style="margin-top: 20px;">
-        <button asp-action="Deploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Deploy" class="orangeRoundedButton doubleButton">Déployer séance</button>
-        <button asp-action="Undeploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Undeploy" class="orangeRoundedButton doubleButton">Supprimer le déploiement</button>
+        <button disabled="@isNotDeployed" asp-action="Deploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Deploy" class="orangeRoundedButton doubleButton">Déployer séance</button>
+        <button disabled="@isDeployed" asp-action="Undeploy" asp-route-surveyId="@Model.Survey.Id" asp-route-action="Undeploy" class="orangeRoundedButton doubleButton">Supprimer le déploiement</button>
         <button asp-action="DownloadUsersUrls" asp-route-surveyId="@Model.Survey.Id" class="orangeRoundedButton doubleButton">Télécharger les liens</button>
 
         <button asp-action="DownloadUsersAnswers" asp-route-surveyId="@Model.Survey.Id" class="orangeRoundedButton doubleButton">Télécharger données</button>
