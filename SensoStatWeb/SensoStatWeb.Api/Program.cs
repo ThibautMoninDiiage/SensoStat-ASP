@@ -98,7 +98,7 @@ builder.Services.AddScoped<IUserRepository, DbUserRepository>();
 builder.Services.AddScoped<ISurveyStateRepository, DbSurveyStateRepository>();
 builder.Services.AddScoped<IProductRepository, DbProductRepository>();
 builder.Services.AddScoped<IUserProductRepository, UUserProductRepository>();
-builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IAnswerRepository, DbAnswerRepository>();
 
 
 //Injection de dépendances pour les services
@@ -110,6 +110,8 @@ builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ISurveyStateServices, SurveyStateServices>();
 builder.Services.AddScoped<IProductServices, ProductServices>();
 builder.Services.AddScoped<IUserProductServices, UserProductServices>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
 
 
 #endregion
@@ -129,7 +131,6 @@ if (connexion == "")
     //connexion = builder.Configuration.GetConnectionString("sqlAzure");
     connexion = Environment.GetEnvironmentVariable("CUSTOMCONNSTR_sqlAzure");
     builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
-
 }
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();

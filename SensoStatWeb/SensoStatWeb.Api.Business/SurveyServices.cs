@@ -10,15 +10,18 @@ namespace SensoStatWeb.Api.Business
         private readonly ISurveyRepository _surveyRepository;
         private readonly IAdministratorRepository _administratorRepository;
         private readonly ISurveyStateRepository _surveyStateRepository;
+        private readonly IUserRepository _userRepository;
 
-        public SurveyServices(ISurveyRepository surveyRepository,IAdministratorRepository administratorRepository,ISurveyStateRepository surveyStateRepository)
+        public SurveyServices(ISurveyRepository surveyRepository,IAdministratorRepository administratorRepository,ISurveyStateRepository surveyStateRepository,IUserRepository userRepository)
         {
             _surveyRepository = surveyRepository;
             _administratorRepository = administratorRepository;
             _surveyStateRepository = surveyStateRepository;
+            _userRepository = userRepository;
+
         }
 
-        public async Task<Survey>? CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
+        public async Task<Survey> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
         {
             var survey = new Survey()
             {
@@ -41,29 +44,44 @@ namespace SensoStatWeb.Api.Business
             return result;
         }
 
-        public async Task<bool>? DeleteSurvey(int id)
+        public async Task<bool> DeleteSurvey(int id)
         {
             return await _surveyRepository.DeleteSurvey(id);
         }
 
-        public async Task<List<Survey>>? GetAllSurveys()
+        public async Task<bool> DeploySurvey(int surveyId)
+        {
+            var result = await _surveyRepository.DeploySurvey(surveyId);
+            var userLink = await _userRepository.CreateUrl(surveyId);
+
+            return result != false && userLink != null;
+        }
+
+        public async Task<bool> UndeploySurvey(int surveyId)
+        {
+            var result = await _surveyRepository.UndeploySurvey(surveyId);
+
+            return result != false;
+        }
+
+        public async Task<List<Survey>> GetAllSurveys()
         {
             return await _surveyRepository.GetAllSurveys();
         }
 
-        public async Task<Survey>? GetSurvey(int id)
+        public async Task<Survey> GetSurvey(int id)
         {
             Survey result = await _surveyRepository.GetSurvey(id);
             return result;
         }
 
-        public async Task<Survey>? GetSurveyByUserId(int userId)
+        public async Task<Survey> GetSurveyByUserId(int userId)
         {
             Survey result = await _surveyRepository.GetSurveyByUserId(userId);
             return result;
         }
 
-        public async Task<Survey>? UpdateSurvey(Survey survey)
+        public async Task<Survey> UpdateSurvey(Survey survey)
         {
             Survey result = await _surveyRepository.UpdateSurvey(survey);
             return result;

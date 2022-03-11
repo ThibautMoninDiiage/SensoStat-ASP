@@ -73,12 +73,30 @@ namespace SensoStatWeb.Repository
             {
                 Console.WriteLine(ex);
             }
-            var result = _context.Surveys?.Where(s => s.Equals(deleteSurvey));
+            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
 
             return result == null ? true : false;
         }
 
-        public async Task<List<Survey>>? GetAllSurveys()
+        public async Task<bool> DeploySurvey(int surveyId)
+        {
+            Survey survey = await _context.Surveys.Where(s => s.Id == surveyId).FirstOrDefaultAsync();
+            survey.StateId = 2;
+            _context.Surveys.Update(survey);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UndeploySurvey(int surveyId)
+        {
+            Survey survey = await _context.Surveys.Where(s => s.Id == surveyId).FirstOrDefaultAsync();
+            survey.StateId = 1;
+            _context.Surveys.Update(survey);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<Survey>> GetAllSurveys()
         {
             return _context.Surveys.ToList();
         }

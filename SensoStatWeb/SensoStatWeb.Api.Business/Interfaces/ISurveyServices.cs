@@ -5,16 +5,20 @@ namespace SensoStatWeb.Api.Business.Interfaces
 {
     public interface ISurveyServices
     {
-        Task<List<Survey>>? GetAllSurveys();
+        Task<List<Survey>> GetAllSurveys();
 
-        Task<Survey>? GetSurvey(int id);
+        Task<Survey> GetSurvey(int id);
 
-        Task<Survey>? GetSurveyByUserId(int userId);
+        Task<Survey> GetSurveyByUserId(int userId);
 
-        Task<Survey>? CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
+        Task<Survey> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
 
-        Task<Survey>? UpdateSurvey(Survey survey);
+        Task<Survey> UpdateSurvey(Survey survey);
 
-        Task<bool>? DeleteSurvey(int id);
+        Task<bool> DeleteSurvey(int id);
+
+        Task<bool> DeploySurvey(int surveyId);
+
+        Task<bool> UndeploySurvey(int surveyId);
     }
 }
