@@ -26,9 +26,21 @@ namespace SensoStatWeb.Business
         {
             var csvContent = "";
 
+            var index = 0;
             // For each item in the list
             foreach (var line in content)
             {
+                if (index == 0)
+                {
+                    // We get each property of each objects
+                    foreach (var cell in line.GetType().GetProperties())
+                    {
+                        csvContent += cell.Name;
+                        csvContent += ";"; // New cell
+                    }
+                    csvContent += "\r\n"; // New line
+                }
+
                 // We get each property of each objects
                 foreach (var cell in line.GetType().GetProperties())
                 {
@@ -37,7 +49,9 @@ namespace SensoStatWeb.Business
                 }
 
                 csvContent += "\r\n"; // New line
+                index++;
             }
+
 
             var stream = new MemoryStream(Encoding.ASCII.GetBytes(csvContent));
 
