@@ -129,7 +129,6 @@ if (connexion == "")
     //connexion = builder.Configuration.GetConnectionString("sqlAzure");
     connexion = Environment.GetEnvironmentVariable("CUSTOMCONNSTR_sqlAzure");
     builder.Services.AddDbContext<SensoStatDbContext>(options => options.UseSqlServer(connexion));
-
 }
 
 var context = builder.Services.BuildServiceProvider().GetRequiredService<SensoStatDbContext>();
