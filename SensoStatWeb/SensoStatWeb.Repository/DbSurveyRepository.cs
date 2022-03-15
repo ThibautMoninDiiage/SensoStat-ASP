@@ -104,6 +104,7 @@ namespace SensoStatWeb.Repository
         public async Task<Survey>? GetSurvey(int id)
         {
             var survey = _context.Surveys
+                .Include(s => s.Products)
                 .Include(s => s.SurveyState)
                 .Include(s => s.Instructions)
                 .Include(s => s.Questions)
