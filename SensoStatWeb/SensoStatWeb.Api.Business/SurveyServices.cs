@@ -1,7 +1,9 @@
 ﻿using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SensoStatWeb.Api.Business
 {
@@ -11,9 +13,15 @@ namespace SensoStatWeb.Api.Business
         private readonly IAdministratorRepository _administratorRepository;
         private readonly ISurveyStateRepository _surveyStateRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IJwtService _jwtService;
 
-        public SurveyServices(ISurveyRepository surveyRepository,IAdministratorRepository administratorRepository,ISurveyStateRepository surveyStateRepository,IUserRepository userRepository)
+        public SurveyServices(ISurveyRepository surveyRepository,
+            IAdministratorRepository administratorRepository,
+            ISurveyStateRepository surveyStateRepository,
+            IUserRepository userRepository, 
+            IJwtService jwtService)
         {
+            _jwtService = jwtService;
             _surveyRepository = surveyRepository;
             _administratorRepository = administratorRepository;
             _surveyStateRepository = surveyStateRepository;
@@ -75,10 +83,13 @@ namespace SensoStatWeb.Api.Business
             return result;
         }
 
-        public async Task<Survey> GetSurveyByUserId(int userId)
+        public async Task<Survey> GetSurvey(string token)
         {
-            Survey result = await _surveyRepository.GetSurveyByUserId(userId);
-            return result;
+            var jsonToken = await _jwtService.ReadJwtToken(token);
+
+            var surveyId = Int32.Parse(jsonToken.Claims.FirstOrDefault(c => c.Type.Contains("primarysid")).Value);
+
+            return await _surveyRepository.GetSurvey(surveyId);
         }
 
         public async Task<Survey> UpdateSurvey(Survey survey)

@@ -68,5 +68,19 @@ namespace SensoStatWeb.Business
 
             return users;
         }
+
+        public async Task<JwtSecurityToken?> ReadJwtToken(string token)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                return handler.ReadJwtToken(token);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
     }
 }
