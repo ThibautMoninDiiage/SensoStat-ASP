@@ -15,13 +15,13 @@ namespace SensoStatWeb.Api.Controllers
             _answerService = answerService;
         }
 
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Answers(int surveyId)
-        {
-            var answers = await _answerService.GetSurveyAnswers(surveyId);
+        //[HttpGet]
+        //[Authorize]
+        //public async Task<IActionResult> Answers(int surveyId)
+        //{
+        //    var answers = await _answerService.GetSurveyAnswers(surveyId);
 
-            return Ok(answers);
-        }
+        //    return Ok(answers);
+        //}
     }
 }

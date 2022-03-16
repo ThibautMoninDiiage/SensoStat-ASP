@@ -16,28 +16,28 @@ public class InstructionController : Controller
         _instructionServices = instructionServices;
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<IActionResult> Instructions()
-    {
-        var result =await _instructionServices.GetAllInstructions();
-        return result == null ? NotFound() : Ok(result);
-    }
+    //[HttpGet]
+    //[Authorize]
+    //public async Task<IActionResult> Instructions()
+    //{
+    //    var result =await _instructionServices.GetAllInstructions();
+    //    return result == null ? NotFound() : Ok(result);
+    //}
 
-    [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> Instruction([FromBody]Instruction instruction)
-    {
-        var result =await _instructionServices.CreateInstruction(instruction);
-        return result == null ? NotFound() : Ok(result);
-    }
+    //[HttpPost]
+    //[Authorize]
+    //public async Task<IActionResult> Instruction([FromBody]Instruction instruction)
+    //{
+    //    var result =await _instructionServices.CreateInstruction(instruction);
+    //    return result == null ? NotFound() : Ok(result);
+    //}
 
-    [HttpDelete]
-    [Authorize]
-    public async Task<IActionResult> Instruction(int id)
-    {
-        var result =await _instructionServices.DeleteInstruction(id);
-        return result != true ? Ok(result) : NotFound();
-    }
+    //[HttpDelete]
+    //[Authorize]
+    //public async Task<IActionResult> Instruction(int id)
+    //{
+    //    var result =await _instructionServices.DeleteInstruction(id);
+    //    return result != true ? Ok(result) : NotFound();
+    //}
 }
 

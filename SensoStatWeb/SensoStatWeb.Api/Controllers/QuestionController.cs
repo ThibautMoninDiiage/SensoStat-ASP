@@ -15,28 +15,28 @@ public class QuestionController : Controller
         _questionServices = questionServices;
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<IActionResult> Questions()
-    {
-        var result =await _questionServices.GetAllQuestions();
-        return result == null ?  NotFound() : Ok(result);
-    }
+    //[HttpGet]
+    //[Authorize]
+    //public async Task<IActionResult> Questions()
+    //{
+    //    var result =await _questionServices.GetAllQuestions();
+    //    return result == null ?  NotFound() : Ok(result);
+    //}
 
-    [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> Question([FromBody]Question question)
-    {
-        var result =await _questionServices.CreateQuestion(question);
-        return result == null ? NotFound() : Ok(question);
-    }
+    //[HttpPost]
+    //[Authorize]
+    //public async Task<IActionResult> Question([FromBody]Question question)
+    //{
+    //    var result =await _questionServices.CreateQuestion(question);
+    //    return result == null ? NotFound() : Ok(question);
+    //}
 
-    [HttpDelete]
-    [Authorize]
-    public async Task<IActionResult> Question([FromBody]int id)
-    {
-        var result =await _questionServices.DeleteQuestion(id);
-        return result == null ? NotFound() : Ok(result);
-    }
+    //[HttpDelete]
+    //[Authorize]
+    //public async Task<IActionResult> Question([FromBody]int id)
+    //{
+    //    var result =await _questionServices.DeleteQuestion(id);
+    //    return result == null ? NotFound() : Ok(result);
+    //}
 }
 

@@ -16,14 +16,14 @@ public class UserController : Controller
     }
 
 
-    [HttpGet]
-    public async Task<IActionResult> User([FromQuery]int id)
-    {
-        var result =await _userRepository.CreateUrl(id);
+    //[HttpGet]
+    //public async Task<IActionResult> User([FromQuery]int id)
+    //{
+    //    var result =await _userRepository.CreateUrl(id);
 
         
 
-        return Ok(result.Select(r => new UserUrlDTODown() { Code = r.Code, Url = r.Link}));
-    }
+    //    return Ok(result.Select(r => new UserUrlDTODown() { Code = r.Code, Url = r.Link}));
+    //}
 }
 
