@@ -27,16 +27,17 @@ public class SurveyController : Controller
     [ActionName("Survey")]
     public async Task<IActionResult> GetSurvey([FromQuery] int surveyId = 0)
     {
-        try
+        // If the user wan't all surveys
+        if (surveyId == 0)
         {
-            return surveyId == 0 ? Ok(await _surveyServices.GetAllSurveys()) : Ok(await _surveyServices.GetSurvey(surveyId));
+            var surveys = await _surveyServices.GetAllSurveys();
+            return surveys != null ? Ok(surveys) : NotFound();
         }
-        catch(Exception ex)
+        else
         {
-            Console.WriteLine(ex);
+            var survey = await _surveyServices.GetSurvey(surveyId);
+            return survey != null ? Ok(survey) : NotFound();
         }
-
-        return NotFound();
     }
 
     [HttpGet("Token")]
