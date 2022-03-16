@@ -24,7 +24,8 @@ public class SurveyController : Controller
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> Survey(int surveyId = 0)
+    [ActionName("Survey")]
+    public async Task<IActionResult> GetSurvey([FromQuery] int surveyId = 0)
     {
         try
         {
@@ -38,9 +39,19 @@ public class SurveyController : Controller
         return NotFound();
     }
 
+    [HttpGet("Token")]
+    [ActionName("Survey")]
+    public async Task<IActionResult> GetSurveyByToken([FromQuery] string token)
+    {
+        var survey = await _surveyServices.GetSurvey(token);
+        return survey == null ? NotFound() : Ok(survey);
+    }
+
+
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> Survey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
+    [ActionName("Survey")]
+    public async Task<IActionResult> CreateSurvey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
 
         var createdSurvey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
@@ -74,20 +85,11 @@ public class SurveyController : Controller
         return await result == false ? NotFound() : Ok(result);
     }
 
-    [HttpGet("UserId")]
-    [ActionName("Survey")]
-    [Authorize]
-    public async Task<IActionResult> GetSurveyByUserId([FromRoute] int userId)
-    {
-        var result =await _surveyServices.GetSurvey(userId);
-        return result == null ? NotFound() : Ok(result);
-    }
-
     [HttpGet("SurveyId")]
     [ActionName("Survey")]
     [Authorize]
-    public async Task<IActionResult> DeploySurvey([FromQuery]int surveyId,[FromQuery]string action)
+    public async Task<IActionResult> DeploySurvey([FromQuery] int surveyId, [FromQuery] string action)
     {
-        return action == "Deploy" ? Ok( await _surveyServices.DeploySurvey(surveyId)) : Ok(await _surveyServices.UndeploySurvey(surveyId));
+        return action == "Deploy" ? Ok(await _surveyServices.DeploySurvey(surveyId)) : Ok(await _surveyServices.UndeploySurvey(surveyId));
     }
 }

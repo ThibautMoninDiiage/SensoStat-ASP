@@ -9,7 +9,7 @@ namespace SensoStatWeb.Api.Business.Interfaces
 
         Task<Survey> GetSurvey(int id);
 
-        Task<Survey> GetSurveyByUserId(int userId);
+        Task<Survey> GetSurvey(string token);
 
         Task<Survey> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown);
 
