@@ -69,7 +69,7 @@ public class SurveyController : Controller
     [HttpPut]
     [Authorize]
     [ActionName("Survey")]
-    public async Task<IActionResult> Update([FromBody] Survey survey)
+    public async Task<IActionResult> PutSurvey([FromBody] Survey survey)
     {
         var result = await _surveyServices.UpdateSurvey(survey);
 
@@ -79,11 +79,11 @@ public class SurveyController : Controller
     [HttpDelete]
     [Authorize]
     [ActionName("Survey")]
-    public async Task<IActionResult> Delete([FromQuery]int id)
+    public async Task<IActionResult> DeleteSurvey([FromQuery]int id)
     {
-        var result = _surveyServices.DeleteSurvey(id);
+        var surveyDeleted = await _surveyServices.DeleteSurvey(id);
 
-        return await result == false ? NotFound() : Ok(result);
+        return surveyDeleted ? Ok() : NotFound();
     }
 
     [HttpGet("SurveyId")]
