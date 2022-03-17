@@ -42,7 +42,7 @@ namespace SensoStatWeb.Api.Business
             {
                 Name = surveyCreationDTODown.Name,
                 CreatorId = 1,
-                Administrator = await _administratorRepository.GetAdministrator(1),
+                Administrator = await _administratorRepository.GetAdministrator(surveyCreationDTODown.AdminId),
                 CreationDate = DateTime.Now,
                 SurveyState = await _surveyStateRepository.GetSurveyState(1),
                 StateId = 1,

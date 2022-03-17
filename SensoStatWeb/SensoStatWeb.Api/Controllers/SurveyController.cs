@@ -48,6 +48,8 @@ public class SurveyController : Controller
     [ActionName("Survey")]
     public async Task<IActionResult> CreateSurvey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
+        surveyCreationDTODown.AdminId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "id").Value);
+
         var survey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
 
         return survey == null ? NotFound() : Ok(survey);
