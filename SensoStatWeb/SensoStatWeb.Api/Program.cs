@@ -104,7 +104,6 @@ builder.Services.AddScoped<IAnswerRepository, DbAnswerRepository>();
 //Injection de dépendances pour les services
 builder.Services.AddScoped<IAdministratorServices, AdministratorServices>();
 builder.Services.AddScoped<ISurveyServices, SurveyServices>();
-builder.Services.AddScoped<IInstructionServices, InstructionServices>();
 builder.Services.AddScoped<IQuestionServices, QuestionServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ISurveyStateServices, SurveyStateServices>();
