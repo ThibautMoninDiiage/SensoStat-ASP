@@ -10,16 +10,10 @@ namespace SensoStatWeb.Api.Controllers;
 public class SurveyController : Controller
 {
     private readonly ISurveyServices _surveyServices;
-    private readonly IUserServices _userServices;
-    private readonly IProductServices _productServices;
-    private readonly IUserProductServices _userProductServices;
 
-    public SurveyController(ISurveyServices surveyServices, IUserServices userServices, IProductServices productServices, IUserProductServices userProductServices)
+    public SurveyController(ISurveyServices surveyServices)
     {
         _surveyServices = surveyServices;
-        _userServices = userServices;
-        _productServices = productServices;
-        _userProductServices = userProductServices;
     }
 
     [HttpGet]
@@ -54,16 +48,9 @@ public class SurveyController : Controller
     [ActionName("Survey")]
     public async Task<IActionResult> CreateSurvey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
+        var survey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
 
-        var createdSurvey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
-
-        var createdUsers = await _userServices.CreateUsers(surveyCreationDTODown.Users,createdSurvey);
-
-        var createdProducts = await _productServices.CreateProducts(surveyCreationDTODown.Products,createdSurvey);
-
-        var createdUserProduct = await _userProductServices.CreateUserProducts(surveyCreationDTODown.UserProducts,createdSurvey,createdUsers,createdProducts);
-
-        return createdSurvey == null ? NotFound() : Ok(createdSurvey);
+        return survey == null ? NotFound() : Ok(survey);
     }
 
     [HttpPut]

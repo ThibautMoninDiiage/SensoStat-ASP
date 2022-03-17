@@ -3,7 +3,6 @@ using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace SensoStatWeb.Api.Business
 {
@@ -14,19 +13,27 @@ namespace SensoStatWeb.Api.Business
         private readonly ISurveyStateRepository _surveyStateRepository;
         private readonly IUserRepository _userRepository;
         private readonly IJwtService _jwtService;
+        private readonly IUserServices _userServices;
+        private readonly IProductServices _productServices;
+        private readonly IUserProductServices _userProductServices;
 
         public SurveyServices(ISurveyRepository surveyRepository,
             IAdministratorRepository administratorRepository,
             ISurveyStateRepository surveyStateRepository,
             IUserRepository userRepository, 
-            IJwtService jwtService)
+            IJwtService jwtService,
+            IUserServices userServices,
+            IProductServices productServices,
+            IUserProductServices userProductServices)
         {
+            _userProductServices = userProductServices;
+            _productServices = productServices;
+            _userServices = userServices;
             _jwtService = jwtService;
             _surveyRepository = surveyRepository;
             _administratorRepository = administratorRepository;
             _surveyStateRepository = surveyStateRepository;
             _userRepository = userRepository;
-
         }
 
         public async Task<Survey> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
@@ -45,11 +52,20 @@ namespace SensoStatWeb.Api.Business
                 Products = new List<Product>(),
             };
 
+            // Add default introduction + conclusion
             survey.Instructions.Add(new Instruction() { Libelle = "Bienvenue à cette séance", Position = 1, Status = 0 });
             survey.Instructions.Add(new Instruction() { Libelle = "Merci de votre participation", Position = 2, Status = 2});
 
-            Survey result = await _surveyRepository.CreateSurvey(survey);
-            return result;
+
+            var surveyResult = await _surveyRepository.CreateSurvey(survey);
+
+            var createdUsers = await _userServices.CreateUsers(surveyCreationDTODown.Users, surveyResult);
+
+            var createdProducts = await _productServices.CreateProducts(surveyCreationDTODown.Products, surveyResult);
+
+            var createdUserProduct = await _userProductServices.CreateUserProducts(surveyCreationDTODown.UserProducts, surveyResult, createdUsers, createdProducts);
+
+            return surveyResult;
         }
 
         public async Task<bool> DeleteSurvey(int id)
