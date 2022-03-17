@@ -56,14 +56,15 @@ namespace SensoStatWeb.Api.Business
             survey.Instructions.Add(new Instruction() { Libelle = "Bienvenue à cette séance", Position = 1, Status = 0 });
             survey.Instructions.Add(new Instruction() { Libelle = "Merci de votre participation", Position = 2, Status = 2});
 
-
+            // Create the survey in database
             var surveyResult = await _surveyRepository.CreateSurvey(survey);
-
+            // Create all users for this survey
             var createdUsers = await _userServices.CreateUsers(surveyCreationDTODown.Users, surveyResult);
-
+            // create all product for this survey
             var createdProducts = await _productServices.CreateProducts(surveyCreationDTODown.Products, surveyResult);
 
-            var createdUserProduct = await _userProductServices.CreateUserProducts(surveyCreationDTODown.UserProducts, surveyResult, createdUsers, createdProducts);
+            // Finally create all user products
+            await _userProductServices.CreateUserProducts(surveyCreationDTODown.UserProducts, surveyResult, createdUsers, createdProducts);
 
             return surveyResult;
         }
