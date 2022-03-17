@@ -8,12 +8,10 @@ namespace SensoStatWeb.Api.Business
     public class UserServices : IUserServices
     {
         private readonly IUserRepository _userRepository;
-        private readonly ISurveyServices _surveyServices;
 
-        public UserServices(IUserRepository userRepository,ISurveyServices surveyServices)
+        public UserServices(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _surveyServices = surveyServices;
         }
 
         public async Task<User>? GetUser(string id)
