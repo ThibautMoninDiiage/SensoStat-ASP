@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SensoStatWeb.Models.DTOs.Down;
-using SensoStatWeb.Repository.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Api.Business.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]

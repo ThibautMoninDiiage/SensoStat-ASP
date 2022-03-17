@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SensoStatWeb.Api.Business;
+using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Business;
+using SensoStatWeb.Business.Helpers;
+using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SensoStatWeb.Repository.Interfaces;
-using SensoStatWeb.Business.Helpers;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using SensoStatWeb.Business.Interfaces;
-using SensoStatWeb.Business;
-using SensoStatWeb.Api.Business.Interfaces;
-using SensoStatWeb.Api.Business;
 
 #region Builder
 
