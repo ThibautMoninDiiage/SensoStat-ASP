@@ -14,6 +14,7 @@ namespace SensoStatWeb.xUnit
         #region Variables
 
         private readonly Mock<SensoStatDbContext> _dbContext = new();
+        public Mock<IInstructionServices> instructionMock = new Mock<IInstructionServices>();
 
         #endregion
 
