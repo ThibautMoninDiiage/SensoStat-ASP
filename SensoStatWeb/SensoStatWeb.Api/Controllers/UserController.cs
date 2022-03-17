@@ -2,6 +2,7 @@
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Repository.Interfaces;
 using SensoStatWeb.Api.Business.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
@@ -17,6 +18,7 @@ public class UserController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> User([FromQuery] int id)
     {
         var usersUrls = await _userServices.CreateUrl(id);
