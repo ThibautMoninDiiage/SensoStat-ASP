@@ -68,14 +68,15 @@ namespace SensoStatWeb.Repository
                 _context.SaveChanges();
 
                 // LOOK IF THE SURVEY ALWAYS EXISTS
+
+
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
             }
-            var result = _context.Surveys.Where(s => s.Equals(deleteSurvey));
-
-            return result == null ? true : false;
         }
 
         public async Task<bool> DeploySurvey(int surveyId)
