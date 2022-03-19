@@ -1,4 +1,5 @@
-﻿using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.Models.Entities;
 
 namespace SensoStatWeb.Api.Business.Interfaces
 {
@@ -8,8 +9,6 @@ namespace SensoStatWeb.Api.Business.Interfaces
 
         Task<List<User>>? CreateUsers(List<User> users,Survey survey);
 
-        Task<List<User>>? GetUsers();
-
-        Task<List<User>>? CreateUrl(int id);
+        Task<IEnumerable<UserUrlDTODown>>? CreateUrl(int surveyId);
     }
 }

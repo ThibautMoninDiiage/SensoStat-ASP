@@ -1,4 +1,5 @@
 ﻿using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
@@ -7,12 +8,10 @@ namespace SensoStatWeb.Api.Business
     public class UserServices : IUserServices
     {
         private readonly IUserRepository _userRepository;
-        private readonly ISurveyServices _surveyServices;
 
-        public UserServices(IUserRepository userRepository,ISurveyServices surveyServices)
+        public UserServices(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _surveyServices = surveyServices;
         }
 
         public async Task<User>? GetUser(string id)
@@ -36,16 +35,11 @@ namespace SensoStatWeb.Api.Business
             return await _userRepository.CreateUser(users);
         }
 
-        public async Task<List<User>>? GetUsers()
+        public async Task<IEnumerable<UserUrlDTODown>>? CreateUrl(int surveyId)
         {
-            List<User> result = await _userRepository.GetUsers();
-            return result;
-        }
+            var users = await _userRepository.CreateUrl(surveyId);
 
-        public async Task<List<User>>? CreateUrl(int id)
-        {
-            List<User> result = await _userRepository.CreateUrl(id);
-            return result;
+            return users.Select(user => new UserUrlDTODown() { Code = user.Code, Url = user.Link });
         }
     }
 }

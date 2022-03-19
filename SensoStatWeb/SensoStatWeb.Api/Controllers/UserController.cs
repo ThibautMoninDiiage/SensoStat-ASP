@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SensoStatWeb.Models.DTOs.Down;
-using SensoStatWeb.Repository.Interfaces;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SensoStatWeb.Api.Business.Interfaces;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
@@ -8,22 +8,20 @@ namespace SensoStatWeb.Api.Controllers;
 
 public class UserController : Controller
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserServices _userServices;
 
-    public UserController(IUserRepository userRepository)
+    public UserController(IUserServices userServices)
     {
-        _userRepository = userRepository;
+        _userServices = userServices;
     }
 
-
     [HttpGet]
-    public async Task<IActionResult> User([FromQuery]int id)
+    [Authorize]
+    public async Task<IActionResult> User([FromQuery] int id)
     {
-        var result =await _userRepository.CreateUrl(id);
+        var usersUrls = await _userServices.CreateUrl(id);
 
-        
-
-        return Ok(result.Select(r => new UserUrlDTODown() { Code = r.Code, Url = r.Link}));
+        return Ok(usersUrls);
     }
 }
 
