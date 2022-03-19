@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SensoStatWeb.Api.Business;
+using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Business;
+using SensoStatWeb.Business.Helpers;
+using SensoStatWeb.Business.Interfaces;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SensoStatWeb.Repository.Interfaces;
-using SensoStatWeb.Business.Helpers;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using SensoStatWeb.Business.Interfaces;
-using SensoStatWeb.Business;
-using SensoStatWeb.Api.Business.Interfaces;
-using SensoStatWeb.Api.Business;
 
 #region Builder
 
@@ -104,8 +104,6 @@ builder.Services.AddScoped<IAnswerRepository, DbAnswerRepository>();
 //Injection de dépendances pour les services
 builder.Services.AddScoped<IAdministratorServices, AdministratorServices>();
 builder.Services.AddScoped<ISurveyServices, SurveyServices>();
-builder.Services.AddScoped<IInstructionServices, InstructionServices>();
-builder.Services.AddScoped<IQuestionServices, QuestionServices>();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<ISurveyStateServices, SurveyStateServices>();
 builder.Services.AddScoped<IProductServices, ProductServices>();

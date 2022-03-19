@@ -10,16 +10,10 @@ namespace SensoStatWeb.Api.Controllers;
 public class SurveyController : Controller
 {
     private readonly ISurveyServices _surveyServices;
-    private readonly IUserServices _userServices;
-    private readonly IProductServices _productServices;
-    private readonly IUserProductServices _userProductServices;
 
-    public SurveyController(ISurveyServices surveyServices, IUserServices userServices, IProductServices productServices, IUserProductServices userProductServices)
+    public SurveyController(ISurveyServices surveyServices)
     {
         _surveyServices = surveyServices;
-        _userServices = userServices;
-        _productServices = productServices;
-        _userProductServices = userProductServices;
     }
 
     [HttpGet]
@@ -27,16 +21,17 @@ public class SurveyController : Controller
     [ActionName("Survey")]
     public async Task<IActionResult> GetSurvey([FromQuery] int surveyId = 0)
     {
-        try
+        // If the user wan't all surveys
+        if (surveyId == 0)
         {
-            return surveyId == 0 ? Ok(await _surveyServices.GetAllSurveys()) : Ok(await _surveyServices.GetSurvey(surveyId));
+            var surveys = await _surveyServices.GetAllSurveys();
+            return surveys != null ? Ok(surveys) : NotFound();
         }
-        catch(Exception ex)
+        else
         {
-            Console.WriteLine(ex);
+            var survey = await _surveyServices.GetSurvey(surveyId);
+            return survey != null ? Ok(survey) : NotFound();
         }
-
-        return NotFound();
     }
 
     [HttpGet("Token")]
@@ -53,22 +48,17 @@ public class SurveyController : Controller
     [ActionName("Survey")]
     public async Task<IActionResult> CreateSurvey([FromBody]SurveyCreationDTODown surveyCreationDTODown)
     {
+        surveyCreationDTODown.AdminId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "id").Value);
 
-        var createdSurvey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
+        var survey = await _surveyServices.CreateSurvey(surveyCreationDTODown);
 
-        var createdUsers = await _userServices.CreateUsers(surveyCreationDTODown.Users,createdSurvey);
-
-        var createdProducts = await _productServices.CreateProducts(surveyCreationDTODown.Products,createdSurvey);
-
-        var createdUserProduct = await _userProductServices.CreateUserProducts(surveyCreationDTODown.UserProducts,createdSurvey,createdUsers,createdProducts);
-
-        return createdSurvey == null ? NotFound() : Ok(createdSurvey);
+        return survey == null ? NotFound() : Ok(survey);
     }
 
     [HttpPut]
     [Authorize]
     [ActionName("Survey")]
-    public async Task<IActionResult> Update([FromBody] Survey survey)
+    public async Task<IActionResult> PutSurvey([FromBody] Survey survey)
     {
         var result = await _surveyServices.UpdateSurvey(survey);
 
@@ -78,11 +68,11 @@ public class SurveyController : Controller
     [HttpDelete]
     [Authorize]
     [ActionName("Survey")]
-    public async Task<IActionResult> Delete([FromQuery]int id)
+    public async Task<IActionResult> DeleteSurvey([FromQuery]int id)
     {
-        var result = _surveyServices.DeleteSurvey(id);
+        var surveyDeleted = await _surveyServices.DeleteSurvey(id);
 
-        return await result == false ? NotFound() : Ok(result);
+        return surveyDeleted ? Ok() : NotFound();
     }
 
     [HttpGet("SurveyId")]
