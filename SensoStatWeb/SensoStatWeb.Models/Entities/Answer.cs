@@ -11,5 +11,7 @@ namespace SensoStatWeb.Models.Entities
         public int QuestionId { get; set; }
         public Question? Question { get; set; }
         public string? UserAnswer { get; set; }
+        public Product? Product { get; set; }
+        public int ProductId { get; set; }
     }
 }

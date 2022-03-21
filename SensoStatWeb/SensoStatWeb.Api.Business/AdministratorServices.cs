@@ -1,5 +1,6 @@
 ﻿using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
+using SensoStatWeb.Models.DTOs.Up;
 using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
@@ -22,6 +23,13 @@ namespace SensoStatWeb.Api.Business
         {
             AdministratorTokenDTODown result = await _administratorRepository.Login(username, password);
             return result;
+        }
+
+        public async Task<bool> Register(AdministratorDTOUp administrator)
+        {
+            var resultCreation = await _administratorRepository.Register(new Administrator(administrator));
+
+            return resultCreation != null;
         }
     }
 }

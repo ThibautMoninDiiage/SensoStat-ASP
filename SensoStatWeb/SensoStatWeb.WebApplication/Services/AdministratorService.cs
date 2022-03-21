@@ -20,7 +20,7 @@ namespace SensoStatWeb.WebApplication.Services
 
         public async Task<AdministratorTokenDTODown> Login(string username, string password)
         {
-            var url = $"{Constants.BaseUrlApi}login?login={username}&password={password}";
+            var url = $"{Constants.BaseUrlApi}administrator?login={username}&password={password}";
             var administrator = await _httpService.SendHttpRequest<AdministratorTokenDTODown>(url, HttpMethod.Get);
             return administrator;
         }
