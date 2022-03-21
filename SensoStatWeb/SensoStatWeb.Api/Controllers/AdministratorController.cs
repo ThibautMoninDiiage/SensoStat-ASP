@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
@@ -34,6 +35,7 @@ namespace SensoStatWeb.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Register([FromBody] AdministratorDTOUp administrator)
         {
             var resultRegister = await _administratorServices.Register(administrator);
