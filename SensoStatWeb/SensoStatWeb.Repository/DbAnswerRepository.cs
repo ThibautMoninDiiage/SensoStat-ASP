@@ -14,7 +14,7 @@ namespace SensoStatWeb.Repository
 
         public async Task<IEnumerable<Answer>> GetSurveyAnswers(int surveyId)
         {
-            var answers = _context.Answers.Select(answers => new Answer { User = answers.User, Question = answers.Question }).Where(a => a.User.SurveyId == surveyId).ToList();
+            var answers = _context.Answers.Select(answers => new Answer { UserId = answers.UserId, UserAnswer = answers.UserAnswer, QuestionId = answers.QuestionId, User = answers.User, Question = answers.Question }).Where(a => a.User.SurveyId == surveyId).ToList();
 
             return answers;
         }

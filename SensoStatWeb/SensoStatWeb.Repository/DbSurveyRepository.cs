@@ -103,6 +103,12 @@ namespace SensoStatWeb.Repository
                 .Where(survey => survey.Id == id)
                 .Select(survey => new Survey
                 {
+                    Id = survey.Id,
+                    Name = survey.Name,
+                    CreatorId = survey.CreatorId,
+                    Administrator = survey.Administrator,
+                    StateId = survey.StateId,
+                    CreationDate = survey.CreationDate,
                     UserProducts = survey.UserProducts,
                     Products = survey.Products,
                     SurveyState = survey.SurveyState,
