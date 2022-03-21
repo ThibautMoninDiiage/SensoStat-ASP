@@ -5,9 +5,9 @@ namespace SensoStatWeb.Business.Interfaces
 {
     public interface IJwtService
     {
-        string generateJwtToken(Administrator administrator);
+        string GenerateJwtToken(Administrator administrator);
 
-        List<User> generateJwtTokenForUser(List<User> users);
+        List<User> GenerateJwtTokenForUser(List<User> users);
 
         Task<JwtSecurityToken?> ReadJwtToken(string token);
     }

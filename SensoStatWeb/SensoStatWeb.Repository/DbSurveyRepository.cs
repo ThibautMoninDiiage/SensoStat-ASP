@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SensoStatWeb.Models.Entities;
+﻿using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Repository
@@ -12,7 +11,7 @@ namespace SensoStatWeb.Repository
             _context = context;
         }
 
-        public async Task<Survey>? CreateSurvey(Survey survey)
+        public async Task<Survey> CreateSurvey(Survey survey)
         {
             try
             {
@@ -27,7 +26,7 @@ namespace SensoStatWeb.Repository
             }
         }
 
-        public async Task<bool>? DeleteSurvey(int id)
+        public async Task<bool> DeleteSurvey(int id)
         {
             // GET THE SURVEY
             var deleteSurvey = _context.Surveys?.Where(s => s.Id == id).FirstOrDefault();
@@ -76,7 +75,7 @@ namespace SensoStatWeb.Repository
 
         public async Task<bool> DeploySurvey(int surveyId)
         {
-            Survey survey = await _context.Surveys.Where(s => s.Id == surveyId).FirstOrDefaultAsync();
+            Survey survey = _context.Surveys.Where(s => s.Id == surveyId).FirstOrDefault();
             survey.StateId = 2;
             _context.Surveys.Update(survey);
             await _context.SaveChangesAsync();
@@ -85,7 +84,7 @@ namespace SensoStatWeb.Repository
 
         public async Task<bool> UndeploySurvey(int surveyId)
         {
-            Survey survey = await _context.Surveys.Where(s => s.Id == surveyId).FirstOrDefaultAsync();
+            Survey survey = _context.Surveys.Where(s => s.Id == surveyId).FirstOrDefault();
             survey.StateId = 1;
             _context.Surveys.Update(survey);
             await _context.SaveChangesAsync();
@@ -97,28 +96,33 @@ namespace SensoStatWeb.Repository
             return _context.Surveys.ToList();
         }
 
-        public async Task<Survey>? GetSurvey(int id)
+        public async Task<Survey> GetSurvey(int id)
         {
+
             var survey = _context.Surveys
-                .Include(s => s.Products)
-                .Include(s => s.SurveyState)
-                .Include(s => s.Instructions)
-                .Include(s => s.Questions)
-                .Where(s => s.Id == id)
+                .Where(survey => survey.Id == id)
+                .Select(survey => new Survey
+                {
+                    UserProducts = survey.UserProducts,
+                    Products = survey.Products,
+                    SurveyState = survey.SurveyState,
+                    Instructions = survey.Instructions,
+                    Questions = survey.Questions,
+                })
                 .FirstOrDefault();
             return survey;
         }
 
-        public async Task<Survey>? GetSurveyByUserId(int userId)
+        public async Task<Survey> GetSurveyByUserId(int userId)
         {
             return _context.Users.Where(u => u.Id == userId.ToString()).Select(u => u.Survey).FirstOrDefault();
         }
 
-        public async Task<Survey>? UpdateSurvey(Survey survey)
+        public async Task<Survey> UpdateSurvey(Survey survey)
         {
             try
             {
-                var surveyDb = _context.Surveys?.Include(s => s.Questions).Include(s => s.Instructions).FirstOrDefault(s => s.Id == survey.Id);
+                var surveyDb = _context.Surveys?.Select(survey => new Survey { Questions = survey.Questions, Instructions = survey.Instructions }).FirstOrDefault(s => s.Id == survey.Id);
 
                 // Check if the survey exist in database
                 if (surveyDb != null)
@@ -137,7 +141,7 @@ namespace SensoStatWeb.Repository
                     return surveyDb;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }

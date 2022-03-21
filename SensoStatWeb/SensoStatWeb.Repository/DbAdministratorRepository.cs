@@ -26,7 +26,7 @@ namespace SensoStatWeb.Repository
             var admin = _context.Administrators.FirstOrDefault(a => a.UserName == username && a.Password == password);
             if (admin != null)
             {
-                var token = _jwtService.generateJwtToken(admin);
+                var token = _jwtService.GenerateJwtToken(admin);
                 return new AdministratorTokenDTODown() { Administrator = admin, Token = token };
             }
             
