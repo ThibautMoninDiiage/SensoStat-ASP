@@ -1,0 +1,31 @@
+﻿@model SensoStatWeb.WebApplication.ViewModels.RegisterViewModel
+
+<form method="post" asp-action="register" class="sectionLogin">
+    <h1 class="Title">Création d'un compte</h1>
+
+    <span class="errorText" asp-validation-for="UserName"></span>
+    <div class="roundedOrangeInput">
+        <i class="fa-solid fa-user"></i>
+        <input asp-for="@Model.UserName" placeholder="Nom d'utilisateur" />
+    </div>
+
+    <span class="errorText" asp-validation-for="Password"></span>
+    <div class="roundedOrangeInput">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" asp-for="@Model.Password" placeholder="Mot de passe" />
+    </div>
+
+    <span class="errorText" asp-validation-for="FirstName"></span>
+    <div class="roundedOrangeInput">
+        <i class="fa-solid fa-user"></i>
+        <input type="tel" asp-for="@Model.FirstName" placeholder="Prénom" />
+    </div>
+
+    <span class="errorText" asp-validation-for="LastName"></span>
+    <div class="roundedOrangeInput">
+        <i class="fa-solid fa-user"></i>
+        <input type="tel" asp-for="@Model.LastName" placeholder="Nom de famille" />
+    </div>
+
+    <input type="submit" class="orangeRoundedButton" value="Créer un compte" />
+</form>
