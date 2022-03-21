@@ -14,6 +14,7 @@
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
     <None Remove="Commons\" />
     <None Remove="Wrappers\" />
+    <None Remove="Views\Register\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -21,6 +22,7 @@
     <Folder Include="wwwroot\scripts\" />
     <Folder Include="Commons\" />
     <Folder Include="Wrappers\" />
+    <Folder Include="Views\Register\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SensoStatWeb.Business\SensoStatWeb.Business.csproj">
