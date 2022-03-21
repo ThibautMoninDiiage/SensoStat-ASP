@@ -19,7 +19,7 @@ namespace SensoStatWeb.Business
             _apiSettings = apiSettings.Value;
         }
 
-        public string generateJwtToken(Administrator administrator)
+        public string GenerateJwtToken(Administrator administrator)
         {
             // génère un token valide pour 7 jours
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -42,7 +42,7 @@ namespace SensoStatWeb.Business
             return tokenHandler.WriteToken(token);
         }
 
-        public List<User> generateJwtTokenForUser(List<User> users)
+        public List<User> GenerateJwtTokenForUser(List<User> users)
         {
             foreach (var user in users)
             {
