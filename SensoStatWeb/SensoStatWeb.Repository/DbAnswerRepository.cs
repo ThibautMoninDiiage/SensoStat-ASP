@@ -19,5 +19,20 @@ namespace SensoStatWeb.Repository
 
             return answers;
         }
+
+        public async Task<Answer>? CreateAnswer(Answer answer)
+        {
+            try
+            {
+                _context.Answers.Add(answer);
+                _context.SaveChanges();
+                return answer;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
     }
 }
