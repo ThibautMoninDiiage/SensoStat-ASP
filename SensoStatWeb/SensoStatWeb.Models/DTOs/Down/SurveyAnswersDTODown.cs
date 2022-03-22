@@ -12,12 +12,11 @@ namespace SensoStatWeb.Models.DTOs.Down
     {
         public SurveyAnswersDTODown()
         {
-            AnswerDTOUp = this.AnswerDTOUp;
+
         }
 
         public string Question { get; set; }
         public string UserCode { get; set; }
         public string Answer { get; set; }
-        public AnswerDTOUp? AnswerDTOUp { get; set; }
     }
 }

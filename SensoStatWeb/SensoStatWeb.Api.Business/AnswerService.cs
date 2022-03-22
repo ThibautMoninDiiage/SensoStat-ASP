@@ -58,11 +58,9 @@ namespace SensoStatWeb.Api.Business
                 ProductId = answerDTOUp.ProductId,
                 User = await _userService.GetUser(userId),
                 Question = await _questionRepository.GetQuestion(answerDTOUp.QuestionId),
+                Product = await _productService.GetProduct(answerDTOUp.ProductId)
 
             };
-            var internetDeFesse = await _productService.GetProduct(answerDTOUp.ProductId);
-            answer.Product = internetDeFesse;
-
 
             var answerResult = await _answerRepository.CreateAnswer(answer);
 
