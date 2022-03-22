@@ -16,5 +16,7 @@ namespace SensoStatWeb.Models.Entities
         public Survey? Survey { get; set;}
         [JsonIgnore]
         public List<UserProduct>? UserProducts { get; set; }
+        [JsonIgnore]
+        public List<Answer>? Answers { get; set; }
     }
 }

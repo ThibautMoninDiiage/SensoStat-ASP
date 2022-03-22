@@ -32,5 +32,22 @@ namespace SensoStatWeb.Repository
             
             return null;
         }
+
+        public async Task<Administrator> Register(Administrator administrator)
+        {
+            try
+            {
+                _context.Administrators.Add(administrator);
+                _context.SaveChanges();
+
+                return administrator;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+
+        }
     }
 }

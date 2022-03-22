@@ -1,7 +1,11 @@
 ﻿@model SensoStatWeb.WebApplication.ViewModels.SurveysViewModel
 
 <section class="sectionSurveys">
-    <div class="btnNewSurvey">
+    <div class="btnNewSurveyDiv">
+        <div>
+            <a asp-action="logout"><i class="fa-solid fa-door-open" style="font-size: 22pt;"></i></a>
+            <a asp-action="" asp-controller="register"><i style="font-size: 22pt;" class="fa-solid fa-user"></i></a>
+        </div>
         <a asp-controller="survey" asp-action="" class="orangeRoundedButton">Nouvelle Séance</a>
     </div>
 

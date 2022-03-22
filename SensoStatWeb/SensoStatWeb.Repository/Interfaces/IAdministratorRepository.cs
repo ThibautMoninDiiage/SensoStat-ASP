@@ -8,5 +8,7 @@ namespace SensoStatWeb.Repository.Interfaces
         Task<AdministratorTokenDTODown>? Login(string username, string password);
 
         Task<Administrator>? GetAdministrator(int id);
+
+        Task<Administrator> Register(Administrator administrator);
     }
 }

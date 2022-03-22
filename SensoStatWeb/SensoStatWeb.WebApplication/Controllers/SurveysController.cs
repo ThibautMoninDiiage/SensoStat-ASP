@@ -30,6 +30,15 @@ namespace SensoStatWeb.WebApplication.Controllers
             return this.View("index", model);
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            // Delete cookie
+            HttpContext.Response.Cookies.Delete("Token");
+
+            // Redirect to login page
+            return RedirectToAction("index", "login");
+        }
+
         [HttpDelete]
         public async Task DeleteSurvey(int id)
         {

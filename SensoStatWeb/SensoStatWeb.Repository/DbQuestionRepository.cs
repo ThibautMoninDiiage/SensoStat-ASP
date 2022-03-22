@@ -36,6 +36,11 @@ namespace SensoStatWeb.Repository
             var result = _context.Questions.Where(q => q.Equals(deletedQuestion));
             return result == null ? true : false;
         }
+
+        public async Task<Question> GetQuestion(int id)
+        {
+            return _context.Questions.FirstOrDefault(q => q.Id == id);
+        }
     }
 }
 

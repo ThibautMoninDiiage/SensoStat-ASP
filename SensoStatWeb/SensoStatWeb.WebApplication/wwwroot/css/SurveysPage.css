@@ -1,8 +1,9 @@
-﻿.btnNewSurvey {
+﻿.btnNewSurveyDiv {
     display: flex;
     flex-direction: row;
-    justify-content: end;
-    margin-bottom: 5vh; 
+    justify-content: space-between;
+    margin-bottom: 5vh;
+    align-items:center;
 }
 
 @media screen and (max-width: 400px) {

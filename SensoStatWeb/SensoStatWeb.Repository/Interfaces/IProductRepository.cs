@@ -8,5 +8,7 @@ namespace SensoStatWeb.Repository.Interfaces
         Task<List<Product>> CreateProduct(List<Product> products);
 
         Task<List<Product>>? GetAllProducts();
+
+        Task<Product>? GetProduct(int id);
     }
 }

@@ -125,13 +125,13 @@ namespace SensoStatWeb.WebApplication.Controllers
             var questions = new List<Question>();
             var instructions = new List<Instruction>();
 
-            for (int i = 1; i <= inputQuestionInstruction?.Count(); i++)
+            for (int i = 0; i <= inputQuestionInstruction?.Count()-1; i++)
             {
-                if (inputListPosition?[i - 1].ToLower() == "question")
+                if (inputListPosition?[i].ToLower() == "question")
                 {
                     var question = new Question()
                     {
-                        Libelle = inputQuestionInstruction[i - 1],
+                        Libelle = inputQuestionInstruction[i],
                         Position = i
                     };
 
@@ -141,7 +141,7 @@ namespace SensoStatWeb.WebApplication.Controllers
                 {
                     var instructionStatusCode = 1; // Set status to default
 
-                    switch (inputListPosition?[i - 1].ToLower())
+                    switch (inputListPosition?[i].ToLower())
                     {
                         case "introduction":
                             instructionStatusCode = 0;
@@ -153,7 +153,7 @@ namespace SensoStatWeb.WebApplication.Controllers
 
                     var instruction = new Instruction()
                     {
-                        Libelle = inputQuestionInstruction[i - 1],
+                        Libelle = inputQuestionInstruction[i],
                         Position = i,
                         Status = instructionStatusCode
                     };

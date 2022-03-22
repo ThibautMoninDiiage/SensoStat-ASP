@@ -36,5 +36,19 @@ namespace SensoStatWeb.Repository
         {
             return _context.Products.ToList();
         }
+
+        public async Task<Product> GetProduct(int id)
+        {
+            try
+            {
+                return _context.Products.FirstOrDefault(p => p.Id == id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                return null;
+            }
+        }
     }
 }

@@ -7,5 +7,7 @@ namespace SensoStatWeb.Api.Business.Interfaces
         Task<List<Product>>? CreateProducts(List<Product> products,Survey survey);
 
         Task<List<Product>>? GetAllProducts();
+
+        Task<Product>? GetProduct(int id);
     }
 }

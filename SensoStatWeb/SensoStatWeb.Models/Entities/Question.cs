@@ -16,6 +16,7 @@ namespace SensoStatWeb.Models.Entities
         [ForeignKey("SurveyId")]
         [JsonIgnore]
         public Survey? Survey { get; set; }
+        [JsonIgnore]
         public List<Answer>? Answers { get; set; }
     }
 }
