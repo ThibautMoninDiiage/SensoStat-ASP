@@ -114,8 +114,7 @@ namespace SensoStatWeb.Repository
                     SurveyState = survey.SurveyState,
                     Instructions = survey.Instructions,
                     Questions = survey.Questions,
-                })
-                .FirstOrDefault();
+                }).FirstOrDefault();
             return survey;
         }
 
@@ -128,7 +127,18 @@ namespace SensoStatWeb.Repository
         {
             try
             {
-                var surveyDb = _context.Surveys?.Select(survey => new Survey { Questions = survey.Questions, Instructions = survey.Instructions }).FirstOrDefault(s => s.Id == survey.Id);
+                var surveyDb = _context.Surveys?.Select(updatedSurvey => new Survey
+                {
+                    Id = survey.Id,
+                    Name = survey.Name,
+                    CreatorId = updatedSurvey.CreatorId,
+                    Administrator = updatedSurvey.Administrator,
+                    StateId = updatedSurvey.StateId,
+                    CreationDate = updatedSurvey.CreationDate,
+                    SurveyState = updatedSurvey.SurveyState,
+                    Instructions = updatedSurvey.Instructions,
+                    Questions = updatedSurvey.Questions,
+                }).FirstOrDefault(s => s.Id == survey.Id);
 
                 // Check if the survey exist in database
                 if (surveyDb != null)
@@ -141,7 +151,7 @@ namespace SensoStatWeb.Repository
                         surveyDb.Instructions = survey.Instructions;
 
 
-                    // _context.Surveys.Update(survey);
+                    _context.Surveys.Update(surveyDb);
 
                     _context.SaveChanges();
                     return surveyDb;
