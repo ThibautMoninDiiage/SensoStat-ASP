@@ -1,4 +1,5 @@
-﻿using SensoStatWeb.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Repository
@@ -127,18 +128,7 @@ namespace SensoStatWeb.Repository
         {
             try
             {
-                var surveyDb = _context.Surveys?.Select(updatedSurvey => new Survey
-                {
-                    Id = survey.Id,
-                    Name = survey.Name,
-                    CreatorId = updatedSurvey.CreatorId,
-                    Administrator = updatedSurvey.Administrator,
-                    StateId = updatedSurvey.StateId,
-                    CreationDate = updatedSurvey.CreationDate,
-                    SurveyState = updatedSurvey.SurveyState,
-                    Instructions = updatedSurvey.Instructions,
-                    Questions = updatedSurvey.Questions,
-                }).FirstOrDefault(s => s.Id == survey.Id);
+                var surveyDb = _context.Surveys?.Include(s => s.Questions).Include(s => s.Instructions).FirstOrDefault(s => s.Id == survey.Id);
 
                 // Check if the survey exist in database
                 if (surveyDb != null)
