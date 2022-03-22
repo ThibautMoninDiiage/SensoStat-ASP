@@ -35,5 +35,10 @@ namespace SensoStatWeb.Api.Business
             List<Product> result = await _productRepository.GetAllProducts();
             return result;
         }
+
+        public async Task<Product> GetProduct(int id)
+        {
+            return await _productRepository.GetProduct(id);
+        }
     }
 }
