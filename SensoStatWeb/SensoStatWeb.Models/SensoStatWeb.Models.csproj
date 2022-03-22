@@ -11,10 +11,12 @@
     <None Remove="DTOs\Down\" />
     <None Remove="Newtonsoft.Json" />
     <None Remove="Entities\Interfaces\" />
+    <None Remove="DTOs\Up\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Entities\Interfaces\" />
+    <Folder Include="DTOs\Up\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
