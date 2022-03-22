@@ -9,5 +9,7 @@ namespace SensoStatWeb.Repository.Interfaces
 		Task<Question>? CreateQuestion(Question question);
 
 		Task<bool>? DeleteQuestion(int id);
+
+		Task<Question>? GetQuestion(int id);
 	}
 }
