@@ -23,7 +23,7 @@ namespace SensoStatWeb.Models.Entities
         {
             modelBuilder.Entity<Answer>(entity =>
             {
-                entity.HasKey(a => new { a.UserId, a.QuestionId });
+                entity.HasKey(a => new { a.UserId, a.QuestionId});
                 entity.HasOne(a => a.User)
                 .WithMany(u => u.Answers)
                 .HasForeignKey(a => a.UserId)
@@ -31,7 +31,10 @@ namespace SensoStatWeb.Models.Entities
 
                 entity.HasOne(a => a.Question)
                 .WithMany(u => u.Answers)
-                .HasForeignKey(a => a.QuestionId);
+                .HasForeignKey(a => a.QuestionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+                //entity.HasOne(p => p.Product);
             });
 
             modelBuilder.Entity<UserProduct>(entity =>
