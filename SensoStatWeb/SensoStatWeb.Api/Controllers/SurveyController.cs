@@ -11,12 +11,14 @@ public class SurveyController : Controller
 {
     #region privates
     private readonly ISurveyServices _surveyServices;
+    private readonly IAnswerService _answerService;
     #endregion
 
     #region CTOR
-    public SurveyController(ISurveyServices surveyServices)
+    public SurveyController(ISurveyServices surveyServices, IAnswerService answerService)
     {
         _surveyServices = surveyServices;
+        _answerService = answerService;
     }
     #endregion
 
@@ -35,7 +37,32 @@ public class SurveyController : Controller
         if (surveyId == 0)
         {
             var surveys = await _surveyServices.GetAllSurveys();
-            return surveys != null ? Ok(surveys) : NotFound();
+
+            try
+            {
+                var surveyDtoWithStats = new List<SurveyWithStatsDtoDown>();
+
+                foreach (var survey in surveys)
+                {
+                    var surveyDtoWithStat = new SurveyWithStatsDtoDown()
+                    {
+                        Survey = survey,
+                        PercentageOfCompletion = await _answerService.GetSurveyPercentageAnswers(survey.Id)
+                    };
+
+                    surveyDtoWithStats.Add(surveyDtoWithStat);
+                }
+
+                return surveyDtoWithStats != null ? Ok(surveyDtoWithStats) : NotFound();
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return null;
+
         }
         else
         {

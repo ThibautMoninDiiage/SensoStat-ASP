@@ -1,4 +1,5 @@
-﻿using SensoStatWeb.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SensoStatWeb.Models.Entities;
 using SensoStatWeb.Repository.Interfaces;
 
 namespace SensoStatWeb.Repository
@@ -32,6 +33,26 @@ namespace SensoStatWeb.Repository
                 Console.WriteLine(ex);
                 return null;
             }
+        }
+
+        public async Task<float> GetPercentageAnswerOfSurvey(int surveyId)
+        {
+            var survey = _context.Surveys?
+                .Include(s => s.Questions)
+                .Include(s => s.Users)
+                .Include(s => s.Products)
+                .FirstOrDefault(s => s.Id == surveyId);
+
+            var numberOfQuestions = survey.Questions?.Count();
+            var numberOfProducts = survey.Products?.Count();
+            var numberOfUsers = survey.Users?.Count();
+            var numberOfAnswers = _context.Answers.Include(a => a.Question).Where(a => a.Question.SurveyId == surveyId).Count();
+
+            var denominator = (numberOfQuestions * numberOfProducts * numberOfAnswers * numberOfUsers);
+
+            float percentageResponses = ((float)numberOfAnswers / (float)denominator);
+
+            return percentageResponses;
         }
     }
 }

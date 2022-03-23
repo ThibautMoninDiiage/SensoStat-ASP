@@ -19,7 +19,7 @@
             {
                 <div class="oneSurvey">
                     <div>
-                        @if(survey.StateId == 1)
+                        @if (survey.Survey.StateId == 1)
                         {
                             <i class="fas fa-circle greyCircle"></i>
                         }
@@ -27,9 +27,13 @@
                         {
                             <i class="fas fa-circle blueCircle"></i>
                         }
-                        @survey.Name
-                   </div>
-                    <div><a asp-route-surveyId="@survey.Id" asp-controller="survey" asp-action="editPage"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey(@survey.Id)"><i class="fas fa-trash-alt"></i></a></div>
+
+                        @survey.PercentageOfCompletion
+
+
+                        @survey.Survey.Name
+                    </div>
+                    <div><a asp-route-surveyId="@survey.Survey.Id" asp-controller="survey" asp-action="editPage"><i class="fas fa-edit"></i></a> <a onclick="showPopupDeleteSurvey(@survey.Survey.Id)"><i class="fas fa-trash-alt"></i></a></div>
                 </div>
             }
         }

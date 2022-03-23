@@ -99,25 +99,34 @@ namespace SensoStatWeb.Repository
 
         public async Task<Survey> GetSurvey(int id)
         {
+            try
+            {
+                var survey = _context.Surveys
+                    .Where(survey => survey.Id == id)
+                    .Select(s => new Survey
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        CreatorId = s.CreatorId,
+                        Administrator = s.Administrator,
+                        StateId = s.StateId,
+                        CreationDate = s.CreationDate,
+                        UserProducts = s.UserProducts,
+                        Products = s.Products,
+                        SurveyState = s.SurveyState,
+                        Instructions = s.Instructions,
+                        Questions = s.Questions,
+                        Users = s.Users
+                    }).FirstOrDefault();
 
-            var survey = _context.Surveys
-                .Where(survey => survey.Id == id)
-                .Select(survey => new Survey
-                {
-                    Id = survey.Id,
-                    Name = survey.Name,
-                    CreatorId = survey.CreatorId,
-                    Administrator = survey.Administrator,
-                    StateId = survey.StateId,
-                    CreationDate = survey.CreationDate,
-                    UserProducts = survey.UserProducts,
-                    Products = survey.Products,
-                    SurveyState = survey.SurveyState,
-                    Instructions = survey.Instructions,
-                    Questions = survey.Questions,
-                    Users = survey.Users
-                }).FirstOrDefault();
-            return survey;
+                return survey;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return null;
+
         }
 
         public async Task<Survey> GetSurveyByUserId(int userId)

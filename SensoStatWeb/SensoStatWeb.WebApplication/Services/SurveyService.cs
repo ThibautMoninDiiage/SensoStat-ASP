@@ -16,9 +16,9 @@ namespace SensoStatWeb.WebApplication.Services
             _httpService = httpService;
         }
 
-        public async Task<List<Survey>> GetSurveys(string token = "")
+        public async Task<List<SurveyWithStatsDtoDown>> GetSurveys(string token = "")
         {
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
+            var surveys = await _httpService.SendHttpRequest<List<SurveyWithStatsDtoDown>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
 
             return surveys;
         }

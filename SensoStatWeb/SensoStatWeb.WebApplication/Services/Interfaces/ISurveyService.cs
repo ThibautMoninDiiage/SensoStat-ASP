@@ -6,7 +6,7 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
 {
     public interface ISurveyService
     {
-        Task<List<Survey>> GetSurveys(string token = "");
+        Task<List<SurveyWithStatsDtoDown>> GetSurveys(string token = "");
 
         Task<Survey> GetSurvey(int surveyId, string token = "");
 
