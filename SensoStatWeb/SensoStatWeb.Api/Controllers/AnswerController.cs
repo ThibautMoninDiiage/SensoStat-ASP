@@ -56,26 +56,6 @@ namespace SensoStatWeb.Api.Controllers
         }
         #endregion
 
-        #region GetPercentageResponses
-        /// <summary>
-        /// Retrun a percentage of answers of one survey
-        /// </summary>
-        /// <param name="surveyId"></param>
-        /// <returns></returns>
-        [HttpGet("Percentage")]
-        [Authorize]
-        [ActionName("Answer")]
-        public async Task<IActionResult> GetPercentageResponses([FromQuery] int surveyId)
-        {
-            var percentageAnswers = await _answerService.GetSurveyPercentageAnswers(surveyId);
-
-            if (float.IsNaN(percentageAnswers))
-                return Ok(0);
-
-            return Ok(percentageAnswers);
-        }
-
-        #endregion
         #endregion
     }
 }
