@@ -28,7 +28,7 @@ public class UserController : Controller
     {
         var usersUrls = await _userServices.CreateUrl(id);
 
-        return Ok(usersUrls);
+        return usersUrls == null ? NotFound() : Ok(usersUrls);
     }
     #endregion
 
