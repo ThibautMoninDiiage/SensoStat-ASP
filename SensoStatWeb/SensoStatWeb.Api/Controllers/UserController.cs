@@ -8,13 +8,20 @@ namespace SensoStatWeb.Api.Controllers;
 
 public class UserController : Controller
 {
+    #region privates
     private readonly IUserServices _userServices;
+    #endregion
 
+    #region CTOR
     public UserController(IUserServices userServices)
     {
         _userServices = userServices;
     }
+    #endregion
 
+    #region methods
+
+    #region UsersUrls
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> User([FromQuery] int id)
@@ -23,5 +30,8 @@ public class UserController : Controller
 
         return Ok(usersUrls);
     }
+    #endregion
+
+    #endregion
 }
 

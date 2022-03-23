@@ -45,6 +45,8 @@ public class SurveyController : Controller
     }
     #endregion
 
+    #region methods
+
     #region GetSurveyByToken
     /// <summary>
     /// Get a survey thanks a user token
@@ -127,5 +129,7 @@ public class SurveyController : Controller
     {
         return action == "Deploy" ? Ok(await _surveyServices.DeploySurvey(surveyId)) : Ok(await _surveyServices.UndeploySurvey(surveyId));
     }
+    #endregion
+
     #endregion
 }
