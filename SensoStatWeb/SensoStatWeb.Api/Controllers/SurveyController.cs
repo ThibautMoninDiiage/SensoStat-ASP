@@ -39,7 +39,6 @@ public class SurveyController : Controller
             var surveys = await _surveyServices.GetAllSurveys();
 
             var surveyDtoWithStats = surveys.Select(s =>
-            
                 new SurveyWithStatsDtoDown()
                 {
                     Survey = s,
@@ -48,9 +47,6 @@ public class SurveyController : Controller
             );
 
            return surveyDtoWithStats != null ? Ok(surveyDtoWithStats) : NotFound();
-
-
-
         }
         else
         {
