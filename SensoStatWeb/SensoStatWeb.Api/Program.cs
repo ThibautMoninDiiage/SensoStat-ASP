@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SensoStatWeb.Api.Business;
 using SensoStatWeb.Api.Business.Interfaces;
+using SensoStatWeb.Api.Filters;
 using SensoStatWeb.Business;
 using SensoStatWeb.Business.Helpers;
 using SensoStatWeb.Business.Interfaces;
@@ -84,7 +85,11 @@ builder.Services.AddAuthentication(auth =>
 #endregion
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionFilter>();
+});
+
 builder.Services.AddEndpointsApiExplorer();
 
 #region IOC
