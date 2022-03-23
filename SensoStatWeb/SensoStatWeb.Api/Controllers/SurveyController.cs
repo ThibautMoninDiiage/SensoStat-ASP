@@ -38,30 +38,18 @@ public class SurveyController : Controller
         {
             var surveys = await _surveyServices.GetAllSurveys();
 
-            try
-            {
-                var surveyDtoWithStats = new List<SurveyWithStatsDtoDown>();
-
-                foreach (var survey in surveys)
+            var surveyDtoWithStats = surveys.Select(s =>
+            
+                new SurveyWithStatsDtoDown()
                 {
-                    var surveyDtoWithStat = new SurveyWithStatsDtoDown()
-                    {
-                        Survey = survey,
-                        PercentageOfCompletion = await _answerService.GetSurveyPercentageAnswers(survey.Id)
-                    };
-
-                    surveyDtoWithStats.Add(surveyDtoWithStat);
+                    Survey = s,
+                    PercentageOfCompletion = _answerService.GetSurveyPercentageAnswers(s.Id).Result
                 }
+            );
 
-                return surveyDtoWithStats != null ? Ok(surveyDtoWithStats) : NotFound();
+           return surveyDtoWithStats != null ? Ok(surveyDtoWithStats) : NotFound();
 
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
 
-            return null;
 
         }
         else
