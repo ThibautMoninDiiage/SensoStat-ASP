@@ -20,8 +20,15 @@ namespace SensoStatWeb.Api.Business
         private readonly IJwtService _jwtService;
         private readonly IUserServices _userService;
         private readonly IQuestionRepository _questionRepository;
+        private readonly ISurveyServices _surveyServices;
 
-        public AnswerService(IAnswerRepository answerRepository, IUserRepository userRepository, IProductServices productService, IJwtService jwtService, IUserServices userServices, IQuestionRepository questionRepository)
+        public AnswerService(IAnswerRepository answerRepository,
+            IUserRepository userRepository,
+            IProductServices productService,
+            IJwtService jwtService,
+            IUserServices userServices,
+            IQuestionRepository questionRepository,
+            ISurveyServices surveyServices)
         {
             _answerRepository = answerRepository;
             _userRepository = userRepository;
@@ -29,6 +36,7 @@ namespace SensoStatWeb.Api.Business
             _jwtService = jwtService;
             _userService = userServices;
             _questionRepository = questionRepository;
+            _surveyServices = surveyServices;
         }
 
         public async Task<IEnumerable<SurveyAnswersDTODown>> GetSurveyAnswers(int surveyId)
@@ -65,6 +73,25 @@ namespace SensoStatWeb.Api.Business
             var answerResult = await _answerRepository.CreateAnswer(answer);
 
             return answerResult;
+        }
+
+        public async Task<float> GetSurveyPercentageAnswers(int surveyId)
+        {
+            var survey = await _surveyServices.GetSurvey(surveyId);
+            var answers = await GetSurveyAnswers(surveyId);
+
+            var numberOfQuestions = survey.Questions?.Count();
+            var numberOfProducts = survey.Products?.Count();
+            var numberOfUsers = survey.Users?.Count();
+            var numberOfAnswers = answers?.Count();
+
+            var denominator = (numberOfQuestions * numberOfProducts * numberOfAnswers * numberOfUsers);
+
+            float percentageResponses = ((float)numberOfAnswers / (float)denominator) * 100;
+
+
+
+            return percentageResponses;
         }
     }
 }

@@ -115,6 +115,7 @@ namespace SensoStatWeb.Repository
                     SurveyState = survey.SurveyState,
                     Instructions = survey.Instructions,
                     Questions = survey.Questions,
+                    Users = survey.Users
                 }).FirstOrDefault();
             return survey;
         }
