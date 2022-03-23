@@ -152,15 +152,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseExceptionHandler(exceptionHandlerApp => exceptionHandlerApp.Run(async context =>
-{
-    var exception = context.Features
-        .Get<IExceptionHandlerPathFeature>()
-        .Error;
-    var response = new { error = exception.Message };
-    await context.Response.WriteAsJsonAsync(response);
-}));
-
 app.UseHttpsRedirection();
 
 app.UseCors(x => x
