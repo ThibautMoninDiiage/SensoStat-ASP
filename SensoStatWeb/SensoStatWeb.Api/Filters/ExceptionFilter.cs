@@ -13,12 +13,10 @@ namespace SensoStatWeb.Api.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new NotImplementedException();
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            throw new NotImplementedException();
         }
 
         #region OnException
