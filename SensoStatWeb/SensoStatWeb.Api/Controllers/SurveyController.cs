@@ -11,14 +11,12 @@ public class SurveyController : Controller
 {
     #region privates
     private readonly ISurveyServices _surveyServices;
-    private readonly IAnswerService _answerService;
     #endregion
 
     #region CTOR
-    public SurveyController(ISurveyServices surveyServices, IAnswerService answerService)
+    public SurveyController(ISurveyServices surveyServices)
     {
         _surveyServices = surveyServices;
-        _answerService = answerService;
     }
     #endregion
 
