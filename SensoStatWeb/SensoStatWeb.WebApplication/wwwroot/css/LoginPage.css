@@ -14,7 +14,6 @@
 h1.Title {
     font-size: 30pt;
     text-align: center;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 @media screen and (max-width: 500px) {
