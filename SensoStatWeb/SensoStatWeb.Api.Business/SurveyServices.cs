@@ -16,6 +16,7 @@ namespace SensoStatWeb.Api.Business
         private readonly IUserServices _userServices;
         private readonly IProductServices _productServices;
         private readonly IUserProductServices _userProductServices;
+        private readonly IAnswerService _answerService;
 
         public SurveyServices(ISurveyRepository surveyRepository,
             IAdministratorRepository administratorRepository,
@@ -24,7 +25,8 @@ namespace SensoStatWeb.Api.Business
             IJwtService jwtService,
             IUserServices userServices,
             IProductServices productServices,
-            IUserProductServices userProductServices)
+            IUserProductServices userProductServices,
+            IAnswerService answerService)
         {
             _userProductServices = userProductServices;
             _productServices = productServices;
@@ -34,6 +36,7 @@ namespace SensoStatWeb.Api.Business
             _administratorRepository = administratorRepository;
             _surveyStateRepository = surveyStateRepository;
             _userRepository = userRepository;
+            _answerService = answerService;
         }
 
         public async Task<Survey> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown)
@@ -89,9 +92,18 @@ namespace SensoStatWeb.Api.Business
             return result != false;
         }
 
-        public async Task<List<Survey>> GetAllSurveys()
+        public async Task<List<SurveyWithStatsDtoDown>> GetAllSurveys()
         {
-            return await _surveyRepository.GetAllSurveys();
+            var surveys =await _surveyRepository.GetAllSurveys();
+
+            var surveyDtoWithStats = surveys.Select(s =>
+            new SurveyWithStatsDtoDown()
+            {
+                Survey = s,
+                PercentageOfCompletion = _answerService.GetSurveyPercentageAnswers(s.Id).Result
+            }).ToList();
+
+            return surveyDtoWithStats;
         }
 
         public async Task<Survey> GetSurvey(int id)

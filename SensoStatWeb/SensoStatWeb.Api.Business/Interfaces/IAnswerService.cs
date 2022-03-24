@@ -14,5 +14,7 @@ namespace SensoStatWeb.Api.Business.Interfaces
         Task<IEnumerable<SurveyAnswersDTODown>> GetSurveyAnswers(int surveyId);
 
         Task<Answer> CreateAnswer(AnswerDTOUp answerDTOUp);
+
+        Task<string> GetSurveyPercentageAnswers(int surveyId);
     }
 }

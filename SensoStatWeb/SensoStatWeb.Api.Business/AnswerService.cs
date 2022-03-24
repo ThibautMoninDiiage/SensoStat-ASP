@@ -15,16 +15,18 @@ namespace SensoStatWeb.Api.Business
     public class AnswerService : IAnswerService
     {
         private readonly IAnswerRepository _answerRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IProductServices _productService;
         private readonly IJwtService _jwtService;
         private readonly IUserServices _userService;
         private readonly IQuestionRepository _questionRepository;
 
-        public AnswerService(IAnswerRepository answerRepository, IUserRepository userRepository, IProductServices productService, IJwtService jwtService, IUserServices userServices, IQuestionRepository questionRepository)
+        public AnswerService(IAnswerRepository answerRepository,
+            IProductServices productService,
+            IJwtService jwtService,
+            IUserServices userServices,
+            IQuestionRepository questionRepository)
         {
             _answerRepository = answerRepository;
-            _userRepository = userRepository;
             _productService = productService;
             _jwtService = jwtService;
             _userService = userServices;
@@ -65,6 +67,16 @@ namespace SensoStatWeb.Api.Business
             var answerResult = await _answerRepository.CreateAnswer(answer);
 
             return answerResult;
+        }
+
+        public async Task<string> GetSurveyPercentageAnswers(int surveyId)
+        {
+            var stat = await _answerRepository.GetPercentageAnswerOfSurvey(surveyId);
+
+            if (float.IsNaN(stat))
+                return "0%";
+
+            return stat.ToString("0.00%");
         }
     }
 }
