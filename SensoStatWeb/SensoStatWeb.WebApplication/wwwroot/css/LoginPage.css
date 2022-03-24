@@ -8,11 +8,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 h1.Title {
     font-size: 30pt;
-    text-align:center;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 @media screen and (max-width: 500px) {
