@@ -99,7 +99,7 @@ namespace SensoStatWeb.Api.Business
             var surveyDtoWithStats = surveys.Select(s =>
             new SurveyWithStatsDtoDown()
             {
-                Survey = s,
+                Survey = new SurveyLiteDTODown(s),
                 PercentageOfCompletion = _answerService.GetSurveyPercentageAnswers(s.Id).Result
             }).ToList();
 

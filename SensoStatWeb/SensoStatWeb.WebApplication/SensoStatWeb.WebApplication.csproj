@@ -15,6 +15,7 @@
     <None Remove="Commons\" />
     <None Remove="Wrappers\" />
     <None Remove="Views\Register\" />
+    <None Remove="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -23,6 +24,7 @@
     <Folder Include="Commons\" />
     <Folder Include="Wrappers\" />
     <Folder Include="Views\Register\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SensoStatWeb.Business\SensoStatWeb.Business.csproj">
