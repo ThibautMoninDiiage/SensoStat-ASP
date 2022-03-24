@@ -38,15 +38,7 @@ public class SurveyController : Controller
         {
             var surveys = await _surveyServices.GetAllSurveys();
 
-            var surveyDtoWithStats = surveys.Select(s =>
-                new SurveyWithStatsDtoDown()
-                {
-                    Survey = s,
-                    PercentageOfCompletion = _answerService.GetSurveyPercentageAnswers(s.Id).Result
-                }
-            );
-
-           return surveyDtoWithStats != null ? Ok(surveyDtoWithStats) : NotFound();
+           return surveys != null ? Ok(surveys) : NotFound();
         }
         else
         {
