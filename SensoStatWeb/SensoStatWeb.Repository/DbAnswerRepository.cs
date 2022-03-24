@@ -48,7 +48,7 @@ namespace SensoStatWeb.Repository
             var numberOfUsers = survey.Users?.Count();
             var numberOfAnswers = _context.Answers.Include(a => a.Question).Where(a => a.Question.SurveyId == surveyId).Count();
 
-            var denominator = (numberOfQuestions * numberOfProducts * numberOfAnswers * numberOfUsers);
+            var denominator = (numberOfQuestions * numberOfProducts * numberOfUsers);
 
             float percentageResponses = ((float)numberOfAnswers / (float)denominator);
 
