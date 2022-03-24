@@ -1,0 +1,44 @@
+﻿@model SensoStatWeb.WebApplication.ViewModels.DashboardViewModel
+
+<section id="dashboard">
+    <div id="titleStats" class="text-center">
+        <h1>Statistiques SensoStat</h1>
+        <hr />
+        <br />
+        <br />
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col bg-light p-4 m-2 text-center border border-warning rounded">
+                <h5>Nombre de séances total</h5>
+                <hr />
+                <p>@Model.CountTotalSurveys</p>
+            </div>
+            <div class="col bg-light p-4 m-2 text-center border border-warning rounded">
+                <h5>Nombre de séances déployés</h5>
+                <hr />
+                <p>@Model.CountDeployedSurveys</p>
+            </div>
+            <div class="col bg-light p-4 m-2 text-center border border-warning rounded">
+                <h5>Nombre de séances non déployés</h5>
+                <hr />
+                <p>@Model.CountUndeployedSurveys</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col bg-light p-4 m-2 text-center border border-warning rounded">
+                <h5>Framework version</h5>
+                <hr />
+                <p>@Model.FrameworkVersion</p>
+            </div>
+            <div class="col bg-light p-4 m-2 text-center border border-warning rounded">
+                <h5>Website version</h5>
+                <hr />
+                <p>@Model.WebsiteVersion</p>
+            </div>
+            <div class="col bg-light p-4 m-2 text-center border border-warning rounded">
+                <h5>Plus d'informations à venir...</h5>
+            </div>
+        </div>
+    </div>
+</section>
