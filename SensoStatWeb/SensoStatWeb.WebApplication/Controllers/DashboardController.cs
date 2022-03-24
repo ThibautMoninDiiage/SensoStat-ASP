@@ -35,8 +35,8 @@ namespace SensoStatWeb.WebApplication.Controllers
             var model = new DashboardViewModel
             {
                 CountTotalSurveys = surveys.Count(),
-                CountDeployedSurveys = surveys.Where(survey => survey.StateId == 2).Count(),
-                CountUndeployedSurveys = surveys.Where(survey => survey.StateId == 1).Count(),
+                CountDeployedSurveys = surveys.Where(survey => survey.Survey.StateId == 2).Count(),
+                CountUndeployedSurveys = surveys.Where(survey => survey.Survey.StateId == 1).Count(),
                 FrameworkVersion = typeof(string).Assembly.ImageRuntimeVersion,
                 WebsiteVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString()
             };
