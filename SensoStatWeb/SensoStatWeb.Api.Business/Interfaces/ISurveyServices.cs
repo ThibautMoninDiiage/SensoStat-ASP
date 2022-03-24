@@ -9,7 +9,7 @@ namespace SensoStatWeb.Api.Business.Interfaces
         /// This method allow one admin to get all survey available in the database
         /// </summary>
         /// <returns>A list of all surveys</returns>
-        Task<List<Survey>> GetAllSurveys();
+        Task<List<SurveyWithStatsDtoDown>> GetAllSurveys();
         /// <summary>
         /// This method return one survey 
         /// </summary>

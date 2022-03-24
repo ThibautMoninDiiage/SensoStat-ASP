@@ -35,7 +35,8 @@ public class SurveyController : Controller
         if (surveyId == 0)
         {
             var surveys = await _surveyServices.GetAllSurveys();
-            return surveys != null ? Ok(surveys) : NotFound();
+
+           return surveys != null ? Ok(surveys) : NotFound();
         }
         else
         {

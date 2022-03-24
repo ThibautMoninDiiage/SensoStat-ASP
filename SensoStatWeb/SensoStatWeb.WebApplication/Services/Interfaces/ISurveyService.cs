@@ -11,7 +11,7 @@ namespace SensoStatWeb.WebApplication.Services.Interfaces
         /// </summary>
         /// <param name="token">The token in the cookies</param>
         /// <returns>The surveys</returns>
-        Task<List<Survey>> GetSurveys(string token = "");
+        Task<List<SurveyWithStatsDtoDown>> GetSurveys(string token = "");
 
         /// <summary>
         /// Call GetSurvey() method in API (GET)

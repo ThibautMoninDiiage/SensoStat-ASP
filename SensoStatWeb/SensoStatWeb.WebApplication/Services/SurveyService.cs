@@ -21,10 +21,10 @@ namespace SensoStatWeb.WebApplication.Services
         #endregion
 
         #region GetSurveys()
-        public async Task<List<Survey>> GetSurveys(string token = "")
+        public async Task<List<SurveyWithStatsDtoDown>> GetSurveys(string token = "")
         {
             // Get route + endpoint
-            var surveys = await _httpService.SendHttpRequest<List<Survey>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
+            var surveys = await _httpService.SendHttpRequest<List<SurveyWithStatsDtoDown>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
 
             // Return the surveys
             return surveys;

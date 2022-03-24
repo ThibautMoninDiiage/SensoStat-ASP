@@ -15,6 +15,6 @@ namespace SensoStatWeb.Api.Business.Interfaces
 
         Task<Answer> CreateAnswer(AnswerDTOUp answerDTOUp);
 
-        Task<float> GetSurveyPercentageAnswers(int surveyId);
+        Task<string> GetSurveyPercentageAnswers(int surveyId);
     }
 }
