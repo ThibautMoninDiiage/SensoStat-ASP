@@ -126,7 +126,20 @@ namespace SensoStatWeb.Repository
                 Console.WriteLine(e);
             }
             return null;
+        }
 
+        public async Task<Survey> GetSurveyForAdministrator(int id)
+        {
+            var survey = _context.Surveys.Select(s => new Survey()
+            {
+                Id = s.Id,
+                Name = s.Name,
+                StateId = s.StateId,
+                Instructions = s.Instructions,
+                Questions = s.Questions,
+                SurveyState = s.SurveyState
+            }).FirstOrDefault(s => s.Id == id);
+            return survey;
         }
 
         public async Task<Survey> GetSurveyByUserId(int userId)
@@ -164,5 +177,7 @@ namespace SensoStatWeb.Repository
 
             return null;
         }
+
+
     }
 }

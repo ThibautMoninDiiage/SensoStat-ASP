@@ -16,6 +16,9 @@ namespace SensoStatWeb.Api.Business.Interfaces
         /// <param name="id">The id of the survey</param>
         /// <returns>One survey or null</returns>
         Task<Survey> GetSurvey(int id);
+
+        Task<Survey> GetSurveyForAdministrator(int id);
+
         /// <summary>
         /// This method allow one user to get a survey with his token
         /// </summary>
