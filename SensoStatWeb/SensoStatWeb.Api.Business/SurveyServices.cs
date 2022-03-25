@@ -106,6 +106,11 @@ namespace SensoStatWeb.Api.Business
             return surveyDtoWithStats;
         }
 
+        public async Task<Survey> GetSurveyForAdministrator(int id)
+        {
+            return await _surveyRepository.GetSurveyForAdministrator(id);
+        }
+
         public async Task<Survey> GetSurvey(int id)
         {
             Survey result = await _surveyRepository.GetSurvey(id);
