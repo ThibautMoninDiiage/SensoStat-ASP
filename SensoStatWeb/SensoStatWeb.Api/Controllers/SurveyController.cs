@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
-using Microsoft.Extensions.Logging;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
