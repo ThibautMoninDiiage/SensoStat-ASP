@@ -113,8 +113,8 @@ namespace SensoStatWeb.Api.Business
 
         public async Task<Survey> GetSurvey(int id)
         {
-            Survey result = await _surveyRepository.GetSurvey(id);
-            return result;
+            var survey = await _surveyRepository.GetSurvey(id);
+            return survey;
         }
 
         public async Task<Survey> GetSurvey(string token)
@@ -123,7 +123,10 @@ namespace SensoStatWeb.Api.Business
 
             var surveyId = Int32.Parse(jsonToken.Claims.FirstOrDefault(c => c.Type.Contains("primarysid")).Value);
 
-            return await _surveyRepository.GetSurvey(surveyId);
+            var survey = await _surveyRepository.GetSurvey(surveyId);
+
+            // If the survey is not deploy return null
+            return survey.StateId == 1 ? null : survey;
         }
 
         public async Task<Survey> UpdateSurvey(Survey survey)

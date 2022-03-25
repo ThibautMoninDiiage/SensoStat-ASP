@@ -35,6 +35,31 @@ namespace SensoStatWeb.Repository
             }
         }
 
+        /// <summary>
+        /// Old version of survey statistcs
+        /// </summary>
+        /// <param name="surveyId"></param>
+        /// <returns></returns>
+        //public async Task<float> GetPercentageAnswerOfSurvey(int surveyId)
+        //{
+        //    var survey = _context.Surveys?
+        //        .Include(s => s.Questions)
+        //        .Include(s => s.Users)
+        //        .Include(s => s.Products)
+        //        .FirstOrDefault(s => s.Id == surveyId);
+
+        //    var numberOfQuestions = survey.Questions?.Count();
+        //    var numberOfProducts = survey.Products?.Count();
+        //    var numberOfUsers = survey.Users?.Count();
+        //    var numberOfAnswers = _context.Answers.Include(a => a.Question).Where(a => a.Question.SurveyId == surveyId).Count();
+
+        //    var denominator = (numberOfQuestions * numberOfProducts * numberOfUsers);
+
+        //    float percentageResponses = ((float)numberOfAnswers / (float)denominator);
+
+        //    return percentageResponses;
+        //}
+
         public async Task<float> GetPercentageAnswerOfSurvey(int surveyId)
         {
             var survey = _context.Surveys?
@@ -43,16 +68,13 @@ namespace SensoStatWeb.Repository
                 .Include(s => s.Products)
                 .FirstOrDefault(s => s.Id == surveyId);
 
-            var numberOfQuestions = survey.Questions?.Count();
-            var numberOfProducts = survey.Products?.Count();
-            var numberOfUsers = survey.Users?.Count();
-            var numberOfAnswers = _context.Answers.Include(a => a.Question).Where(a => a.Question.SurveyId == surveyId).Count();
+            var answers = _context.Answers.Include(a => a.Question).Where(a => a.Question.SurveyId == surveyId).ToList();
 
-            var denominator = (numberOfQuestions * numberOfProducts * numberOfUsers);
+            var numberOfUserFirstAnswers = answers.DistinctBy(a => a.UserId).Count();
 
-            float percentageResponses = ((float)numberOfAnswers / (float)denominator);
+            float percentageUserFirstAnswers = (float)numberOfUserFirstAnswers / (float)survey.Users.Count();
 
-            return percentageResponses;
+            return percentageUserFirstAnswers;
         }
     }
 }
