@@ -24,7 +24,7 @@ namespace SensoStatWeb.WebApplication.Services
         public async Task<List<SurveyWithStatsDtoDown>> GetSurveys(string token = "")
         {
             // Get route + endpoint
-            var surveys = await _httpService.SendHttpRequest<List<SurveyWithStatsDtoDown>>($"{Constants.BaseUrlApi}survey", HttpMethod.Get,bearer:token);
+            var surveys = await _httpService.SendHttpRequest<List<SurveyWithStatsDtoDown>>($"{Constants.SurveyEndpoint}", HttpMethod.Get,bearer:token);
 
             // Return the surveys
             return surveys;
@@ -35,7 +35,7 @@ namespace SensoStatWeb.WebApplication.Services
         public async Task<Survey> GetSurvey(int surveyId, string token = "")
         {
             // Get route + endpoint
-            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?surveyId={surveyId}", HttpMethod.Get, bearer:token);
+            var survey = await _httpService.SendHttpRequest<Survey>($"{Constants.SurveyEndpoint}?surveyId={surveyId}", HttpMethod.Get, bearer:token);
 
             // Return a survey
             return survey;
@@ -46,7 +46,7 @@ namespace SensoStatWeb.WebApplication.Services
         public async Task<Survey> UpdateSurvey(Survey survey, string token = "")
         {
             // Get route + endpoint
-            var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey", HttpMethod.Put, survey, token);
+            var surveyUpdated = await _httpService.SendHttpRequest<Survey>($"{Constants.SurveyEndpoint}", HttpMethod.Put, survey, token);
 
             // Return the updated survey
             return surveyUpdated;
@@ -57,7 +57,7 @@ namespace SensoStatWeb.WebApplication.Services
         public async Task<SurveyCreationDTODown> CreateSurvey(SurveyCreationDTODown surveyCreationDTODown, string token = "")
         {
             // Get route + endpoint
-            var survey = await _httpService.SendHttpRequest<SurveyCreationDTODown>($"{Constants.BaseUrlApi}survey", HttpMethod.Post, surveyCreationDTODown,token);
+            var survey = await _httpService.SendHttpRequest<SurveyCreationDTODown>($"{Constants.SurveyEndpoint}", HttpMethod.Post, surveyCreationDTODown,token);
             // Return the created survey
             return survey;
         }
@@ -67,7 +67,7 @@ namespace SensoStatWeb.WebApplication.Services
         public async Task<bool> DeleteSurvey(int id, string token = "")
         {
             // Get route + endpoint
-            var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.BaseUrlApi}survey?id={id}", HttpMethod.Delete, bearer:token);
+            var deletedSurvey = await _httpService.SendHttpRequest<Survey>($"{Constants.SurveyEndpoint}?id={id}", HttpMethod.Delete, bearer:token);
             // Verify if the survey has been deleted
             return deletedSurvey == null;
         }
@@ -77,17 +77,17 @@ namespace SensoStatWeb.WebApplication.Services
         public async Task<bool> Deploy(int surveyId, string action, string token = "")
         {
             // Get route + endpoint
-            var deploySurvey = await _httpService.SendHttpRequest<bool>($"{Constants.BaseUrlApi}survey/SurveyId?surveyId={surveyId}&action={action}", HttpMethod.Get, bearer: token);
+            var deploySurvey = await _httpService.SendHttpRequest<bool>($"{Constants.SurveyIdEndpoint}?surveyId={surveyId}&action={action}", HttpMethod.Get, bearer: token);
             // Return the deployed survey
             return deploySurvey;
         }
         #endregion
 
-        #region Undeploy
+        #region Undeploy()
         public async Task<bool> Undeploy(int surveyId, string action, string token = "")
         {
             // Get route + endpoint
-            var deploySurvey = await _httpService.SendHttpRequest<bool>($"{Constants.BaseUrlApi}survey/SurveyId?surveyId={surveyId}&action={action}", HttpMethod.Get, bearer: token);
+            var deploySurvey = await _httpService.SendHttpRequest<bool>($"{Constants.SurveyIdEndpoint}?surveyId={surveyId}&action={action}", HttpMethod.Get, bearer: token);
             // Return the survey undeployed
             return deploySurvey;
         }

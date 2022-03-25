@@ -7,6 +7,13 @@ namespace SensoStatWeb.Api.Filters
     public class ExceptionFilter : IExceptionFilter, IActionFilter
     {
         private readonly IHostEnvironment _hostEnvironment;
+        private readonly ILogger<IExceptionFilter> _logger;
+
+        public ExceptionFilter(IHostEnvironment hostEnvironment, ILogger<IExceptionFilter> logger)
+        {
+            _hostEnvironment = hostEnvironment;
+            _logger = logger;
+        }
 
         public ExceptionFilter(IHostEnvironment hostEnvironment) =>
             _hostEnvironment = hostEnvironment;
@@ -24,6 +31,9 @@ namespace SensoStatWeb.Api.Filters
         {
             Console.WriteLine("======= ERROR =======");
 
+            _logger.LogError(context.Exception.Message);
+            _logger.LogCritical(context.Exception.Message);
+            
             Console.WriteLine(context.Exception.Message);
 
             Console.WriteLine("=====================");
