@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SensoStatWeb.Business\SensoStatWeb.Business.csproj" />
     <ProjectReference Include="..\SensoStatWeb.Models\SensoStatWeb.Models.csproj" />
   </ItemGroup>
