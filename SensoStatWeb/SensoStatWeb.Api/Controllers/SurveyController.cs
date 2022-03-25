@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Models.DTOs.Down;
 using SensoStatWeb.Models.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace SensoStatWeb.Api.Controllers;
 [ApiController]
@@ -11,12 +12,14 @@ public class SurveyController : Controller
 {
     #region privates
     private readonly ISurveyServices _surveyServices;
+    private readonly ILogger<SurveyController> _logger;
     #endregion
 
     #region CTOR
-    public SurveyController(ISurveyServices surveyServices)
+    public SurveyController(ISurveyServices surveyServices, ILogger<SurveyController> logger)
     {
         _surveyServices = surveyServices;
+        _logger = logger;
     }
     #endregion
 
