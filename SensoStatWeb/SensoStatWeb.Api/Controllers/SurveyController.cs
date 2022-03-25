@@ -12,14 +12,12 @@ public class SurveyController : Controller
 {
     #region privates
     private readonly ISurveyServices _surveyServices;
-    private readonly ILogger<SurveyController> _logger;
     #endregion
 
     #region CTOR
-    public SurveyController(ISurveyServices surveyServices, ILogger<SurveyController> logger)
+    public SurveyController(ISurveyServices surveyServices)
     {
         _surveyServices = surveyServices;
-        _logger = logger;
     }
     #endregion
 
