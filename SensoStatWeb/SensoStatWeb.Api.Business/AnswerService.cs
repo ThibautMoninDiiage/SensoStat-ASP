@@ -76,7 +76,7 @@ namespace SensoStatWeb.Api.Business
             if (float.IsNaN(stat))
                 return "0%";
 
-            return stat.ToString("0.00%");
+            return stat.ToString("0%");
         }
     }
 }

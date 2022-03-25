@@ -40,7 +40,7 @@ public class SurveyController : Controller
         }
         else
         {
-            var survey = await _surveyServices.GetSurvey(surveyId);
+            var survey = await _surveyServices.GetSurveyForAdministrator(surveyId);
             return survey != null ? Ok(survey) : NotFound();
         }
     }

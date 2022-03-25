@@ -8,6 +8,13 @@ namespace SensoStatWeb.Repository.Interfaces
 
         Task<Survey>? GetSurvey(int id);
 
+        /// <summary>
+        /// Get a asurvey with instructions and questions
+        /// </summary>
+        /// <param name="id">the id of a survey</param>
+        /// <returns></returns>
+        Task<Survey> GetSurveyForAdministrator(int id);
+
         Task<Survey> GetSurveyByUserId(int userId);
 
         Task<Survey> CreateSurvey(Survey survey);
