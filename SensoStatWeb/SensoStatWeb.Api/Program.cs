@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog.Web;
 using SensoStatWeb.Api.Business;
 using SensoStatWeb.Api.Business.Interfaces;
 using SensoStatWeb.Api.Filters;
@@ -91,6 +92,12 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+
+#region NUnit
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
+#endregion
 
 #region IOC
 
