@@ -63,11 +63,12 @@ namespace SensoStatWeb.WebApplication.Controllers
             var content = await _fileService.ReadCsvFile(file.OpenReadStream());
 
             // Dispatch our file in lines and cells
-            var finalResult = content.Split("\r\n").Select(l => l.Replace("\"", "")).Select(l => l.Split(";"));
+            var finalResult = content.Split("\r\n").Select(l => l.Replace("\"", "")).Select(l => l.Split(";")).Where(l => l.Length > 2);
 
             // Skip the first line
             // Get the content
-            var presentationPlan = finalResult.Skip(1).Take(finalResult.Count() - 2).Select(o => new PresentationPlanDTODown() { UserCode = o[1], Products = o.Skip(2)}).ToList();
+            var presentationPlan = finalResult.Skip(1)
+                .Select(o => new PresentationPlanDTODown() { UserCode = o[1], Products = o.Skip(2)}).ToList();
 
             // Create each product + Distinct
             _products = presentationPlan
