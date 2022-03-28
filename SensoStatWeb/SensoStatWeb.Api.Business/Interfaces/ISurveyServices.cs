@@ -10,12 +10,12 @@ namespace SensoStatWeb.Api.Business.Interfaces
         /// </summary>
         /// <returns>A list of all surveys</returns>
         Task<List<SurveyWithStatsDtoDown>> GetAllSurveys();
-        /// <summary>
-        /// This method return one survey 
-        /// </summary>
-        /// <param name="id">The id of the survey</param>
-        /// <returns>One survey or null</returns>
-        Task<Survey> GetSurvey(int id);
+        ///// <summary>
+        ///// This method return one survey 
+        ///// </summary>
+        ///// <param name="id">The id of the survey</param>
+        ///// <returns>One survey or null</returns>
+        //Task<Survey> GetSurvey(int id);
 
         Task<Survey> GetSurveyForAdministrator(int id);
 

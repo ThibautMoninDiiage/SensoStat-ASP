@@ -6,7 +6,7 @@ namespace SensoStatWeb.Repository.Interfaces
     {
         Task<List<Survey>> GetAllSurveys();
 
-        Task<Survey>? GetSurvey(int id);
+        //Task<Survey>? GetSurvey(int id);
 
         /// <summary>
         /// Get a asurvey with instructions and questions
@@ -15,7 +15,12 @@ namespace SensoStatWeb.Repository.Interfaces
         /// <returns></returns>
         Task<Survey> GetSurveyForAdministrator(int id);
 
-        Task<Survey> GetSurveyByUserId(int userId);
+        /// <summary>
+        /// Return all informations of one survey thanks a userId (compose by userId and surveyId)
+        /// </summary>
+        /// <param name="userId">User id (ex : S00118)</param>
+        /// <returns>All infomrations required to display one survey</returns>
+        Task<Survey> GetSurveyByUserId(string userSurveyId);
 
         Task<Survey> CreateSurvey(Survey survey);
 
