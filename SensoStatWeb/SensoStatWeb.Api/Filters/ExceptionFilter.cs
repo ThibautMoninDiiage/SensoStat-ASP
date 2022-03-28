@@ -15,9 +15,6 @@ namespace SensoStatWeb.Api.Filters
             _logger = logger;
         }
 
-        public ExceptionFilter(IHostEnvironment hostEnvironment) =>
-            _hostEnvironment = hostEnvironment;
-
         public void OnActionExecuted(ActionExecutedContext context)
         {
         }
