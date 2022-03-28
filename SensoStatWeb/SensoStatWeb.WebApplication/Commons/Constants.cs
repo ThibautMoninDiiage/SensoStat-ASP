@@ -17,7 +17,7 @@ namespace SensoStatWeb.WebApplication.Commons
         /// <summary>
         /// Endpoint with SurveyId
         /// </summary>
-        public const string SurveyIdEndpoint = $"{SurveyEndpoint}SurveyId";
+        public const string SurveyIdEndpoint = $"{SurveyEndpoint}/SurveyId";
         #endregion
     }
 }
