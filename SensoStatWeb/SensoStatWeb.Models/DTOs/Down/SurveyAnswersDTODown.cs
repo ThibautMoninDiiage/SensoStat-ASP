@@ -10,13 +10,9 @@ namespace SensoStatWeb.Models.DTOs.Down
 {
     public class SurveyAnswersDTODown
     {
-        public SurveyAnswersDTODown()
-        {
-
-        }
-
         public string Question { get; set; }
         public string UserCode { get; set; }
         public string Answer { get; set; }
+        public string ProductCode { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace SensoStatWeb.Api.Business
         {
             var answers = await _answerRepository.GetSurveyAnswers(surveyId);
 
-            var result = answers.Select(a => new SurveyAnswersDTODown() { Answer = a.UserAnswer, Question = a.Question.Libelle, UserCode = a.User.Code });
+            var result = answers.Select(a => new SurveyAnswersDTODown() { Answer = a.UserAnswer, Question = a.Question.Libelle, UserCode = a.User.Code, ProductCode = a.Product.Code });
 
             return result;
         }
