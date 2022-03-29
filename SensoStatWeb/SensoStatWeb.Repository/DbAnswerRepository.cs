@@ -63,12 +63,15 @@ namespace SensoStatWeb.Repository
         public async Task<float> GetPercentageAnswerOfSurvey(int surveyId)
         {
             var survey = _context.Surveys?
-                .Include(s => s.Questions)
-                .Include(s => s.Users)
-                .Include(s => s.Products)
+                .Select(s => new Survey
+                {
+                    Questions = s.Questions,
+                    Users = s.Users,
+                    Products = s.Products
+                })
                 .FirstOrDefault(s => s.Id == surveyId);
 
-            var answers = _context.Answers.Include(a => a.Question).Where(a => a.Question.SurveyId == surveyId).ToList();
+            var answers = _context.Answers.Select(a => new Answer { Question = a.Question }).Where(a => a.Question.SurveyId == surveyId).ToList();
 
             var numberOfUserFirstAnswers = answers.DistinctBy(a => a.UserId).Count();
 
