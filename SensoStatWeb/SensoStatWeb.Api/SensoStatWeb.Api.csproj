@@ -27,9 +27,11 @@
     <None Remove="Logs\" />
     <None Remove="NLog.Web" />
     <None Remove="NLog.Web.AspNetCore" />
+    <None Remove="Exception\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Filters\" />
     <Folder Include="Logs\" />
+    <Folder Include="Exception\" />
   </ItemGroup>
 </Project>
