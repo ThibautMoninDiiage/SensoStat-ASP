@@ -33,7 +33,6 @@ namespace SensoStatWeb.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Login([FromQuery] string login, [FromQuery] string password)
         {
-            throw new NotImplementedException();
             // If the login or the password is null we return an error
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                 return BadRequest();
