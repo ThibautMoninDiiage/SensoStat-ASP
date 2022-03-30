@@ -1,4 +1,5 @@
 ﻿using SensoStatWeb.Business.Interfaces;
+using System.Globalization;
 using System.Text;
 
 namespace SensoStatWeb.Business
@@ -42,8 +43,18 @@ namespace SensoStatWeb.Business
                 csvContent += "\r\n"; // New line
             });
 
+            var normalizedString = csvContent.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder(capacity: normalizedString.Length);
 
-            return new MemoryStream(Encoding.ASCII.GetBytes(csvContent));
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                char c = normalizedString[i];
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+
+            return new MemoryStream(Encoding.ASCII.GetBytes(stringBuilder.ToString().Normalize(NormalizationForm.FormC)));
         }
     }
 }

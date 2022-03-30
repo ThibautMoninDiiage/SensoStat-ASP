@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{56FF328C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensoStatWeb.xUnit", "SensoStatWeb.xUnit\SensoStatWeb.xUnit.csproj", "{4E3269B2-5279-49E7-8878-4B647F863793}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensoStatWeb.Api.Business", "SensoStatWeb.Api.Business\SensoStatWeb.Api.Business.csproj", "{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SensoStatWeb.Api.Business", "SensoStatWeb.Api.Business\SensoStatWeb.Api.Business.csproj", "{011D7BB7-9531-4CA4-B65E-7A8B7BEB2719}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
