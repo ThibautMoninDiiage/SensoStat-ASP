@@ -40,6 +40,7 @@ namespace SensoStatWeb.WebApplication.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Authenticate(LoginViewModel loginViewModel)
         {
+            throw new System.Exception("Erreur login");
             // If the model state are not valid
             if (!ModelState.IsValid)
                 return this.View("Index", loginViewModel); // redirect to Index page
