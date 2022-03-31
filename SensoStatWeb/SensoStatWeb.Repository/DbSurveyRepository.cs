@@ -157,7 +157,7 @@ namespace SensoStatWeb.Repository
         {
             try
             {
-                var surveyDb = _context.Surveys?.Include(s => s.Questions).Include(s => s.Instructions).FirstOrDefault(s => s.Id == survey.Id);
+                var surveyDb = _context.Surveys?.Select(s => new Survey() { Questions = s.Questions, Instructions = s.Instructions }).FirstOrDefault(s => s.Id == survey.Id);
 
                 // Check if the survey exist in database
                 if (surveyDb != null)
