@@ -17,6 +17,7 @@ using System.Text;
 #region Builder
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHealthChecks();
 
 #region Cors
 
@@ -170,6 +171,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app.Run();
 
