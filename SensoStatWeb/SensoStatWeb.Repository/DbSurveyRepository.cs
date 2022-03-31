@@ -38,10 +38,12 @@ namespace SensoStatWeb.Repository
                 // DELETE THE SURVEY
                 _context.Surveys?.Remove(deleteSurvey);
                 _context.SaveChanges();
+                return true;
             }
             catch (Exception e)
             {
-                return true;
+                Console.WriteLine(e);
+                return false;
             }
 
 
